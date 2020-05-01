@@ -6,6 +6,21 @@
     this.val = x;
     this.next = null;
 }*/
+function ListNode(x) {
+    this.val = x
+    this.next = null
+}
+
+function linkList() {
+    this.head = null
+    // the way of head insert 
+    this.insert = function(node) {
+        let oldHead = this.head
+        this.head = node
+        this.head.next = oldHead
+    }
+}
+
 function printListFromTailToHead(head) {
     // write code here
     let node = head,
@@ -21,3 +36,13 @@ function printListFromTailToHead(head) {
     */
     return res.reverse()
 }
+
+var list = new linkList()
+var node1 = new ListNode(1)
+var node2 = new ListNode(2)
+var node3 = new ListNode(3)
+
+list.head = node1
+list.insert(node2)
+list.insert(node3)
+console.log(printListFromTailToHead(list.head))

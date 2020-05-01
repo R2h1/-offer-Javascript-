@@ -4,7 +4,7 @@
 */
 
 //暴力方法
-function replaceSpace(str) {
+function replaceSpace1(str) {
     let res = '',
         len = str.length
     for (let i = 0; i < len; i++) {
@@ -18,12 +18,23 @@ function replaceSpace(str) {
 }
 
 //正则表达式
-function replaceSpace(str) {
+function replaceSpace2(str) {
 
     let reg = new RegExp(' ', 'g')
     let res = str.replace(reg, '%20')
     return res
     // write code here
+}
+//使用map()方法
+function replaceSpace3(str) {
+    var arr = str.split('');
+    var arr = arr.map(function(item, index) {
+        if (item === ' ') {
+            return '%20';
+        };
+        return item;
+    });
+    return arr.join('');
 }
 
 console.log(replaceSpace('we are happy.'));
