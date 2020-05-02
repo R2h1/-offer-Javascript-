@@ -36,13 +36,12 @@ function minNumberInRotateArray2(rotateArray) {
     if (len === 0) {
         return 0
     }
-    let i = 0,
-        minIdx = 0
     for (let i = 1; i < len; i++) {
         if (rotateArray[i] < rotateArray[i - 1]) {
             return rotateArray[i]
         }
     }
+    return rotateArray[0]
 }
 
 var rotateArray = [4, 5, 1, 2, 3]

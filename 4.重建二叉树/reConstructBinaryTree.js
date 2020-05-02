@@ -14,13 +14,14 @@ function reConstructBinaryTree(pre, vin) {
     // write code here
     let len = pre.length
     if (!pre || len === 0) {
-        return
+        return null
     }
     let treeNode = new TreeNode(pre[0])
     for (let i = 0; i < len; i++) {
         if (vin[i] === pre[0]) {
             treeNode.left = reConstructBinaryTree(pre.slice(1, i + 1), vin.slice(0, i))
             treeNode.right = reConstructBinaryTree(pre.slice(i + 1), vin.slice(i + 1))
+            break
         }
     }
     return treeNode
