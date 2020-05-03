@@ -11,7 +11,7 @@ Queue1.prototype.push = function(val) {
     this.stack1.push(val)
 }
 
-Queue1.prototype.pop = function(val) {
+Queue1.prototype.pop = function() {
     if (this.stack1.length === 0 && this.stack2.length === 0) {
         throw new Error('Queue is empty!')
         return
