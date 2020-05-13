@@ -11,10 +11,13 @@
 // 左->右，上->下 右->左 下->上
 function printMatrix(matrix) {
     // write code here
-    let row = matrix.length,
-        col = matrix[0].length
-    if (row === 0 || col === 0) {
-        return ''
+    let row = matrix.length
+    if (row === 0) {
+        return [].join('')
+    }
+    let col = matrix[0].length
+    if (col === 0) {
+        return [].join('')
     }
     let res = [],
         start = 0
@@ -46,12 +49,17 @@ function print(matrix, row, col, start, res) {
     }
 }
 
+
+
 //始终移除第一行 + 变相转置
 function printMatrix2(matrix) {
-    let row = matrix.length,
-        col = matrix[0].length
-    if (row === 0 || col === 0) {
-        return ''
+    let row = matrix.length
+    if (row === 0) {
+        return [].join('')
+    }
+    let col = matrix[0].length
+    if (col === 0) {
+        return [].join('')
     }
     let res = []
     while (matrix.length) {

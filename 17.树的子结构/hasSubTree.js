@@ -10,8 +10,6 @@ function TreeNode(x) {
     this.right = null;
 }
 
-
-
 function isEqual(num1, num2) {
     return Math.abs(num1 - num2) < Number.EPSILON;
 }
@@ -62,4 +60,9 @@ function isTree2EqTree1(root1, root2) {
         return false
     }
     return isTree2InTree1(root1.left, root2.left) && isTree2InTree1(root1.right, root2.right)
+}
+
+//如果判断B是否是A的子树也可以
+function HasSubtree(pRoot1, pRoot2) {
+    return JSON.stringify(pRoot1).includes(JSON.stringify(pRoot2))
 }
