@@ -29,7 +29,7 @@ function GetLeastNumbers_Solution(input, k)
             max = arr[maxIndex];
         }
     }
-    return arr.sort();
+    return arr.sort((a,b) => a-b);
     // write code here
 }
 var input = [1,2,7,4,5,6,9,10],
