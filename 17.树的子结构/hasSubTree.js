@@ -59,7 +59,7 @@ function isTree2EqTree1(root1, root2) {
     if (!isEqual(root1.val, root2.val)) {
         return false
     }
-    return isTree2InTree1(root1.left, root2.left) && isTree2InTree1(root1.right, root2.right)
+    return isTree2EqTree1(root1.left, root2.left) && isTree2EqTree1(root1.right, root2.right)
 }
 
 //如果判断B是否是A的子树也可以
