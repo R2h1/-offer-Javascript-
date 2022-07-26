@@ -10,7 +10,7 @@
 
 // 正则表达式
 function replaceSpace1(s: string): string {
-    return s.replace(/' '/g/* new RegExp(' ', 'g') */, '%20');
+    return s.replace(/ /g/* new RegExp(' ', 'g') */, '%20');
 };
 
 // 暴力法
