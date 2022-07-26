@@ -34,7 +34,7 @@ function replaceSpace2(s: string): string {
 
 // split + map + join
 function replaceSpace3(s: string): string {
-    return s.split(' ').map((item) => {
+    return s.split('').map((item) => {
         return item === ' ' ? '%20' : item;
     }).join('');
 }
