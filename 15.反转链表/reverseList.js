@@ -31,7 +31,6 @@ function ReverseList(pHead) {
         return pHead
     }
     let pre = null,
-        next = null
     while (pHead !== null) {
         nextNode = pHead.next
         pHead.next = pre

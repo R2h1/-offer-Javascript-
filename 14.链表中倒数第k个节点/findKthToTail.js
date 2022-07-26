@@ -44,17 +44,17 @@ function FindKthToTail2(head, k) {
         return null
     }
     let node = head,
-        length = 0
+        len = 0
     //get the length of linkList
     while (node !== null) {
-        length++
+        len++
         node = node.next
     }
-    if (count < k) {
+    if (len < k) {
         return null
     } else {
         node = head
-        k = count - k
+        k = len - k
         while (k !== 0) {
             k--
             node = node.next

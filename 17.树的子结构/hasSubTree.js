@@ -1,7 +1,6 @@
 /*
-输入两棵二叉树A，B，判断B是不是A的子结构。
-（ps：我们约定空树不是任意一个树的子结构）
- (ps: 子结构和子树是不同的，子树的话必须完全相同)
+
+
 */
 
 function TreeNode(x) {
@@ -19,6 +18,7 @@ function HasSubtree(pRoot1, pRoot2) {
         return false
     }
     let result = false
+
     //前序遍历树
     if (isEqual(pRoot1.val, pRoot2.val)) {
         //当前根节点相同，有可能是子结构，去判断
@@ -48,12 +48,15 @@ function isTree2InTree1(root1, root2) {
     }
     return isTree2InTree1(root1.left, root2.left) && isTree2InTree1(root1.right, root2.right)
 }
+
+
+
 //子树的话需要判断完全相同
 function isTree2EqTree1(root1, root2) {
-    if (root2 === null && root1 === null) {
+    if (root1 === null && root2 === null) {
         return true
     }
-    if (root1 === null || root1 === null) {
+    if (root1 === null || root2 === null) {
         return false
     }
     if (!isEqual(root1.val, root2.val)) {

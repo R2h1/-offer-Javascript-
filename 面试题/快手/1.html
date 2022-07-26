@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .a {
+            width: 200px;
+            height: 100px;
+            margin: 10px;
+            background: #f00;
+        }
+ 
+        .b {
+            width: 100px;
+            height: 50px;
+            margin: 20px;
+            background: #00f;
+            padding: 10%;
+        }
+        /*画一个三角形*/
+        .triangle {
+            width: 0;
+            height: 0;
+            border-top: 20px solid transparent;
+            border-right: 20px solid red;
+            border-bottom: 20px solid transparent;
+            border-left: 20px solid transparent;
+        }
+
+        /* 画正六边形 */
+
+        .hexagon {
+            position: relative;
+            width: 50px;
+            height: 86.6px;;
+            margin: 0 auto;
+            background-color: red;
+        }
+        .hexagon::before,.hexagon::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            position: absolute;
+            border-top: 43.3px solid transparent;
+            border-bottom: 43.3px solid transparent;
+        }
+        .hexagon::before {
+            right: 50px;
+            border-right: 43.3px solid red;
+        }
+        .hexagon::after {
+            left: 50px;
+            border-left: 43.3px solid red;
+        }
+
+       
+        /* 画正六边形 */
+        .hexagon2{
+            position: relative;
+            width: 100px;
+            margin: 20px auto;
+        }
+        .rectangle1,.rectangle2,.rectangle3 {
+            width: 50px;
+            height: 86.6px;
+            margin: 0 auto;
+            border-top: 1px solid red;
+            border-bottom: 1px solid red;
+            box-sizing: border-box;
+        }
+        .rectangle2 {
+            position: absolute;
+            top: 0;
+            left: 25px;
+            transform: rotate(60deg);
+        }
+        .rectangle3 {
+            position: absolute;
+            top: 0;
+            left: 25px; 
+            transform: rotate(-60deg);
+        }
+    </style>
+</head>
+ 
+<body>
+
+    
+    <div class="a">
+        <div class="b"></div>
+    </div>
+
+    <div class='triangle'></div>
+    <div class='hexagon'></div>
+
+    <div class="hexagon2">
+        <div class="rectangle1"></div>
+        <div class="rectangle2"></div>
+        <div class="rectangle3"></div>
+    </div>
+    
+<!-- 对a和b的各种问题，比如：b在a中垂直居中怎么做，ab外边距重叠怎么办（bfc），b离视窗a多远 -->
+<!-- 
+父元素：
+    display: flex;
+    align-items: center; 
+-->
+
+<!-- 
+b离视窗a多远
+    left: 20px
+    top: 0px
+    bottom: 10px
+    right: 40px 
+-->
+
+<!-- 
+ab外边距重叠怎么办
+    display: inline-block
+    或
+    float: left
+ -->
+</body>
+ 
+</html>

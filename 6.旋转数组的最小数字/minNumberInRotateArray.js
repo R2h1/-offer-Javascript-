@@ -14,7 +14,10 @@ function minNumberInRotateArray(rotateArray) {
     // the rotate array include two part of  Ordered array 
     // num of the front part is larger than the back part
     while (left < right) {
-        let mid = left + Math.floor((right - left) / 2)
+        if (rotateArray[left] < rotateArray[right]) {
+            return rotateArray[left]
+        } 
+        let mid = Math.floor((right + left) / 2)
         if (rotateArray[mid] > rotateArray[right]) {
             // min num is in right part
             left = mid + 1
@@ -22,6 +25,7 @@ function minNumberInRotateArray(rotateArray) {
             // min num is in left part
             right = mid
         } else {
+            left++
             right--
         }
     }

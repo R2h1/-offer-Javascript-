@@ -5,15 +5,14 @@
 
 function Fibonacci(n) {
     if (n < 0) {
-        throw new Error('the input number is invalid')
-        return
-    }
+        throw new Error('the input number is invalid');
+    } 
     if (n < 2) {
-        return n
+        return n;
     }
     let a = 0,
         b = 1,
-        fn
+        fn;
     for (let i = 1; i < n; i++) {
         fn = a + b
         a = b

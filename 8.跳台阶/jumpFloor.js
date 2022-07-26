@@ -7,7 +7,6 @@ function jumpFloor(number) {
     // write code here
     if (number < 1) {
         throw new Error('the input number is invalid')
-        return
     }
     if (number < 3) {
         return number
