@@ -65,7 +65,7 @@ function MoreThanHalfNum_Solution3(numbers)
     return count > len / 2 ? res: 0
     // write code here
 }
-var numbers = [1,3,3,2,2,3,3,3]
+var numbers = [1,2,3,5,4,2]
 console.log(MoreThanHalfNum_Solution(numbers))
 console.log(MoreThanHalfNum_Solution2(numbers))
 console.log(MoreThanHalfNum_Solution3(numbers))
