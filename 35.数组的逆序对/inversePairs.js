@@ -23,14 +23,6 @@ function InversePairs(data)
     // write code here
     let len = data.length;
     let count = 0;
-    /*
-    for(let i=0;i<len;i++){
-        for(let j=i+1;j<len;j++){
-            if(data[i]>data[j]) {
-                count++
-            }
-        }
-    }*/ 
     count = merge(data, 0, len - 1)
     return count 
     // write code here
