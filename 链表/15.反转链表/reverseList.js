@@ -30,7 +30,7 @@ function ReverseList(pHead) {
     if (pHead === null || pHead.next === null) {
         return pHead
     }
-    let pre = null,
+    let pre = null;
     while (pHead !== null) {
         nextNode = pHead.next
         pHead.next = pre
