@@ -6,7 +6,7 @@
  */
 
 // 暴力法(超时)
-function reversePairs(nums: number[]): number {
+function reversePairs1(nums: number[]): number {
     let count = 0;
     const len = nums?.length;
     for (let i = 0; i < len; i++) {
@@ -18,5 +18,38 @@ function reversePairs(nums: number[]): number {
             }
         }
     }
+    return count;
+}
+
+
+// 归并排序法
+function reversePairs2(nums: number[]): number { 
+    const len = nums?.length;
+    const temp = new Array(len);
+    function getCount(left, right) {
+        if (left >= right) return 0;
+        let count = 0;
+        const mid = Math.floor((left + right) / 2); // (left + right) >> 1;
+        // 进行分解
+        count = getCount(left, mid) + getCount(mid + 1, right);
+        let low = left; // 左边有序子序列的起始位置
+        let hight = mid + 1; // 右边有序子序列的起始位置
+         // 先将左右子序列缓存起来，用于对比合并
+        for (let i = left; i <= right; i++) {
+            temp[i] = nums[i]
+        }
+        for (let i = left; i <= right; i++) {
+            if (temp[low] > temp[hight] && low <= mid && hight <= right) { // 左边指向元素大于右边指向元素
+                nums[i] = temp[hight++];
+                count = count + mid - low + 1;
+            } else if (low > mid) { // 左边遍历完，说明右边剩余元素均大于左边，直接拷贝 不形成逆序对
+                nums[i] = temp[hight++];
+            } else if (hight > right || temp[low] <= temp[hight]) { // 右边遍历完，左边还剩余元素 或者 左边小于右边，不形成逆序对
+                nums[i] = temp[low++];
+            }
+        }
+        return count;
+    }
+    const count = getCount(0, len - 1);
     return count;
 }
