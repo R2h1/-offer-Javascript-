@@ -12,7 +12,6 @@ function getLeastNumbers1(arr: number[], k: number): number[] {
     return arr.slice(0, k);
 };
 
-
 // 分区法
 function getLeastNumbers2(arr: number[], k: number): number[] {
     const len = arr.length;
