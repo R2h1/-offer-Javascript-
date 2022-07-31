@@ -4,8 +4,8 @@
  *      输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。
  *      如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。
  *  分析：
- *      trim + split + reverse + join，trim 去掉首尾空格，用单个或多个空格进行split划分为单词数组，随后进行 reverse 翻转，最后使用 join以空格拼接
- *      其中 reverse 如果自己实现，可以使用双指针首尾交换。而 join, split，trim 都是遍历即可
+ *      trim + split + reverse + join，trim 去掉首尾空格，用单个或多个空格进行split划分为单词数组，随后进行 reverse 翻转，最后使用 join以空格拼接, 其中 reverse 如果自己实现，可以使用双指针首尾交换。而 join, split，trim 都是遍历即可
+ *      遍历法，首先去掉首尾空格再遍历字符串，若当前字符是空格说明单词边界，更新反转字符串，遍历结束后再更新一次反转字符串即可。
  */
 
 // trim + split + reverse + join
@@ -14,7 +14,7 @@ function reverseWords1(s: string): string {
     
 };
 
-// 双端队列
+// 遍历
 function reverseWords2(s: string): string {
     const len = s?.length;
     const queue: string[] = [];
