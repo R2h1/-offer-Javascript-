@@ -3,6 +3,18 @@
  *      设计单向链表的实现。单链表中的节点应该具有两个属性：val 和 next。val 是当前节点的值，next 是指向下一个节点的指针/引用。假设链表中的所有节点都是 0 ~ index 的。
  */
 
+export class RandomLinkNode {
+    val: number;
+    next: RandomLinkNode | null;
+    random: RandomLinkNode | null;
+
+    constructor(val: number, next?: RandomLinkNode | null, random?: RandomLinkNode | null) {
+        this.val = val;
+        this.next = next ?? null;
+        this.random = random ?? null;
+    }
+}
+
 // 节点
 export class LinkNode {
     val: number;
