@@ -1,10 +1,9 @@
 import { LinkNode } from "../../链表/设计链表/linkList";
 
 /**
- * ts 实现的数据结构： 栈
- * 如果要做类型限制，可传泛型
- * const stack = new Stack<any>();
+ * 设计实现栈
  */
+// 数组栈
 export class ArrayStack<T> {
     items: T[];
     constructor() {
