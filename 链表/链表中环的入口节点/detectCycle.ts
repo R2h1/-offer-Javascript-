@@ -5,8 +5,8 @@
  *      说明：不允许修改给定的链表。
  *  分析：
  *      哈希法，遍历链表，将节点不存在map中，放入map中，若已存在说明是环的入口节点，返回该节点，若遍历到链表末尾 null 若还无环，返回null。
- *      快慢指针法，遍历链表，快指针走两步，慢指针每次走一步，快慢指针必定在环内相遇，此时快指针走过 a + n(b + c) + b = a + (n+1)b + nc， 而慢指针走过的路程 a + b (因为一定还没走完环的第一圈)，两者满足 a + (n+1)b + nc = 2(a + b)
- *                  所以a = c + (n − 1)(b + c)，即 链表头结点到环入口节点的距离 = 相遇点到环入口距离 + n - 1 圈环，只需要让两新指针分别从头结点和相遇节点单步出发，直到相遇即可。
+ *      快慢指针法，遍历链表，快指针走两步，慢指针每次走一步，快慢指针必定在环内相遇，此时快指针走过 a + n(b + c) + b = a + (n+1)b + nc， 而慢指针走过的路程 a + b (因为一定还没走完环的第一圈)，
+ *          两者满足 a + (n+1)b + nc = 2(a + b)，所以a = c + (n − 1)(b + c)，即链表头结点到环入口节点的距离 = 相遇点到环入口距离 + （n - 1）*环，只需要让两新指针分别从头结点和相遇节点单步出发，直到相遇即可。
  */
 import { LinkNode } from "../设计链表/linkList";
 
@@ -34,7 +34,7 @@ function detectCycle2(head: LinkNode | null): LinkNode | null {
         if (slow === fast) { // 相遇
             let nodeA = head;
             let nodeB = slow;
-            while (nodeA !== null && nodeB !== null && nodeA !== nodeB) { // 两新节点再次相遇
+            while (nodeA !== null && nodeB !== null && nodeA !== nodeB) { // 两新指针再次相遇
                 nodeA = nodeA.next;
                 nodeB = nodeB.next;
             }
@@ -43,24 +43,3 @@ function detectCycle2(head: LinkNode | null): LinkNode | null {
     }
     return null;
 };
-
-
-function EntryNodeOfLoop2(pHead)
-{
-    let slow = pHead,
-        fast = slow
-    while (fast !== null && fast.next !== null) {
-        slow = slow.next 
-        fast = fast.next.next
-        if (fast === slow) {
-            fast = pHead
-            while (slow !== fast) {
-                slow = slow.next
-                fast = fast.next
-            }
-            return slow
-        }
-    }
-    return null
-    // write code here
-}
