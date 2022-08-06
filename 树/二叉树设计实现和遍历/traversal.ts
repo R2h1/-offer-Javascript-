@@ -2,13 +2,24 @@
  * 二叉树的设计实现与遍历
  */
 
+export class TreeNode {
+    val: number
+    left: TreeNode | null
+    right: TreeNode | null
+    constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+        this.val = (val===undefined ? 0 : val);
+        this.left = (left===undefined ? null : left);
+        this.right = (right===undefined ? null : right);
+    }
+}
+
 export class BinaryTreeNode {
-    key: string; // 节点的键
+    key: string | number; // 节点的键
     parent: BinaryTreeNode | null; // 节点的父节点
     value: any; // 节点的值
     left: BinaryTreeNode | null; // 指向节点左孩子的指针
     right: BinaryTreeNode | null; // 指向节点右孩子的指针
-    constructor(key: string, value = key, parent = null) {
+    constructor(key: string | number, value = key, parent = null) {
         this.key = key;
         this.value = value;
         this.parent = parent;
