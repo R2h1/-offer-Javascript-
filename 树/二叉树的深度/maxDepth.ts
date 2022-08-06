@@ -8,10 +8,10 @@
  *          层序遍历迭代法，可以利用队列来保存[当前节点，该节点层数root节点为1]信息数组，层序遍历至最下层，队列中最后一个节点的层数即最大的depth。
  */
 
-import { BinaryTreeNode } from "../二叉树设计实现和遍历/traversal";
+import { TreeNode } from "../二叉树设计实现和遍历/traversal";
 
 // 自底向上递归法，
-function maxDepth1(root:  BinaryTreeNode| null): number {
+export function maxDepth1(root:  TreeNode| null): number {
     if (root === null) return 0;
     const left = root.left;
     const right = root.right;
@@ -19,9 +19,9 @@ function maxDepth1(root:  BinaryTreeNode| null): number {
 };
 
 // 自顶向下递归法
-function maxDepth2(root:  BinaryTreeNode | null): number {
+export function maxDepth2(root: TreeNode | null): number {
     let depth = 0;
-    function traversal(node: BinaryTreeNode | null, count: number) {
+    function traversal(node: TreeNode | null, count: number) {
         if (root === null) return;
         const left = root.left;
         const right = root.right;
@@ -36,12 +36,12 @@ function maxDepth2(root:  BinaryTreeNode | null): number {
 };
 
 // 层次遍历迭代法
-function maxDepth3(root:  BinaryTreeNode | null): number {
+export function maxDepth3(root: TreeNode | null): number {
     if (root === null) return 0
-    const queue: [BinaryTreeNode, number][] = [[root, 1]];
+    const queue: [TreeNode, number][] = [[root, 1]];
     let depth = 0;
     while (queue.length) {
-        const [node, layer] = queue.shift() as [BinaryTreeNode, number];
+        const [node, layer] = queue.shift() as [TreeNode, number];
         const left = node.left;
         const right = node.right;
         if (left) { // 存在左子树
