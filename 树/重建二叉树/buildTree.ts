@@ -25,7 +25,6 @@ function buildTree1(preorder: number[], inorder: number[]): TreeNode | null {
     const leftTree = buildTree1(leftPreorder, leftInorder);
     const rightTree = buildTree1(rightPreorder, rightInorder);
     return new TreeNode(rootVal, leftTree, rightTree);
-    
 };
 
 
