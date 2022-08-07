@@ -153,11 +153,11 @@ export class LoopQueue {
      * 出队
      * @returns 
      */
-    deQueue() {
+    deQueue(): number {
         if (this.isEmpty()) {
             throw new Error('队空')
         }
-        const value = this.values[this.head];
+        const value = this.values[this.head] as number;
         this.values[this.head] = undefined;
         this.head = (this.head + 1) % this.capacity;
         this.count = this.count - 1;
@@ -197,6 +197,10 @@ export class LoopQueue {
     getSize() {
         return this.count;
     }
+    /**
+     * 清空队列
+     * @returns 
+     */
     clear() {
         this.head = 0   
         this.tail = 0   
