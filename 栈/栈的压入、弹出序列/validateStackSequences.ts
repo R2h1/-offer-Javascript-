@@ -23,5 +23,5 @@ export function validateStackSequences(pushed: number[], popped: number[]): bool
             poppedIndex = poppedIndex + 1;
         }
     }
-    return stack.length === 0; // 弹出与压入对应说明
+    return stack.length === 0; // 弹出与压入对应说明满足
 };
