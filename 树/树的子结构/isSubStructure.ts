@@ -22,5 +22,5 @@ function isSubStructure1(A: TreeNode | null, B: TreeNode | null): boolean {
 
 // 序列化法
 function isSubStructure2(A: TreeNode | null, B: TreeNode | null): boolean {
-    return JSON.stringify(A).includes(JSON.stringify(B))
+    return JSON.stringify(A).includes(JSON.stringify(B));
 };
