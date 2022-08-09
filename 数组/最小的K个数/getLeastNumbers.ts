@@ -4,7 +4,10 @@
  *  分析：
  *      排序法，排序后取前 k 个。
  *      分区法，以k为界限，遍历后半部分元素，若当前元素大于前 k 个元素中的最大值 max ，当前元素替换掉最大值 max。
+ *      大根堆法，维护一个 k 个 大小的大根堆，现将前k个元素入堆，然后遍历其余元素，若当前元素小于堆顶，就将堆顶元素弹出，当前元素入堆即可。
  */
+
+import Heap from "../../堆/堆的设计与实现/heap";
 
 // 排序法
 function getLeastNumbers1(arr: number[], k: number): number[] {
@@ -30,4 +33,27 @@ function getLeastNumbers2(arr: number[], k: number): number[] {
         }
     }
     return help;
+};
+
+// 大根堆法
+function getLeastNumbers3(arr: number[], k: number): number[] {
+    const len = arr.length;
+    // 数组长度不大于 k，直接输出该数组
+    if (len <= k) return arr;
+    if (k === 0) return [];
+    const res: number[] = [];
+    const heap = new Heap(); // 大根堆
+    for (let i = 0; i < len; i++) {
+        const element = arr[i];
+        if (i < k) {
+            heap.insert(element);
+        } else if (element < heap.top()) {
+            heap.delete();
+            heap.insert(element);
+        }
+    }
+    for (let i = 0; i < k; ++i) {
+        res.push(heap.delete());
+    }
+    return res;
 };
