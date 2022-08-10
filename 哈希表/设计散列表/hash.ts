@@ -1,7 +1,7 @@
 import { MyLinkedList } from "../../链表/设计链表/linkList";
 
 /**
- * @description: 将item转换为字符串
+ * @description: 将 item 也就是 key 统一转换为字符串
  */
 export function defaultToString(item: any): string {
     // 对于 null undefined和字符串的处理
@@ -16,97 +16,8 @@ export function defaultToString(item: any): string {
     return item.toString();
 }
 
-export class HashTable<K, V> {
-    protected table: Map<number, V>;
-
-    constructor(protected toStrFn: (key: K) => string = defaultToString) {
-        this.table = new Map();
-    }
-    /**
-     * @description: 哈希函数
-     */
-    private hashCodeHelper(key: K): number{
-        if (typeof key === 'number') {
-            return key;
-        }
-        const tableKey = this.toStrFn(key);
-        let hash = 5381;
-        for (let i = 0; i < tableKey.length; i++) {
-            hash = hash * 33 + tableKey.charCodeAt(i);
-        }
-        return hash % 1013;
-    };
-    /**
-     * @description: 计算键的哈希值
-     */
-    hashCode(key: K): number {
-        return this.hashCodeHelper(key);
-    }
-
-    /**
-     * @description: 更新散列表
-     */
-    put(key: K, value: V): boolean {
-        if (key !== null && value !== null) {
-            const position = this.hashCode(key);
-            this.table.set(position, value);
-            return true;
-        }
-        return false;
-    }
-    /**
-     * @description: 根据键获取值
-     */
-    get(key: K): V | undefined {
-        return this.table.get(this.hashCode(key));
-    }
-    /**
-     * @description: 根据键移除值
-     */
-    remove(key: K): boolean {
-        return this.table.delete(this.hashCode(key));
-    }
-    /**
-     * @description: 返回内部table
-     */
-    getTable(): Map<number, V> {
-        return this.table;
-    }
-    /**
-     * @description: 返回是否为空散列表
-     */
-    isEmpty(): boolean {
-        return this.size() === 0;
-    }
-    /**
-     * @description: 散列表的大小
-     */
-    size(): number {
-        return this.table.size;
-    }
-    /**
-     * @description: 清空散列表
-     */
-    clear() {
-        this.table.clear();
-    } 
-    /**
-     * @description: 替代默认的toString
-     */
-    toString(): string {
-        if (this.isEmpty()) {
-            return '';
-        }
-        let objStringList: string[] = [];
-        for (const [hashCode, value] of this.table) {
-            objStringList.push(`{${hashCode} => ${value}}`);
-        }
-        return objStringList.join(',');
-    }
-}
-
-
-class HashTableSeparateChaining<K, V> {
+// 单独链接法（链表）
+export class HashTableSeparateChaining<K, V> {
     protected table: Map<number, MyLinkedList<{ key: K; value: V }>>;
 
     constructor(protected toStrFn: (key: K) => string = defaultToString) {
@@ -239,7 +150,7 @@ class HashTableSeparateChaining<K, V> {
     }
 }
 
-
+// 开放地址法（线性探测）
 export default class HashTableLinearProbing<K, V> {
     protected table: Map<number, { key: K; value: V }>;
     constructor(protected toStrFn: (key: K) => string = defaultToString) {
