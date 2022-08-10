@@ -16,19 +16,19 @@ export class RandomLinkNode {
 }
 
 // 节点
-export class LinkNode {
-    val: number;
-    next: LinkNode | null;
+export class LinkNode<T> {
+    val: T;
+    next: LinkNode<T> | null;
 
-    constructor(val: number, next?: LinkNode | null) {
+    constructor(val: T, next?: LinkNode<T> | null) {
         this.val = val;
         this.next = next ?? null;
     }
 }
 
-export class MyLinkedList {
+export class MyLinkedList<T> {
     size: number; // 链表长度
-    head: LinkNode | null; // 头结点
+    head: LinkNode<T> | null; // 头结点
     constructor() {
         this.size = 0; 
         this.head = null; 
@@ -37,14 +37,14 @@ export class MyLinkedList {
      * 获取链表中 index 位置的节点。如果索引无效，则返回 null。
      * @param index 
      */
-    getNode(index: number): LinkNode | null {
+    getNode(index: number): LinkNode<T> | null {
         if (index < 0 || index >= this.size) {
             return null;
         }
         // index 有效，所以 node.next 和 node.val 是存在的。
-        let node = this.head as LinkNode;
+        let node = this.head as LinkNode<T>;
         for (let i = 0; i < index; i++) {
-            node = node.next as LinkNode;
+            node = node.next as LinkNode<T>;
         }
         return node;
     }
@@ -52,7 +52,7 @@ export class MyLinkedList {
      * 获取链表中 index 位置的节点值。如果索引无效，则返回-1。
      * @param index 
      */
-    get(index: number): number {
+    get(index: number): T | -1 {
         const node = this.getNode(index);
         return node?.val ?? -1;
     }
@@ -60,7 +60,7 @@ export class MyLinkedList {
      * 在链表的第一个元素之前添加一个值为 val 的节点。插入后，新节点将成为链表的第一个节点。
      * @param val 
      */
-    addAtHead(val: number): void {
+    addAtHead(val: T): void {
         const newHead = new LinkNode(val);
         newHead.next = this.head;
         this.head = newHead; 
@@ -70,7 +70,7 @@ export class MyLinkedList {
      * 将值为 val 的节点追加到链表的最后一个元素。
      * @param val 
      */
-    addAtTail(val: number): void {
+    addAtTail(val: T): void {
         const oldTailNode = this.getNode(this.size - 1);
         const newTailNode = new LinkNode(val);
         this.size = this.size + 1;
@@ -85,7 +85,7 @@ export class MyLinkedList {
      * @param index 
      * @param val 
      */
-    addAtIndex(index: number, val: number): void {
+    addAtIndex(index: number, val: T): void {
         if (index > this.size) return;
         // 尾插
         if (index === this.size) {
@@ -97,7 +97,7 @@ export class MyLinkedList {
             this.addAtHead(val);
             return;
         }
-        const prevNode = this.getNode(index  - 1) as LinkNode;
+        const prevNode = this.getNode(index  - 1) as LinkNode<T>;
         const node = new LinkNode(val);
         node.next = prevNode.next;
         prevNode.next = node;
@@ -114,11 +114,11 @@ export class MyLinkedList {
         this.size = this.size - 1;
         // 删除头节点
         if (index === 0) {
-            this.head = this.head?.next as (LinkNode | null);
+            this.head = this.head?.next as (LinkNode<T> | null);
             return;
         }
-        const prevNode = this.getNode(index - 1) as LinkNode;
-        const deleteNode = prevNode.next as LinkNode;
+        const prevNode = this.getNode(index - 1) as LinkNode<T>;
+        const deleteNode = prevNode.next as LinkNode<T>;
         prevNode.next = deleteNode.next;
     }
 }
