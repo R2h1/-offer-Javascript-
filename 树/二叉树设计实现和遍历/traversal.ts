@@ -2,14 +2,14 @@
  * 二叉树的设计实现与遍历
  */
 
-export class TreeNode {
-    val: number
-    left: TreeNode | null
-    right: TreeNode | null
-    constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-        this.val = (val===undefined ? 0 : val);
-        this.left = (left===undefined ? null : left);
-        this.right = (right===undefined ? null : right);
+export class TreeNode<T> {
+    val: T;
+    left: TreeNode<T> | null;
+    right: TreeNode<T> | null;
+    constructor(val: T, left: TreeNode<T> | null = null, right: TreeNode<T> | null = null) {
+        this.val = val;
+        this.left =  left;
+        this.right = right;
     }
 }
 
@@ -46,29 +46,37 @@ export class BinaryTree {
      * @param node 
      */
     * inOrderTraversal(node = this.root) {
-        if (node.left) yield* this.inOrderTraversal(node.left);
-        yield node;
-        if (node.right) yield* this.inOrderTraversal(node.right);
+        if (node) {
+            const { left, right } = node;
+            if (left) yield* this.inOrderTraversal(left);
+            yield node;
+            if (right) yield* this.inOrderTraversal(right);
+        }
     }
     /**
      * 后序遍历 （首先遍历左子树，然后遍历右子树，最后访问根节点）
      * @param node 
      */
     * postOrderTraversal(node = this.root) {
-        if (node.left) yield* this.postOrderTraversal(node.left);
-        if (node.right) yield* this.postOrderTraversal(node.right);
-        yield node;
+        if (node) {
+            const { left, right } = node;
+            if (left) yield* this.postOrderTraversal(left);
+            if (right) yield* this.postOrderTraversal(right);
+            yield node;
+        }
     }
     /**
      * 前序遍历 （首先访问根节点，然后遍历左子树，最后遍历右子树）
      * @param node 
      */
     * preOrderTraversal(node = this.root) {
-        yield node;
-        if (node.left) yield* this.preOrderTraversal(node.left);
-        if (node.right) yield* this.preOrderTraversal(node.right);
+        if (node) {
+            const { left, right } = node;
+            yield node;
+            if (left) yield* this.preOrderTraversal(left);
+            if (right) yield* this.preOrderTraversal(right);
+        }
     }
-
     /**
      * 插入一个节点作为给定父节点的子节点
      * @param parentNodeKey 
