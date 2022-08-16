@@ -79,28 +79,39 @@ class BinarySearchTree<T> {
         }
     }
     /**
-     * 插入某个节点
-     * @param key 
-     * @param value 
-     * @returns 
+     * 插入元素
      */
     insert(key: T, value = key) {
-        let node = this.root;
-        while (node) {
-            const { key: nodeKey, left, right } = node;
-            if (this.compareFn(key, nodeKey) === Compare.EQUALS) return false;
-            if (this.compareFn(key, nodeKey) === Compare.LESS_THAN) {
-                if (left !== null) node = node.left;
-                else {
-                    node.left = new BinarySearchTreeNode(key, value, node);
-                    return true;
-                }
-            } else if (this.compareFn(key, nodeKey) === Compare.BIGGER_THAN) {
-                if (right !== null) node = right;
-                else {
-                    node.right = new BinarySearchTreeNode(key, value, node);
-                    return true;
-                }
+        if (this.root == null) {
+            // 边界情况：插入到根节点
+            this.root = new BinarySearchTreeNode(key, value);
+        } else {
+            // 递归找到插入位置
+            this.insertNode(this.root, key, value);
+        }
+    }
+
+    /**
+     * 递归插入方法
+     */
+    protected insertNode(node: BinarySearchTreeNode<T>, key: T, value = key) {
+        if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
+            // key 比 node.key 小就向左查
+            if (node.left == null) {
+                // 基线条件：左面为空直接赋值
+                node.left = new BinarySearchTreeNode(key, value);
+            } else {
+                // 否则就接着递归
+                this.insertNode(node.left, key);
+            }
+        } else {
+            // key 比 node.key 大就向右查
+            if (node.right == null) {
+                // 基线条件：右面为空直接赋值
+                node.right = new BinarySearchTreeNode(key, value);
+            } else {
+                // 否则就接着递归
+                this.insertNode(node.right, key, value);
             }
         }
     }
@@ -137,7 +148,7 @@ class BinarySearchTree<T> {
      * @param key 
      * @returns 
      */
-    private removeNode(node: BinarySearchTreeNode<T> | null, key: T): BinarySearchTreeNode<T> | null {
+    protected removeNode(node: BinarySearchTreeNode<T> | null, key: T): BinarySearchTreeNode<T> | null {
         let current = this.find(node, key);
         if (!current) return null;
         if (current.isLeaf) { // 删除叶子节点
