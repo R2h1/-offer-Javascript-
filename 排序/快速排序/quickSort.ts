@@ -38,3 +38,31 @@ function quickSort2(nums: number[]): number[] {
     // 递归进行左右两部分排序
     return quickSort2(left).concat(pivot, quickSort2(right));
 }
+
+function quickSort3(nums: number[]): number[] {
+
+    function partition(nums: number[], left: number, right: number) { 
+        const pivot = nums[left];
+        while (left < right) {
+            while (left < right && nums[right] >= pivot) {
+                right = right - 1;
+            }
+            nums[left] = nums[right];
+            while (left < right &&nums[left] <= pivot) {
+                left = left + 1;
+            }
+            nums[right] = nums[left];
+        }
+        nums[left] = pivot;
+        return left;
+    }
+    function quickSortCore(nums: number[], left: number, right: number) {
+        if (left < right) {
+            const partitionIndex = partition(nums, left, right);
+            quickSortCore(nums, left, partitionIndex - 1);
+            quickSortCore(nums, partitionIndex + 1, right);
+        }
+    }
+    quickSortCore(nums, 0, nums.length - 1);
+    return nums;
+}
