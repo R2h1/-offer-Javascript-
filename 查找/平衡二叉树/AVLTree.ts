@@ -189,9 +189,7 @@ class AVLTree<T> extends BinarySearchTree<T> {
      */
     protected removeNode(node: BinarySearchTreeNode<T>  | null, key: T):BinarySearchTreeNode<T>  | null {
         // 与二叉搜索树的删除方式一致
-        if (!node) {
-            return null;
-        }
+        if (!node) return null;
         if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
             node.left = this.removeNode(node.left, key);
         } else if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) {
@@ -209,7 +207,6 @@ class AVLTree<T> extends BinarySearchTree<T> {
                 node = node.right;
             }
         }
-
         // 校验树是否平衡
         return this.keepBalance(node);
     }

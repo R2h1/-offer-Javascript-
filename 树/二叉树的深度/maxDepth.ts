@@ -11,7 +11,7 @@
 import { TreeNode } from "../二叉树设计实现和遍历/traversal";
 
 // 自底向上递归法，
-export function maxDepth1(root:  TreeNode| null): number {
+export function maxDepth1<T>(root:  TreeNode<T>| null): number {
     if (root === null) return 0;
     const left = root.left;
     const right = root.right;
@@ -19,9 +19,9 @@ export function maxDepth1(root:  TreeNode| null): number {
 };
 
 // 自顶向下递归法
-export function maxDepth2(root: TreeNode | null): number {
+export function maxDepth2<T>(root:  TreeNode<T> | null): number {
     let depth = 0;
-    function traversal(node: TreeNode | null, count: number) {
+    function traversal<T>(node: TreeNode<T> | null, count: number) {
         if (root === null) return;
         const left = root.left;
         const right = root.right;
@@ -36,12 +36,12 @@ export function maxDepth2(root: TreeNode | null): number {
 };
 
 // 层次遍历迭代法
-export function maxDepth3(root: TreeNode | null): number {
+export function maxDepth3<T>(root:  TreeNode<T> | null): number {
     if (root === null) return 0
-    const queue: [TreeNode, number][] = [[root, 1]];
+    const queue: [TreeNode<T>, number][] = [[root, 1]];
     let depth = 0;
     while (queue.length) {
-        const [node, layer] = queue.shift() as [TreeNode, number];
+        const [node, layer] = queue.shift() as [TreeNode<T>, number];
         const left = node.left;
         const right = node.right;
         if (left) { // 存在左子树
