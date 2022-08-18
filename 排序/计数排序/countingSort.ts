@@ -39,10 +39,12 @@ function countingSort2(nums: number[]): number[] {
         counter[i] = counter[i] + counter[i - 1];
     }
     const sortedNums = new Array(len);
-    for (let i = 0; i < len; i++) {
-        const index = counter[nums[i] - min];
-        sortedNums[index - 1] = nums[i];
-        counter[index] = counter[index] - 1;
+    for (let i = len - 1; i >=0; i--) {
+        // 可以简化为 sortedNums[--counter[nums[i] - min]] = nums[i];
+        const counterIndex = nums[i] - min;
+        counter[counterIndex] = counter[counterIndex] - 1;
+        const index = counter[counterIndex];
+        sortedNums[index] = nums[i];
     }
     return nums;
 }
