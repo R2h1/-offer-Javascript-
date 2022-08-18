@@ -25,4 +25,3 @@ function Fibonacci(n) {
 var n = 10
 console.log(Fibonacci(n))
 
-
