@@ -9,7 +9,7 @@
  */
 
 // 迭代法
-function numWays4(n: number): number {
+function numWays(n: number): number {
     if (n < 0) {
         throw new Error("the input number is invalid")
     }
