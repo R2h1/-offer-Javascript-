@@ -11,7 +11,7 @@
 import { TreeNode } from "../二叉树设计实现和遍历/traversal";
 
 // 一维数组
-function levelOrder1(root: TreeNode | null): number[] {
+function levelOrder1(root: TreeNode<number> | null): number[] {
     if (root === null) return [];
     const result: number[] = [];
     const queue = [root];  // 队列（先入先出）
@@ -27,7 +27,7 @@ function levelOrder1(root: TreeNode | null): number[] {
 };
 
 // 二维数组
-function levelOrder2(root: TreeNode | null): number[][] {
+function levelOrder2(root: TreeNode<number>| null): number[][] {
     if (root === null) return [];
     const result: number[][] = [];
     const queue = [root];  // 队列（先入先出）
@@ -49,7 +49,7 @@ function levelOrder2(root: TreeNode | null): number[][] {
 };
 
 // 之字形打印（二维数组）
-function levelOrder3(root: TreeNode | null): number[][] {
+function levelOrder3(root:  TreeNode<number> | null): number[][] {
     if (root === null) return [];
     const result: number[][] = [];
     const queue = [root];  // 队列（先入先出）
