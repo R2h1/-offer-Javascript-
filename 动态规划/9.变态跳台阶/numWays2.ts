@@ -8,6 +8,7 @@
  *          两式相减 得到 f(n) = 2 * f(n-1) 其中 f(0) = 1, f(1) = 1;
  */
 
+// 迭代法
 function numWays4(n: number): number {
     if (n < 0) {
         throw new Error("the input number is invalid")
@@ -18,7 +19,7 @@ function numWays4(n: number): number {
     let res = 1;
     const mod = 1000000007;
     for (let i = 1; i < n; i++) {
-        res = (2 * res) % mod ;
+        res = (2 * res) % mod;
     }
     return res
 }
