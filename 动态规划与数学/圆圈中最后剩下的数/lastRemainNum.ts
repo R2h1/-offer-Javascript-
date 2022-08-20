@@ -12,7 +12,6 @@ function lastRemaining1(n: number, m: number): number {
     if (n < 1) return -1;
     if (n === 1) return 0; 
     return (m + lastRemaining1(n - 1, m)) % n;
-
 };
 
 // 数学迭代法
