@@ -1,27 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
- 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        .a {
-            width: 200px;
-            height: 100px;
-            margin: 10px;
-            background: #f00;
+        .diamond {
+            width: 20px;
+            height: 20px;
+            background: red;
+            transform: rotate(45deg);
         }
- 
-        .b {
-            width: 100px;
-            height: 50px;
-            margin: 20px;
-            background: #00f;
-            padding: 10%;
-        }
-        /*画一个三角形*/
+        /*画三角形*/
         .triangle {
             width: 0;
             height: 0;
@@ -32,7 +23,6 @@
         }
 
         /* 画正六边形 */
-
         .hexagon {
             position: relative;
             width: 50px;
@@ -57,8 +47,6 @@
             left: 50px;
             border-left: 43.3px solid red;
         }
-
-       
         /* 画正六边形 */
         .hexagon2{
             position: relative;
@@ -87,44 +75,17 @@
         }
     </style>
 </head>
- 
 <body>
-
-    
-    <div class="a">
-        <div class="b"></div>
+    <div class="diamond">
     </div>
 
-    <div class='triangle'></div>
-    <div class='hexagon'></div>
+    <div class="triangle"></div>
+    <div class="hexagon"></div>
 
     <div class="hexagon2">
         <div class="rectangle1"></div>
         <div class="rectangle2"></div>
         <div class="rectangle3"></div>
     </div>
-    
-<!-- 对a和b的各种问题，比如：b在a中垂直居中怎么做，ab外边距重叠怎么办（bfc），b离视窗a多远 -->
-<!-- 
-父元素：
-    display: flex;
-    align-items: center; 
--->
-
-<!-- 
-b离视窗a多远
-    left: 20px
-    top: 0px
-    bottom: 10px
-    right: 40px 
--->
-
-<!-- 
-ab外边距重叠怎么办
-    display: inline-block
-    或
-    float: left
- -->
 </body>
- 
 </html>
