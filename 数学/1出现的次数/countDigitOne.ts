@@ -16,7 +16,7 @@ function countDigitOne(n: number): number {
     let res = 0;
     let digital = Math.pow(10, i);
     while (digital <= n) {
-        res = res + Math.floor(n / digital * 10) * digital  + Math.min(Math.max((n % digital)  * 10 - digital  + 1, 0), digital);
+        res = res + Math.floor(n / (digital * 10)) * digital  + Math.min(Math.max(n % (digital  * 10) - digital  + 1, 0), digital);
         i = i + 1;
         digital = Math.pow(10, i);
     }
