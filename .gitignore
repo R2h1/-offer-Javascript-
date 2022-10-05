@@ -1,0 +1,12 @@
+.idea/
+.DS_Store
+.DS_Store?
+node_modules/
+pack/
+dist/
+bak/
+lib/
+coverage/
+dwt-*
+jest_html_reporters.html
+.history/
