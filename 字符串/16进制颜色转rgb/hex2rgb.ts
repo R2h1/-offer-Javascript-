@@ -15,17 +15,13 @@ function hex2rgb(hex: string): string {
     let red = 0;
     let green = 0;
     let blue = 0;
-    const hexValues = hex.substring(1).split('').map((item) => {
+    let h = hex.substring(1);
+    if (h.length === 3) h = [...h].map(x => x + x).join('');
+    const hexValues = h.split('').map((item) => {
         return parseInt(item, 16);
     });
-    if (hexValues.length === 3) {
-        red = hexValues[0] * 16 + hexValues[0];
-        green = hexValues[1] * 16 + hexValues[1];
-        blue = hexValues[2]  * 16 + hexValues[2];
-    } else {
-        red = hexValues[0] * 16 + hexValues[1];
-        green = hexValues[2] * 16 + hexValues[3] ;
-        blue = hexValues[4]  * 16 + hexValues[5];
-    }
+    red = hexValues[0] * 16 + hexValues[1];
+    green = hexValues[2] * 16 + hexValues[3] ;
+    blue = hexValues[4]  * 16 + hexValues[5];
     return `rgb(${red}, ${green}, ${blue})`;
 };
