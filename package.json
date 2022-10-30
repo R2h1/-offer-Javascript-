@@ -4,6 +4,7 @@
   "description": "fontend offer",
   "main": "index.js",
   "scripts": {
+    "prepare": "husky install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,20 @@
   },
   "homepage": "https://github.com/R2h1/-offer-Javascript-#readme",
   "dependencies": {
-    "@types/node": "^18.8.2"
+    "@types/node": "^18.8.2",
+    "lottie-web": "^5.9.6",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.21",
+    "eslint": "^8.26.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
+  },
+  "lint-staged": {
+    "./src/**/*.{tsx,ts,jsx,js,css}": [
+      "prettier --config .prettierrc.js --write"
+    ]
   }
 }
