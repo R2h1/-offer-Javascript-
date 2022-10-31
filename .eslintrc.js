@@ -1,8 +1,8 @@
 module.exports = {
-  extends: [
-    'plugin:react-hooks/recommended',
-    'plugin:react/recommended',
+  plugins: [
+    'react-hooks',
   ],
+  extends: ['airbnb', 'airbnb-typescript'],
   env: {
     es6: true,
     browser: true,
@@ -34,9 +34,12 @@ module.exports = {
     },
   },
   rules: {
-    '@typescript-eslint/no-unused-vars': 0,
+    'linebreak-style': 0,
     '@typescript-eslint/naming-convention': 0,
-    'react/jsx-uses-react': 'off',
-    'react/react-in-jsx-scope': 'off',
+    'import/order': ['error', {
+      groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object'],
+    }],
+    'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+    'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
   },
 };
