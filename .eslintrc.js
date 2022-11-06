@@ -2,7 +2,6 @@ module.exports = {
   plugins: [
     'react-hooks',
   ],
-  extends: ['airbnb', 'airbnb-typescript'],
   env: {
     es6: true,
     browser: true,
@@ -34,11 +33,7 @@ module.exports = {
     },
   },
   rules: {
-    'linebreak-style': 0,
     '@typescript-eslint/naming-convention': 0,
-    'import/order': ['error', {
-      groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object'],
-    }],
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
   },

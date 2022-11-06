@@ -1,7 +1,7 @@
 /**
- *
- * @param {*} thisArgs 没有传默认为window
- * @param  {...any} args 剩余参数-作为调用myCall的函数的参数
+ * 原理是：利用对象方法调用改变this值
+ * @param {*} thisArg 指定函数运行时内部的this
+ * @param {...any} args 函数运行时传入的参数列表（直接使用剩余参数收集就好）
  */
 Function.prototype.myCall = function (thisArg, ...args) {
   thisArg = thisArg || window;

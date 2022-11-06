@@ -15,10 +15,8 @@ export interface PaginationParams {
   /** page 更改后触发的回调 */
   onChange?: (page: number) => void;
 }
-/** 提供 page 和 onChange，由外部控制状态，否则只能由状态属于内部 */
-export function usePagination({
-  total, page, initialPage = 1, onChange,
-}: PaginationParams) {
+/** 提供 page 和 onChange，由外部控制状态，否则状态只属于内部 */
+export function usePagination({ total, page, initialPage = 1, onChange }: PaginationParams) {
   const [activePage, setActivePage] = useControllable({
     value: page,
     onChange,
@@ -35,7 +33,7 @@ export function usePagination({
         setActivePage(pageNumber);
       }
     },
-    [total],
+    [total, setActivePage]
   );
 
   const next = useCallback(() => setPage(activePage + 1), [setPage, activePage]);
@@ -52,6 +50,6 @@ export function usePagination({
       first,
       last,
     }),
-    [activePage, setPage, next, previous, first, last],
+    [activePage, setPage, next, previous, first, last]
   );
 }

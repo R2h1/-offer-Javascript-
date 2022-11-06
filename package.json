@@ -28,8 +28,6 @@
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
     "eslint": "^8.2.0",
-    "eslint-config-airbnb": "19.0.4",
-    "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
@@ -40,7 +38,6 @@
   "lint-staged": {
     "./src/**/*.{tsx,ts,jsx,js,css}": [
       "prettier --config .prettierrc.js --write",
-      "eslint --fix",
       "git add"
     ]
   }

@@ -19,9 +19,28 @@ Function.prototype.myBind = function (thisArg, ...args) {
   return fbound;
 };
 
-const test = function (...args) {
-  console.log('调用者:', this);
-  console.log(arguments, ...args);
+// const test = function (...args) {
+//   console.log('调用者:', this);
+//   console.log(arguments, ...args);
+// };
+
+// test.myBind({ name: 'rrh_th' }, 2, 3)(4, 5, 6);
+
+function Point(x, y) {
+  this.x = x;
+  this.y = y;
+}
+
+Point.prototype.toString = function () {
+  return this.x + ',' + this.y;
 };
 
-test.myBind({ name: 'rrh_th' }, 2, 3)(4, 5, 6);
+var YAxisPoint = Point.myBind(null, 0);
+
+var axisPoint = new YAxisPoint(5);
+console.log(axisPoint.toString());
+
+console.log(axisPoint instanceof Point);
+console.log(axisPoint instanceof YAxisPoint);
+
+console.log(axisPoint.__proto__, axisPoint, Point);
