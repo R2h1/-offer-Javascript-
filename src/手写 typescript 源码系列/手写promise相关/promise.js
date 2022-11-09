@@ -1,3 +1,4 @@
+import { isIterable } from '../../../utils';
 const PENDING = 'pending';
 const FULFILLED = 'fulfilled';
 const REJECTED = 'rejected';
@@ -191,14 +192,40 @@ Promise.resolve = (promises) => {
 //无论是否有then方法，都是reason作为参数执行reject，并原封不动向下传
 MyPromise.reject = (reason) => new MyPromise((resolve, reject) => reject(reason));
 
-// 接受可迭代对象作为参数，返回promise
-MyPromise.all = (promises) => {
+/**
+ * 1. 如果传入的参数是一个空的可迭代对象，则返回一个已完成（already resolved）状态的 Promise。
+ * 2. 如果传入的参数不包含任何 promise，则返回一个异步完成（asynchronously resolved） Promise, 即也是先 pending；chrome 58这种情况是和 1 同。
+ * 3. 其它情况下返回一个 pending 的Promise。这个返回的 promise 之后会在所有的 promise 都完成时异步地变为完成或只要有一个 promise 失败时异步地变为失败。返回值将会按照参数内的 promise 顺序排列，而不是由调用 promise 的完成顺序决定。
+ * @param iterable 一个可迭代对象，如 Array 或 String。
+ * @returns
+ */
+MyPromise.all = (iterable) => {
+  // 判断是否是可迭代对象
+  if (!isIterable(iterable)) {
+    throw new TypeError(`TypeError: ${typeof iterable} is not iterable (cannot read property Symbol(Symbol.iterator))`);
+  }
+  // 将可迭代对象转化为数组
+  const promises = Array.from(iterable);
+  const promiseNum = promises.length;
   return new MyPromise((resolve, reject) => {
-    const promises = Array.from(iterable);
-    const promiseNum = promsies.length;
+    // 1. 空的可迭代对象，返回一个同步已完成的 Promise
     if (promiseNum === 0) return resolve([]);
+    // 2. 3. 即其余情况
     let resolvedNum = 0;
-    let resolvedValues = new Array(promiseNum);
+    // 利用 reduce
+    // promises.reduce((acc, cur, idx) => {
+    //   MyPromise.resolve(cur)
+    //     .then((value) => {
+    //       resolvedNum = resolvedNum + 1;
+    //       acc[idx] = value;
+    //       if (resolvedNum === promiseNum) {
+    //         resolve(acc)
+    //       }
+    //     })
+    //     .catch((err) => reject(err));
+    // }, []);
+
+    const resolvedValues = new Array(promiseNum);
     for (let i = 0; i < promiseNum; i++) {
       MyPromise.resolve(promises[i])
         .then((value) => {
@@ -207,7 +234,7 @@ MyPromise.all = (promises) => {
           if ((resolvedNum = promiseNum)) {
             resolve(resolvedValues);
           }
-        })
+        }) // catch 可以捕获在 then 回调中的错误
         .catch((err) => reject(err));
     }
   });

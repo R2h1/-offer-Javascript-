@@ -1,5 +1,5 @@
 /**
- * //未考虑特殊对象和性能优化：考虑数组、循环引用（使用弱引用，避免拷贝对象过大的内存额外消耗）(面试不用写太复杂，否则自己挖坑，用Map就好)
+ * 未考虑特殊对象和性能优化：考虑数组、循环引用（使用弱引用，避免拷贝对象过大的内存额外消耗）(面试不用写太复杂，否则自己挖坑，用Map就好)
  * @param {*} target 待拷贝对象
  * @param {*} map 循环引用问题，map缓存已拷贝的
  */
@@ -18,9 +18,8 @@ const cloneDeep = function (target, map = new WeekMap()) {
       }
     }
     return cloneTarget;
-  } else {
-    return target;
   }
+  return target;
 };
 
 const isObject = function (target) {
