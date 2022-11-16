@@ -23,10 +23,3 @@ Function.prototype.myApply = function (thisArg, args) {
   // 返回被调用函数的调用结果
   return result;
 };
-
-const test = function (x, y) {
-  console.log('调用者:', this);
-  return x + y;
-};
-
-console.log(test.myApply({ name: 'rrh_th' }, [1, 2]));

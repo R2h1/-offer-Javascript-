@@ -1,5 +1,5 @@
 /**
- * 对浮点数进行千分位分割
+ * 对浮点数进行千分位分隔
  * @param num 有效浮点数
  * @param divide 分割符号
  * @returns

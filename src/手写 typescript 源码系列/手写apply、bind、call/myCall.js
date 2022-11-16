@@ -14,9 +14,3 @@ Function.prototype.myCall = function (thisArg, ...args) {
 
   return result;
 };
-const test = function (x, y) {
-  console.log('调用者:', this);
-  return x + y;
-};
-
-console.log(test.myCall({ name: 'rrh_th' }, 1, 2));
