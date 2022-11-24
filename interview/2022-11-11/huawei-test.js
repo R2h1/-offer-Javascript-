@@ -19,7 +19,7 @@ function getLeastCost(cacheCost, files, scanCosts) {
         }
     }
     let ans = 0;
-    for (let [file, [scanCost, count]] of fileCountAndScanCosts) {
+    for (let [_, [scanCost, count]] of fileCountAndScanCosts) {
         // 某文件的缓存情况下的成本
         const cacheCostOfFile = scanCost + cacheCost;
         const nonCacheCostOfFile = count * scanCost;

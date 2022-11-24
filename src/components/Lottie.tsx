@@ -34,8 +34,6 @@ const Lottie = React.forwardRef<
   const { loop = true, renderer = 'svg', path = '', animationData, autoplay = true, name = 'anim' } = props;
   const containerRef = React.useRef<HTMLDivElement | null>(null);
   const animationItemRef = React.useRef<AnimationItem | null>(null);
-  React.createRef;
-
   // 暴露给从 props 传入的 ref 的方法
   React.useImperativeHandle(ref, () => ({
     // 获取当前动画对象实例
