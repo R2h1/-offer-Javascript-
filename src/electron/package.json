@@ -28,7 +28,6 @@
     "prettier": "^2.8.0"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0",
-    "esm": "^3.2.25"
+    "electron-squirrel-startup": "^1.0.0"
   }
 }
