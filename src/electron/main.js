@@ -28,7 +28,7 @@ const createWindow = () => {
   mainWindow.loadFile('index.html');
 
   // 打开开发工具
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
 /**
