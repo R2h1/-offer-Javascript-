@@ -7,7 +7,8 @@
     "start": "electron-forge start",
     "test": "test",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "prepare": "husky install"
   },
   "keywords": [
     "electron",
@@ -21,7 +22,11 @@
     "@electron-forge/maker-rpm": "^6.0.3",
     "@electron-forge/maker-squirrel": "^6.0.3",
     "@electron-forge/maker-zip": "^6.0.3",
-    "electron": "^21.3.1"
+    "electron": "^21.3.1",
+    "eslint": "^8.28.0",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.4",
+    "prettier": "^2.8.0"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
