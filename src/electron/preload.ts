@@ -18,10 +18,7 @@ const { contextBridge, ipcRenderer } = require('electron');
  * API 将可通过 window[apiKey] 访问
  */
 contextBridge.exposeInMainWorld('versions', {
-  dependency: (type) => process.versions[type],
-  node: () => process.versions.node,
-  chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron,
+  dependency: (type: string) => process.versions[type],
   /** 永远都不会想要通过预加载直接暴露整个 ipcRenderer 模块 */
   getData: () => ipcRenderer.invoke('getData'), // 暴露给渲染器，让渲染器能触发主进程中处理程序
 });

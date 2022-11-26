@@ -5,6 +5,8 @@ const data = {
   b: 2,
 };
 /**
+ * Electron 默认开启 Context Isolation：确保您的 预加载脚本 和 Electron的内部逻辑 运行在所加载的 webcontent 网页 之外的另一个独立的上下文环境里
+ * 即预加载脚本访问的 window 对象并不是网站所能访问的对象
  * Electron 的主进程和渲染进程有着明确的分工
  * 无论是从渲染进程直接访问 Node.js 接口，
  * 亦或者是从主进程访问 HTML 文档对象模型 (DOM)，都是不可能的。
