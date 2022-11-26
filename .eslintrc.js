@@ -33,6 +33,7 @@ module.exports = {
     },
   },
   rules: {
+    'quotes': [1, 'single'],
     '@typescript-eslint/naming-convention': 0,
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
