@@ -4,7 +4,7 @@
  * @returns
  */
 export function myCreate(p: any) {
-  if (typeof p === 'object') {
+  if (typeof p !== 'object') {
     throw new TypeError('proto must be a object or null');
   }
   const F = <any>function () {};

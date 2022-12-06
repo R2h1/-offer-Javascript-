@@ -1,6 +1,6 @@
 /**
  * 实现 assign
- * @param p
+ * @param
  * @returns
  */
 function myAssign(target: object, ...source: any[]) {
@@ -15,10 +15,15 @@ function myAssign(target: object, ...source: any[]) {
         // 可枚举属性
         if (obj.hasOwnProperty(key)) {
           // 自有属性
-          ret[key] = obj[key]; // 使用后面的覆盖前面的
+          // 使用后面的覆盖前面的
+          // 对于不可写属性，默认会失败，严格模式下才会抛出TypeError
+          // 由于严格模式下不能使用剩余参数，如果要实现需要使用arguments
+          ret[key] = obj[key];
         }
       }
     }
   });
   return ret;
 }
+
+Object.assign;
