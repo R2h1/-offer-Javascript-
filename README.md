@@ -6,7 +6,7 @@
 ### 5. 其他
 
 
-npm docs [package-name] : 快速打开package-name的文档
-npm repo [package-name] : 快速打开package-name的 github 仓库
+npm docs [package-name] :快速打开package-name的文档
+npm repo [package-name] :快速打开package-name的 github 仓库
 npm outdated : 检查所有包的当前版本、所需版本和最新版本
-npm v [package-name] : \versions : 查看package-name的历史版本
+npm v [package-name] :\versions : 查看package-name的历史版本
