@@ -133,7 +133,7 @@ class MyPromise {
 
 const resolvePromise = (promise2, x, resolve, reject) => {
   if (x === promise2) {
-    return reject(new TyperError('chaining cycle detected for promise'));
+    return reject(new TypeError('chaining cycle detected for promise'));
   }
 
   let isCalled = false;
