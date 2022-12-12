@@ -40,3 +40,4 @@ Action.prototype = {
 function machine(name) {
   return new Action(name);
 }
+

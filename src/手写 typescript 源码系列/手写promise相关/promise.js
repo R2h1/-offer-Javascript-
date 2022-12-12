@@ -200,18 +200,35 @@ MyPromise.reject = (reason) => new MyPromise((resolve, reject) => reject(reason)
  * @returns
  */
 MyPromise.all = (iterable) => {
-  // 判断是否是可迭代对象
-  if (!isIterable(iterable)) {
-    throw new TypeError(`TypeError: ${typeof iterable} is not iterable (cannot read property Symbol(Symbol.iterator))`);
-  }
-  // 将可迭代对象转化为数组
-  const promises = Array.from(iterable);
-  const promiseNum = promises.length;
   return new MyPromise((resolve, reject) => {
-    // 1. 空的可迭代对象，返回一个同步已完成的 Promise
-    if (promiseNum === 0) return resolve([]);
-    // 2. 3. 即其余情况
-    let resolvedNum = 0;
+    try {
+      // 判断是否是可迭代对象
+      if (!isIterable(iterable)) {
+        throw new TypeError(`${typeof iterable} is not iterable (cannot read property Symbol(Symbol.iterator))`);
+      }
+      iterable = Array.from(iterable);
+      // 1. 空的可迭代对象，返回一个同步已完成的 Promise
+      if (iterable.length === 0) {
+        resolve([]);
+        return;
+      }
+      // 其余情况，包括 2. 3.
+      const resolvedValues = [];
+      let resolvedNum = 0;
+      for (let [index, iter] of iterable.entries()) {
+        MyPromise.resolve(iter)
+          .then((value) => {
+            resolvedNum = resolvedNum + 1;
+            resolvedValues[index] = value;
+            if (resolvedNum === promiseNum) {
+              resolve(resolvedValues);
+            }
+          })
+          .catch((err) => reject(err)); // catch 可以捕获在 then 回调中的错误
+      }
+    } catch (err) {
+      reject(err);
+    }
     // 利用 reduce
     // promises.reduce((acc, cur, idx) => {
     //   MyPromise.resolve(cur)
@@ -224,38 +241,25 @@ MyPromise.all = (iterable) => {
     //     })
     //     .catch((err) => reject(err));
     // }, []);
-
-    const resolvedValues = new Array(promiseNum);
-    for (let i = 0; i < promiseNum; i++) {
-      MyPromise.resolve(promises[i])
-        .then((value) => {
-          resolvedNum = resolvedNum + 1;
-          resolvedValues[i] = value;
-          if ((resolvedNum = promiseNum)) {
-            resolve(resolvedValues);
-          }
-        }) // catch 可以捕获在 then 回调中的错误
-        .catch((err) => reject(err));
-    }
   });
 };
 
-//接受可迭代对象作为参数，返回promise，只要有一个 promise 执行完，直接 resolve 并停止执行
-MyPromise.race = (promises) => {
-  return new MyPromise((resolve, reject) => {
-    let promiseNum = promises.length;
-    if (promiseNum === 0) return;
-    for (let i = 0; i < promiseNum; i++) {
-      MyPromise.resolve(promises[i]).then(
-        (value) => {
+MyPromise.race = function (iterable) {
+  return new Promise((resolve, reject) => {
+    try {
+      if (!isIterable(iterable)) {
+        throw new TypeError(`${typeof iterable} is not iterable (cannot read property Symbol(Symbol.iterator))`);
+      }
+      // 迭代 iterable
+      for (let value of iterable) {
+        if (value instanceof MyPromise) {
+          value.then(resolve, reject);
+        } else {
           resolve(value);
-          return;
-        },
-        (reason) => {
-          reject(reason);
-          return;
         }
-      );
+      }
+    } catch (err) {
+      reject(err);
     }
   });
 };
