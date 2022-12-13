@@ -42,8 +42,8 @@ class MyPromise {
   }
 
   // then方法
-  then(onFullfilled, onRejected) {
-    // onFullfilled, onRejected都是可选参数，且不是函数则必须忽略
+  then(onFulfilled, onRejected) {
+    // onFulfilled, onRejected都是可选参数，且不是函数则必须忽略
     onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : (value) => value;
     onRejected =
       typeof onRejected === 'function'
@@ -58,11 +58,11 @@ class MyPromise {
       if (this.state === FULFILLED) {
         setTimeout(() => {
           try {
-            // vulue作为onFulfilled的参数，返回x若是promise 则运行promise的解决过程
-            const x = onFullfilled(this.value);
+            // value作为onFulfilled的参数，返回x若是promise 则运行promise的解决过程
+            const x = onFulfilled(this.value);
             resolvePromise(promise2, x, resolve, reject);
           } catch (err) {
-            // 如果onFullfilled异常，promise2拒绝执行，并返回拒绝原因
+            // 如果onFulfilled异常，promise2拒绝执行，并返回拒绝原因
             reject(err);
           }
         });
@@ -71,7 +71,7 @@ class MyPromise {
       if (this.state === REJECTED) {
         setTimeout(() => {
           try {
-            // vulue作为onFulfilled的参数，返回x若是promise 则运行promise的解决过程
+            // value作为onFulfilled的参数，返回x若是promise 则运行promise的解决过程
             const x = onRejected(this.reason);
             resolvePromise(promise2, x, resolve, reject);
           } catch (err) {
@@ -84,11 +84,11 @@ class MyPromise {
         this.onResolvedCallbacks.push(() => {
           setTimeout(() => {
             try {
-              // vulue作为onFulfilled的参数，返回x若是promise 则运行promise的解决过程
+              // value作为onFulfilled的参数，返回x若是promise 则运行promise的解决过程
               const x = onFullfilled(this.value);
               resolvePromise(promise2, x, resolve, reject);
             } catch (err) {
-              // 如果onFullfilled异常，promise2拒绝执行，并返回拒绝原因
+              // 如果onFulfilled异常，promise2拒绝执行，并返回拒绝原因
               reject(err);
             }
           });
