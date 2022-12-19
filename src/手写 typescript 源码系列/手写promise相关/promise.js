@@ -21,7 +21,7 @@ class MyPromise {
       if (this.state === PENDING) {
         this.state = FULFILLED;
         this.value = value;
-        // onFufilled 回调按原始顺序依次执行
+        // onFulfilled 回调按原始顺序依次执行
         this.onResolvedCallbacks.forEach((fn) => fn());
       }
     };
@@ -85,7 +85,7 @@ class MyPromise {
           setTimeout(() => {
             try {
               // value作为onFulfilled的参数，返回x若是promise 则运行promise的解决过程
-              const x = onFullfilled(this.value);
+              const x = onFulfilled(this.value);
               resolvePromise(promise2, x, resolve, reject);
             } catch (err) {
               // 如果onFulfilled异常，promise2拒绝执行，并返回拒绝原因
