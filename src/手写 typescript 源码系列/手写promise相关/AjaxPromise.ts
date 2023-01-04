@@ -12,7 +12,7 @@ const optionsDefault = {
   xhr: null, //允许在函数外部创建xhr传入
 };
 
-const AjaxPromise1 = function (optionsOverride) {
+export const AjaxPromise1 = function (optionsOverride) {
   //参数合并
   let options = Object.assign({}, optionsDefault, optionsOverride);
   options.xhr = options.xhr || new XMLHttpRequest();
@@ -67,7 +67,7 @@ const AjaxPromise1 = function (optionsOverride) {
 };
 
 //简易版
-const AjaxPromise2 = function (url, data) {
+export const AjaxPromise2 = function (url, data) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);

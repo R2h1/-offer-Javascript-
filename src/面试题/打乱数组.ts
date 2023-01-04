@@ -1,5 +1,5 @@
 // 洗牌算法(打乱的更完全)
-function shuffle1(array: number[]): number[] {
+export function shuffle1(array: number[]): number[] {
   const len = Array.isArray(array) ? array.length : 0;
   if (len === 0) {
     return [];
@@ -16,6 +16,6 @@ function shuffle1(array: number[]): number[] {
 }
 
 // 随机数排序
-function shuffle2(arr: number[]): number[] {
+export function shuffle2(arr: number[]): number[] {
   return arr.sort(() => 0.5 - Math.random());
 }

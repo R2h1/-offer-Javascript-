@@ -3,7 +3,7 @@
  * @param
  * @returns
  */
-function myAssign(target: object, ...source: any[]) {
+export function myAssign(target: object, ...source: any[]) {
   if (target == null) {
     throw new TypeError('Cannot convert undefined or null to object');
   }
@@ -25,5 +25,3 @@ function myAssign(target: object, ...source: any[]) {
   });
   return ret;
 }
-
-Object.assign;

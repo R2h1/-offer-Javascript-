@@ -8,14 +8,14 @@
  */
 
 // 数学递推法
-function lastRemaining1(n: number, m: number): number {
-  if (n < 1) return -1;
-  if (n === 1) return 0;
+export function lastRemaining1(n: number, m: number): number {
+  if (n < 0) return -1;
+  if (n === 0) return 1;
   return (m + lastRemaining1(n - 1, m)) % n;
 }
 
 // 数学迭代法
-function lastRemaining2(n: number, m: number): number {
+export function lastRemaining2(n: number, m: number): number {
   if (n < 1) return -1;
   let res = 0; // f(1, m),
   // n 从 2 到 n;

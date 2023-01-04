@@ -1,7 +1,7 @@
 type StringObject = {
   [key: string]: string;
 };
-function mani(obj: StringObject, operation: 'delete' | 'edit', prop: string, newValue?: string) {
+export function mani(obj: StringObject, operation: 'delete' | 'edit', prop: string, newValue?: string) {
   const operations = {
     delete: (obj: StringObject, prop: string) => {
       if (obj.hasOwnProperty(prop)) {
