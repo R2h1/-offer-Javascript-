@@ -10,7 +10,7 @@ function createNumOfRadix(radix: number, cases = 'upper') {
     return String.fromCharCode(index + base);
   });
 }
-function numToString(intValue: number, radix = 10) {
+export function numToString(intValue: number, radix = 10) {
   if (typeof intValue !== 'number') {
     throw new TypeError('intValue must be a number');
   }

@@ -69,5 +69,4 @@ function getLeastK(m, n, fields) {
     return k;
 }
 
-
 console.log(getLeastK(m, n, fields));
