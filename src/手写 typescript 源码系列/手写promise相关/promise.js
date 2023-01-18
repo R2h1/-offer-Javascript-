@@ -269,7 +269,7 @@ MyPromise.race = function (iterable) {
  * @param {*} requestPool 请求池 (是一个可迭代对象)
  * @param {*} poolLimit 最大并发数
  */
-async function concurrencyControlES7(requestPool, poolLimit) {
+export async function concurrencyControlES7(requestPool, poolLimit) {
   /** 用于请求的结果 */
   const ret = [];
   /** 真正并发执行的请求集合 */
@@ -297,7 +297,7 @@ async function concurrencyControlES7(requestPool, poolLimit) {
  * @param {*} requestPool 请求池 (是一个可迭代对象)
  * @param {*} poolLimit 最大并发数
  */
-function concurrencyControlES6(requestPool, poolLimit) {
+export function concurrencyControlES6(requestPool, poolLimit) {
   let i = 0;
   const ret = [];
   const executing = new Set();

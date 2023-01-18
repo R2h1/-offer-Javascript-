@@ -1,0 +1,68 @@
+/**
+  用 css 实现九宫格布局
+    效果：父元素宽度自适应，高度由子元素撑开，有不定数量的直接子元素（可以用8个演示），
+        每一行排 3 个子元素，子元素之间的水平、垂直间距为 10px, 
+        子元素的宽度自适应父元素的宽度（(父元素宽度 - 10px * 2) / 3），
+        子元素的高度与自身的宽度成正比（比如 1:1 ）。
+*/
+.title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+/** flex 实现九宫格 */
+.container-flex {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: blanchedalmond;
+}
+.container-flex .item {
+  position: relative;
+  width: calc(calc(100% - 10px * 2) / 3);
+  padding-bottom: calc(calc(100% - 10px * 2) / 3);
+  text-align: center;
+  background-color: coral;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.container-flex .item:nth-of-type(3n) {
+  margin-right: 0;
+}
+.container-flex .item:nth-of-type(n + 7) {
+  margin-bottom: 0;
+}
+
+/** grid 实现九宫格 */
+.container-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background-color: blanchedalmond;
+}
+.container-grid .item {
+  padding-bottom: 100%;
+  text-align: center;
+  background-color: coral;
+}
+
+/** table 实现九宫格 */
+.container-table {
+  width: 100%;
+  height: 100%;
+  display: table;
+  border-spacing: 10px;
+  background-color: blanchedalmond;
+}
+.container-table .row {
+  display: table-row;
+  width: 100%;
+}
+.container-table .row .item {
+  position: relative;
+  width: calc(calc(100% - 10px * 2) / 3);
+  padding-bottom: calc(calc(100% - 10px * 2) / 3);
+  display: table-cell;
+  text-align: center;
+  background-color: coral;
+}
