@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文字雨</title>
+  <link rel="shortcut icon" href="../../assests/favicon.ico" type="image/x-icon">
+  <style>
+    html {
+      background-color: black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="font-rain"></canvas>
+  <script>
+    const cvs = document.getElementById('font-rain');
+    const ctx = cvs.getContext('2d');
+
+    cvs.width = window.innerWidth * window.devicePixelRatio;
+    cvs.height = window.innerHeight * window.devicePixelRatio;
+
+    const fontSize = 10 * window.devicePixelRatio;
+    ctx.font = `${fontSize}px "Roboto Mono"`;
+    const columnCount = Math.floor(cvs.width / fontSize);
+    const charIndex = new Array(columnCount).fill(0);
+
+    function getRandomChar() {
+      const str = '0123456789qwertyuiopasdfghjklzxcvbnm';
+      return str[Math.floor(Math.random() * str.length)];
+    }
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillRect(0, 0, cvs.width, cvs.height);
+      ctx.fillStyle =  '#6be445';
+      ctx.textBaseline = 'top';
+      charIndex.forEach((item, index, array) => {
+        const text = getRandomChar();
+        const x = index * fontSize;
+        const y = item * fontSize;
+        ctx.fillText(text, x, y); 
+        if (y > cvs.height && Math.random() > 0.995) {
+          array[index] = 0;
+        } else {
+          array[index] = item + 1;
+        }
+      });
+    }
+    draw();
+    setInterval(draw, 50);
+
+  </script>
+</body>
+</html>

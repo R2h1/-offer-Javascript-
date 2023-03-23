@@ -20,7 +20,8 @@
   "dependencies": {
     "@types/node": "^18.8.2",
     "lottie-web": "^5.9.6",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "vue-echarts": "^6.5.4"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
