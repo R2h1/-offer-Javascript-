@@ -1,0 +1,23 @@
+.card {
+  width: 300px;
+  border: 2px solid rgb(211, 140, 59);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 1em;
+  padding: 0 20px;
+  min-height: 200px;
+  margin: 30px auto;
+  background: lightskyblue;
+  color: #333;
+}
+
+.box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.box input {
+  width: 40%;
+}

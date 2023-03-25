@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据响应式</title>
+  <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+  <div class="card">
+    <div class="box">
+      <span class="name"></span>
+      <input type="text" placeholder="修改姓名" oninput="person.name = this.value">
+    </div>
+    <div class="box">
+      <span class="age"></span>
+      <input type="text" placeholder="修改年龄" oninput="person.age = this.value">
+    </div>
+    
+    
+  </div>
+  <script src="./js/observe.js"></script>
+  <script src="./js/index.js"></script>
+</body>
+</html>
