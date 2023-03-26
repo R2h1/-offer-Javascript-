@@ -1,0 +1,37 @@
+.container {
+  margin: 30px auto;
+  padding: 0 50px;
+  display: flex;
+  min-width: 300px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.item {
+  margin-top: 20px;
+  min-width: 100px;
+  cursor: pointer;
+}
+
+.item .title {
+  margin: 10px 0 0 0;
+  text-align: center;
+}
+
+.item .st0 {
+  fill: none;
+  stroke: #333333;
+  stroke-width: 3;
+  stroke-miterlimit: 10;
+}
+
+.item .st1 {
+  fill: none;
+  stroke: #333333;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+}
