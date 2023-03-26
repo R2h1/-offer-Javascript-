@@ -57,3 +57,5 @@ function exchange3(nums: number[]): number[] {
   }
   return nums;
 }
+
+export { exchange1, exchange2, exchange3 };
