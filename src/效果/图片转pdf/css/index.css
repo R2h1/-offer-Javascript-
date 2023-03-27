@@ -107,11 +107,11 @@ input {
 
 .upload.result .upload-result .result-clear {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 2px;
+  right: 2px;
   border-radius: 2px;
   width: 25px;
-  height: 25px;
+  height: 20px;
   color: rgb(255, 255, 255);
   background-color: rgba(0, 0, 0, 0.3);
   border: none;
