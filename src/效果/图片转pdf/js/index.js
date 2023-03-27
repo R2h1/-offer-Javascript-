@@ -6,6 +6,7 @@ const doms = {
   progress: document.querySelector('.upload-progress'),
   cancelBtn: document.querySelector('.upload-progress button'),
   deleteBtn: document.querySelector('.upload-result button'),
+  savePDFBtn: document.querySelector('.upload-result .save-pdf'),
 };
 
 function showArea(areaName) {
@@ -55,6 +56,8 @@ function cancel() {
   cancelUpload && cancelUpload();
   showArea('select');
   doms.input.value = null;
+  doms.img.src = '';
+  doms.img.removeEv;
 }
 
 doms.selectBox.addEventListener('click', function () {
@@ -70,24 +73,33 @@ doms.input.addEventListener('change', function (e) {
   if (!validateFile(file)) {
     return;
   }
-  // 切换界面
-  showArea('progress');
   // 预览图显示（dataURL）
   const reader = new FileReader();
   reader.onload = (e) => {
-    doms.img.src = e.target.result;
+    const { result } = e.target;
+    // 切换界面
+    showArea('progress');
+    doms.img.src = result;
+    cancelUpload = upload(
+      file,
+      (value) => {
+        setProgress(value);
+      },
+      () => {
+        showArea('result');
+      }
+    );
   };
   reader.readAsDataURL(file);
+});
 
-  cancelUpload = upload(
-    file,
-    (value) => {
-      setProgress(value);
-    },
-    () => {
-      showArea('result');
-    }
-  );
+doms.savePDFBtn.addEventListener('click', function (e) {
+  const source = doms.img.getAttribute('src');
+  if (source) {
+    const pdf = window.jspdf.jsPDF('p', 'pt');
+    pdf.addImage(source, 'png', 0, 0);
+    pdf.save('img.pdf');
+  }
 });
 
 doms.cancelBtn.addEventListener('click', cancel);
