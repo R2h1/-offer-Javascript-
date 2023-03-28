@@ -4,11 +4,11 @@
  * @param fn 无参、无返回
  */
 export function asyncRun(fn: () => void) {
+  // ie不支持 Promise
+  // ie11+ 才支持MutationObserver
   if (typeof Promise !== 'undefined') {
-    // ie不支持 Promise
     Promise.resolve().then(fn);
   } else if (typeof MutationObserver !== 'undefined') {
-    // ie11+ 才支持MutationObserver
     const mob = new MutationObserver(fn);
     // 创建一个文本节点
     const textNode = document.createTextNode('0');
