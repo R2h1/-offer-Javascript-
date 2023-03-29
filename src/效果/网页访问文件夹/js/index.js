@@ -2,7 +2,20 @@ const _ = document.querySelector.bind(document);
 
 const doms = {
   openDirBtn: _('.open-dir-btn'),
+  codeArea: _('#code-area'),
 };
+
+document.addEventListener('DOMContentLoaded', function () {
+  const result = hljs.highlight(code.content, {
+    language: code.language,
+  });
+  doms.codeArea.innerHTML = result.value;
+  doms.codeArea.className = `hljs language-${code.language}`;
+});
+
+// hljs.highlightElement(doms.codeArea, {
+//   language: 'css'
+// });
 
 // fileSystem API
 doms.openDirBtn.addEventListener('click', async function (e) {
