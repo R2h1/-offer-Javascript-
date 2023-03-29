@@ -18,6 +18,7 @@
   border-radius: 10px 10px 0 0;
   transform-origin: center bottom;
   transform: perspective(40px) rotateX(20deg);
+  z-index: 0;
 }
 
 .tab::before,
@@ -31,29 +32,26 @@
 
 .tab.active::before {
   left: -10px;
-  z-index: 2;
   background: radial-gradient(circle at 0 0, transparent 10px, #ed6a5e 10px);
 }
 
 .tab.active::after {
   right: -10px;
-  z-index: 2;
   background: radial-gradient(circle at 10px 0, transparent 10px, #ed6a5e 10px);
 }
 
 .tab::before {
   left: -10px;
-  z-index: -1;
   background: radial-gradient(circle at 0 0, transparent 10px, #b5b5b5 10px);
 }
 
 .tab::after {
   right: -10px;
-  z-index: -1;
   background: radial-gradient(circle at 10px 0, transparent 10px, #b5b5b5 10px);
 }
 
 .tab.active {
+  z-index: 5;
   color: #ffffff;
   background-color: #ed6a5e;
 }
