@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: 60px auto 0;
+  display: flex;
+  justify-content: center;
+}
+
+.tab {
+  position: relative;
+  width: 150px;
+  height: 40px;
+  color: #ffffff;
+  background-color: #b5b5b5;
+  border-radius: 10px 10px 0 0;
+  transform-origin: center bottom;
+  transform: perspective(40px) rotateX(20deg);
+}
+
+.tab::before,
+.tab::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  bottom: 0;
+}
+
+.tab.active::before {
+  left: -10px;
+  z-index: 2;
+  background: radial-gradient(circle at 0 0, transparent 10px, #ed6a5e 10px);
+}
+
+.tab.active::after {
+  right: -10px;
+  z-index: 2;
+  background: radial-gradient(circle at 10px 0, transparent 10px, #ed6a5e 10px);
+}
+
+.tab::before {
+  left: -10px;
+  z-index: -1;
+  background: radial-gradient(circle at 0 0, transparent 10px, #b5b5b5 10px);
+}
+
+.tab::after {
+  right: -10px;
+  z-index: -1;
+  background: radial-gradient(circle at 10px 0, transparent 10px, #b5b5b5 10px);
+}
+
+.tab.active {
+  color: #ffffff;
+  background-color: #ed6a5e;
+}
+
+.tab span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
