@@ -4,21 +4,22 @@
 }
 
 .container {
-  display: flex;
   margin: 30px auto;
-  width: 300px;
-  flex-direction: column;
-  gap: 10px;
+  width: 250px;
 }
 
 .btn {
-  width: 100px;
-  padding: 5px 3px;
+  display: inline-block;
+  max-width: 200px;
+  padding: 5px 15px;
   background-color: #1a7dff;
   color: #ffffff;
   border-radius: 3px;
   text-align: center;
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .btn:hover {
@@ -26,6 +27,9 @@
 }
 
 .detail {
+  position: absolute;
+  margin-top: 8px;
+  max-width: 250px;
   display: grid;
   grid-template-rows: 0fr;
   transition: 0.5s;
@@ -36,12 +40,9 @@
   grid-template-rows: 1fr;
 }
 
-.detail .content {
-  min-height: 0;
-}
-
 .content {
   background-color: rgb(77, 76, 76);
+  min-height: 0;
   color: #ffffff;
   border-radius: 5px;
 }
