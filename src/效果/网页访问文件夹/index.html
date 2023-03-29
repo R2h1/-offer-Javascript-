@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>页面访问文件夹</title>
+  <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/c/font_3984194_dtiz1wa949l.css">
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <h5 class="title">文件查看器</h5>
+      <button class="open-dir-btn">打开文件夹</button>
+      <div class="file-tree-wrapper">
+        <ul class="root close-dir">
+          <li class="item dir">
+            <i class="iconfont icon-youjiantou"></i>
+            <a class="dir-btn">
+              <i class="iconfont icon-24gl-folderOpen"></i>
+              <span class="dir-name">一级文件夹</span>
+            </a>
+            <ul class="root">
+              <li class="item dir">
+                <i class="iconfont icon-youjiantou"></i>
+                <a class="">
+                  <i class="iconfont icon-24gl-folderOpen"></i>
+                  <span class="dir-name">二级文件夹</span>
+                </a>
+                <ul class="root">
+                  <li class="item file">
+                    <i class="iconfont icon-file"></i>
+                    <span class="file-name">二级文件</span>
+                  </li>
+                  <li class="item file">
+                    <i class="iconfont icon-file"></i>
+                    <span class="file-name">二级文件</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="item file">
+                <i class="iconfont icon-file"></i>
+                <span class="file-name">二级文件</span>
+              </li>
+            </ul>
+          </li>
+          <li class="item file">
+            <i class="iconfont icon-file"></i>
+            <span class="file-name">一级文件</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="right"></div>
+  </div>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="./js/index.js"></script>
+</body>
+</html>
