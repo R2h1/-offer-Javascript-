@@ -5,6 +5,7 @@
  * 而且 start 返回一个 promise, 当所有任务都成功时完成，当其中一个任务失败时失败
  * 每个任务具有原子性，即不可中断，只能在两个任务之间中断
  * @param tasks 需要串行执行的任务序列，每个任务无参且异步
+ * 场景：大文件分片上传
  */
 export function processTasks(...tasks: any[]) {
   let isRunning = false;
