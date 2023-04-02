@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clock {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  font-size: 20px;
+  border-radius: 15px;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+  /* css 变量 */
+  --step: 60s;
+}
+
+.clock::before {
+  content: '';
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(from -0.5deg, #333 0 1deg, transparent 0deg 30deg),
+    repeating-conic-gradient(from -0.5deg, #ccc 0 1deg, transparent 0deg 6deg);
+  -webkit-mask: radial-gradient(transparent 120px, red 0);
+  mask: radial-gradient(transparent 120px, red 0);
+}
+
+.panel {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.num {
+  position: absolute;
+  offset-path: path('M200 100c0 60-50 100-100 100S0 164.036 0 100 50 0 100 0s100 50 100 100z');
+  offset-rotate: 0deg;
+  offset-distance: calc(var(--i) * 10% / 1.2 - 25%);
+}
+
+.hours,
+.minutes,
+.seconds {
+  position: absolute;
+  background: #333;
+  transform-origin: center bottom;
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.hours {
+  width: 4px;
+  height: 40px;
+  animation: clock calc(var(--step) * 60 * 12) infinite linear;
+  animation-delay: calc(-1 * var(--step) * var(--hours) * 60);
+}
+
+.minutes {
+  width: 3px;
+  height: 70px;
+  animation: clock calc(var(--step) * 60) infinite linear;
+  animation-delay: calc(-1 * var(--step) * var(--minutes));
+}
+
+.seconds {
+  width: 2px;
+  height: 100px;
+  background-color: red;
+  animation: clock calc(var(--step)) infinite steps(60);
+  animation-delay: calc(-1 * var(--step) * var(--seconds) / 60);
+}
+
+.seconds::after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  left: 50%;
+  bottom: 0;
+  background: #fff;
+  border: 3px solid #333;
+  transform: translate(-50%, 50%);
+}
+
+@keyframes clock {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
