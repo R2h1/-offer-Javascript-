@@ -3,6 +3,7 @@ const doms = {
 };
 
 let draggingItem;
+let flip;
 
 doms.container.addEventListener('dragstart', function (e) {
   window.requestAnimationFrame(() => {
@@ -17,6 +18,7 @@ doms.container.addEventListener('dragover', function (e) {
 });
 
 doms.container.addEventListener('dragenter', function (e) {
+  flip = new Flip(doms.container.children);
   e.preventDefault();
   const { container } = doms;
   const { target } = e;
@@ -36,6 +38,7 @@ doms.container.addEventListener('dragenter', function (e) {
     // 向上拖拽
     container.insertBefore(draggingItem, target);
   }
+  flip.play();
 });
 
 doms.container.addEventListener('dragend', function (e) {
