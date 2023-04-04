@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: 60px auto 0;
+  display: flex;
+  justify-content: center;
+}
+
+.avatar {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  /* background-size 只能紧接着 background-position 出现，以"0 0 / cover"分割 */
+  background: no-repeat url('../assets/avatar.jpg') 0 0 / cover;
+  cursor: pointer;
+}
+
+.avatar::before,
+.avatar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+}
+
+.avatar::before {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.avatar::after {
+  background: inherit;
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 0.5s;
+}
+
+.avatar:hover:after {
+  clip-path: circle(50% at 50% 50%);
+}
