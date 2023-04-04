@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+html {
+  background-color: #000;
+}
+
 .container {
   margin: 60px auto 0;
   display: flex;
@@ -13,7 +17,7 @@ button {
   position: relative;
   width: 150px;
   height: 50px;
-  color: #0ebeff;
+  color: #000;
   font-size: 24px;
   background-color: #72c0dc;
   padding: 3px 5px;
@@ -24,6 +28,9 @@ button {
   cursor: pointer;
   overflow: hidden;
   transition: 0.5s;
+  /* 空心文字 */
+  text-shadow: 1px 0 #0ebeff, 1px 1px #0ebeff, 1px -1px #0ebeff, 0 1px #0ebeff, 0 -1px #0ebeff, -1px 0 #0ebeff,
+    -1px 1px #0ebeff, -1px -1px #0ebeff;
 }
 
 button:hover {
