@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * 元素自适应宽高比
+ *   1. 如果元素的尺寸已知的话，计算宽高即可。
+ *   2. 如果元素尺寸未知，最简单的方法是用 JavaScript 实现，如果用 CSS 分为以下几种：
+ *     a.如果是可替换元素<img>或<video>，可以将width/height其一设定尺寸，另一个设为auto，则可替换元素会根据其固有尺寸进行变化。
+ *     b.如果是普通的元素，我们可以通过padding-top/padding-bottom的方式来模拟固定宽高比，不过这种方式不灵活，只能够高度随着宽度变。
+ *     c.一种新的方案aspect-ratio，可以很方便地指定宽高比，不支持IE，支持 Chrome 88+, edge 88+, safari 15+, firefox 89+, opera 74+。
+*/
+.container {
+  position: relative;
+  width: 30%;
+  /* 保持宽高比：宽/高 */
+  aspect-ratio: 1/1;
+  margin: 60px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #333;
+  animation: rotate 20s linear infinite;
+}
+
+.item {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: coral;
+  color: white;
+  font-size: 16px;
+  line-height: 50px;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.item span {
+  display: inline-block;
+  animation: rotate 20s linear infinite reverse;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
