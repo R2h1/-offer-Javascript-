@@ -104,3 +104,21 @@ doms.savePDFBtn.addEventListener('click', function (e) {
 
 doms.cancelBtn.addEventListener('click', cancel);
 doms.deleteBtn.addEventListener('click', cancel);
+
+/**
+ * 下载html
+ * @param html
+ */
+function downloadAsHTML(html) {
+  const blob = new Blob([
+    html,
+    {
+      type: 'text/html',
+    },
+  ]);
+  const a = document.createElement('a');
+  /* URL.createObjectURL创建一个表示 blob 的URL对象 */
+  a.href = window.URL.createObjectURL(blob);
+  a.style.display = none;
+  a.click();
+}
