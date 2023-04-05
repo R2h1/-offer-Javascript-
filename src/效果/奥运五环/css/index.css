@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: 60px auto 0;
+  display: flex;
+  justify-content: center;
+}
+
+.olympic-rings {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  transform-style: preserve-3d;
+}
+
+.ring {
+  width: 100px;
+  height: 100px;
+  margin: 0 5px;
+  border: 10px solid #3884c2;
+  border-radius: 50%;
+}
+
+.ring:nth-child(2) {
+  border-color: #000000;
+  transform-origin: center 75%;
+  transform: translateZ(-1px) rotateX(4deg);
+}
+.ring:nth-child(3) {
+  border-color: #d83a31;
+  transform-origin: center 75%;
+  transform: translateZ(-1px) rotateX(7deg);
+}
+.ring:nth-child(4) {
+  border-color: #f9d549;
+  transform-origin: center 25%;
+  transform: translateY(-50px) rotateX(1deg);
+}
+.ring:nth-child(5) {
+  border-color: #55ac58;
+  transform-origin: center 25%;
+  transform: translateY(-50px) rotateX(6deg);
+}
