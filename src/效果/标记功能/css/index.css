@@ -34,6 +34,8 @@ button::before {
   height: 16px;
   top: -5px;
   right: -5px;
+  text-align: center;
+  line-height: 16px;
   border-radius: 50%;
   background-color: red;
   color: #ffffff;
