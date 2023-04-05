@@ -35,4 +35,25 @@
   -webkit-line-clamp: 5;
   overflow: hidden;
   border: 1px solid #333;
+  word-break: break-all;
+}
+
+.multiline-text-js {
+  position: relative;
+  width: 300px;
+  font-size: 16px;
+  padding: 5px;
+  line-height: 30px;
+  overflow: hidden;
+  word-break: break-all;
+  border: 1px solid #333;
+}
+
+.after::after {
+  content: '...';
+  position: absolute;
+  width: 1em;
+  bottom: 5px;
+  right: 3px;
+  background-color: white;
 }
