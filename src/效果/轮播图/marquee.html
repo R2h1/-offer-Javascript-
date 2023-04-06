@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跑马灯和轮播图</title>
+    <style type="text/css">
+        .marquee{
+            overflow:hidden;
+            margin: 0 auto;
+        }
+        .content{
+            display: flex;
+        }
+        .list{
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="marquee" id="wrapper">
+        <div class="content" id="wrapper-content">
+            <div class="list"><img src="1.jpg" alt=""></div>
+            <div class="list"><img src="2.jpg" alt=""></div>
+            <div class="list"><img src="3.jpg" alt=""></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            //跑马灯
+            var outerWidth = 600,
+                outerHeight = 400,
+                speed = 3
+            var marquee = document.getElementById('wrapper')
+            var content = document.getElementById('wrapper-content')
+            var list = content.children
+            var listLength = list.length
+            var contentWidth = outerWidth*listLength
+            var style = document.styleSheets
+            marquee.style.width = outerWidth + 'px'
+            marquee.style.height = outerHeight + 'px'
+            for (let i = 0;i < listLength;i++) {
+                list[i].style.width = outerWidth + 'px'
+                list[i].style.height = outerHeight + 'px'
+            }
+            content.style.width = contentWidth + 'px'
+            content.style.height = outerHeight + 'px'
+            content.style.animation = `run ${speed*listLength}s linear infinite`
+            style[0].insertRule(`@keyframes run{
+            100%{
+                transform: translateX(-${contentWidth}px);
+            }
+        }`)
+            var clone = list[0].cloneNode(true)
+            content.appendChild(clone)
+        }
+    </script>
+</body>
+</html>
