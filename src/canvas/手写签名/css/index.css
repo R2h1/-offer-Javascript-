@@ -8,9 +8,22 @@ body {
 }
 
 .title {
+  position: relative;
   padding: 20px;
   text-align: center;
   color: rgb(255, 255, 255);
+}
+
+/* 文字立体阴影 */
+.title::before {
+  content: '手写签名';
+  position: absolute;
+  transform: translate(-15px, 7px) scaleY(0.5) skew(50deg);
+  z-index: -1;
+  filter: blur(2px);
+  color: rgb(255, 255, 255);
+  -webkit-mask-image: linear-gradient(transparent, rgb(255, 255, 255));
+  mask-image: linear-gradient(transparent, rgb(255, 255, 255));
 }
 
 .canvas {
