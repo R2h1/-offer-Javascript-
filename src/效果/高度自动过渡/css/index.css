@@ -3,9 +3,14 @@
   padding: 0;
 }
 
-.container {
-  margin: 30px auto;
-  width: 250px;
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.container,
+.container-js {
+  margin: 30px auto 0;
 }
 
 .btn {
@@ -48,5 +53,20 @@
 }
 
 .inner {
+  padding: 8px 6px;
+}
+
+.detail-js {
+  position: absolute;
+  max-width: 250px;
+  height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  color: #ffffff;
+  background-color: rgb(77, 76, 76);
+  border-radius: 5px;
+}
+
+.content-js {
   padding: 8px 6px;
 }
