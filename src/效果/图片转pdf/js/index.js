@@ -122,3 +122,13 @@ function downloadAsHTML(html) {
   a.style.display = none;
   a.click();
 }
+
+/**
+ * 给需要支持迅雷下载的替换 href
+ */
+function thunderDownload() {
+  const links = document.querySelectorAll('a[data-thunder]');
+  for (let link of links) {
+    link.href = `thunder://${window.btoa(`AA${link.href}ZZ`)}`;
+  }
+}
