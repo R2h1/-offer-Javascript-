@@ -2,6 +2,7 @@ const doms = {
   container: document.querySelector('.container'),
   textarea: document.querySelector('textarea'),
   button: document.querySelector('button'),
+  novel: document.querySelector('.novel'),
 };
 
 let text = '';
@@ -24,3 +25,29 @@ doms.button.addEventListener('click', function (e) {
     startTTS(msg);
   }
 });
+
+/**
+ * 加载大文本
+ */
+(async function loadNovel() {
+  const url = 'https://duyi-static.oss-cn-beijing.aliyuncs.com/files/novel.txt';
+  const resp = await fetch(url);
+  const reader = resp.body.getReader();
+  const decoder = new TextDecoder();
+  let remainChunk = new Uint8Array(0);
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) {
+      break;
+    }
+    const lastIndex = value.lastIndexOf(10); // 最后一个换行符的位置
+    const chunk = value.slice(0, lastIndex + 1);
+    const readChunk = new Uint8Array(remainChunk.length + chunk.length);
+    readChunk.set(remainChunk);
+    readChunk.set(chunk, remainChunk.length);
+    remainChunk = value.slice(lastIndex + 1);
+    const p = document.createElement('p');
+    p.textContent = decoder.decode(readChunk);
+    doms.novel.appendChild(p);
+  }
+})();
