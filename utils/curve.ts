@@ -65,3 +65,9 @@ function applyCurve(selector: string, curveFn: Function, xRange: [number, number
     (children[i] as HTMLElement).style.transform = `translateY(${yOffsets[i]}px)`;
   }
 }
+
+let offset = 0;
+window.requestAnimationFrame(() => {
+  applyCurve('.curve-animate', x => Math.sin(x), [offset, offset + 2 * Math.PI]);
+  offset = offset + 0.1;
+})
