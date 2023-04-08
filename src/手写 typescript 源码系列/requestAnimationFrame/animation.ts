@@ -19,7 +19,7 @@ function animation({
   delay: number;
 }) {
   let start = performance.now();
-  requestAnimationFrame(function animate(time) {
+  window.requestAnimationFrame(function animate(time) {
     const advanceTime = delay < 0 ? -delay * duration : 0;
     // timeFraction 从 0 增加到 1
     let timeFraction = ((time + advanceTime - start) % duration) / duration;
@@ -34,10 +34,10 @@ function animation({
 
     if (isInfinite) {
       // 无限动画
-      requestAnimationFrame(animate);
+      window.requestAnimationFrame(animate);
     } else if (timeFraction < 1) {
       // 有限动画
-      requestAnimationFrame(animate);
+      window.requestAnimationFrame(animate);
     }
   });
 }
