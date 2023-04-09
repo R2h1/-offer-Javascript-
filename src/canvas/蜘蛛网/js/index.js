@@ -10,9 +10,11 @@ init();
 
 /**
  * 获取 [min, max] 范围内的随机整数
- * @param {*} min
- * @param {*} max
- * @returns
+ * @param {number} min
+ * @param {number} max
+ * @returns {number} 随机数
+ * @example
+ * getRandom(0, 10);获取[0, 10]之间的随机整数
  */
 function getRandom(min, max) {
   return min + Math.floor(Math.random() * (max - min + 1));
