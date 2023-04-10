@@ -41,6 +41,7 @@ export function myAjax({
 
 /**
  * fetch 不支持上传进度的获取，因为 ReadableStream 只能被一方读取，而请求的body被浏览器读取
+ *  可以参考 ServiceWorker 中的 BackgroundFetchManager，目前仍在试验中，不推荐用于生产环境
  * @param param0
  * @returns
  */
