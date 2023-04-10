@@ -13,6 +13,11 @@ export function isIterable(val: any) {
  */
 export const noop = () => {};
 
-export const isObject = (val: unknown): val is Record<any, any> =>val !== null && typeof val === 'object'
+export const isObject = (val: unknown): val is Record<any, any> => val !== null && typeof val === 'object'
 export const isFunction = (val: unknown): val is Function => typeof val === 'function'
-export const isPromise = <T = any>(val: unknown): val is Promise<T> => isObject(val) && isFunction(val.then) && isFunction(val.catch)
+/**
+ * 判定一个值是否为 Promise Like
+ * @param val 
+ * @returns 
+ */
+export const isPromise = <T = any>(val: unknown): val is Promise<T> => (isObject(val) || isFunction(val)) && isFunction(val.then);
