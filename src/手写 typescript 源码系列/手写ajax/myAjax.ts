@@ -5,6 +5,8 @@ export function myAjax({
   data = null,
   success = (xhr: XMLHttpRequest) => {},
   fail = (xhr: XMLHttpRequest) => {},
+  downProgress = (e: ProgressEvent<XMLHttpRequestEventTarget>) => {},
+  upProgress = (e: ProgressEvent<XMLHttpRequestEventTarget>) => {},
 } = {}) {
   // 1、创建XMLHttpRequest对象
   const xhr = new XMLHttpRequest();
@@ -23,8 +25,55 @@ export function myAjax({
       fail?.(this);
     }
   };
+  // 响应进度
+  xhr.addEventListener('progress', (e) => {
+    downProgress(e);
+  });
+  // 请求进度
+  xhr.upload.addEventListener('progress', (e) => {
+    upProgress(e);
+  });
   xhr.onerror = function () {
     fail?.(this);
   };
   xhr.send(data);
+}
+
+/**
+ * fetch 不支持上传进度的获取，因为 ReadableStream 只能被一方读取，而请求的body被浏览器读取
+ * @param param0
+ * @returns
+ */
+export function myFetch({
+  url = '',
+  method = 'GET',
+  data = null,
+  downProgress = (e: { loaded: number; total: number }) => {},
+} = {}) {
+  return new Promise(async (resolve, reject) => {
+    const resp = await fetch(url, {
+      method,
+      body: data,
+    });
+    const total = Number(resp.headers.get('content-length'));
+    if (resp.body) {
+      let loaded = 0;
+      let body = '';
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder();
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) {
+          break;
+        }
+        loaded = loaded + value.length;
+        body = body + decoder.decode(value);
+        downProgress({
+          loaded,
+          total,
+        });
+      }
+      resolve(body);
+    }
+  });
 }
