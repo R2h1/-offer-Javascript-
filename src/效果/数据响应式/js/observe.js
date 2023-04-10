@@ -1,6 +1,6 @@
 /**
  * 数据响应式，并不是数据一改变，页面跟着改变
- * 正确的是：数据变化后，会自动重新运行依赖该数据的函数（诸如 watch, render , computed 中的函数)
+ * 正确的是：数据变化后，会自动重新运行依赖该数据的函数（诸如 render 函数, watch 中的函数, computed 中的函数)
  * vue 中实现在 @vue/reactivity
  * @param { Object } obj
  */
