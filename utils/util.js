@@ -61,18 +61,21 @@ function SaferHTML(templateData) {
 var html = SaferHTML`<p>这是关于字符串模板的介绍</p>`;
 
 //跨浏览器绑定事件
-function addEventSamp(obj, evt, fn) {
-  if (!oTarget) {
-    return;
-  }
-  if (obj.addEventListener) {
-    obj.addEventListener(evt, fn, false);
-  } else if (obj.attachEvent) {
-    obj.attachEvent("on" + evt, fn);
+const addEventSamp = (function() {
+  if (window.addEventListener) {
+    return function(ele, type, listener) {
+      ele.addEventListener(type, listener, false)
+    }
+  } else if (window.attachEvent) {
+    return function(ele, type, listener) {
+      ele.attachEvent("on" + type, listener)
+    }
   } else {
-    oTarget["on" + sEvtType] = fn;
+    return function(ele, type, listener) {
+      ele["on" + type] = listener;
+    }
   }
-}
+})
 
 //加入收藏夹
 function addFavorite(sURL, sTitle) {
@@ -402,18 +405,22 @@ Date.prototype.format = function(format) {
 alert(new Date().format("yyyy-MM-dd hh:mm:ss"));
 
 //跨浏览器删除事件
-function delEvt(obj, evt, fn) {
-  if (!obj) {
-    return;
-  }
-  if (obj.addEventListener) {
-    obj.addEventListener(evt, fn, false);
-  } else if (oTarget.attachEvent) {
-    obj.attachEvent("on" + evt, fn);
+const delEvt = (function() {
+  if (window.removeEventListener) {
+    return function(ele, type, listener) {
+      ele.removeListener(type, listener, false)
+    }
+  } else if (window.attachEvent) {
+    return function(ele, type, listener) {
+      ele.detachEvent("on" + type, listener)
+    }
   } else {
-    obj["on" + evt] = fn;
+    return function(ele, type, listener) {
+      ele["on" + type] = null;
+    }
   }
-}
+})
+
 //判断是否以某个字符串结束
 String.prototype.endWith = function(s) {
   var d = this.length - s.length;
