@@ -74,6 +74,9 @@ doms.input.addEventListener('change', function (e) {
     return;
   }
   // 预览图显示（dataURL）
+  // dataURL 还可以作为 script 标签的 src
+  // 自定义生成一个 data:application/javascript,alert('这是通过dataURL执行js代码的脚本') 的 dataURL
+  // 比使用 eval 生成 js 代码要好
   const reader = new FileReader();
   reader.onload = (e) => {
     const { result } = e.target;
