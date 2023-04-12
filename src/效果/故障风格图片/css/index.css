@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.mask {
+  position: relative;
+  height: 100vh;
+  background: url('../assets/avatar.jpg') no-repeat center/cover #0ff;
+  background-blend-mode: lighten;
+}
+
+.mask::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('../assets/avatar.jpg') no-repeat center/cover #f00;
+  background-blend-mode: lighten;
+  mix-blend-mode: darken;
+  margin-left: 5px;
+  animation: shake 30ms infinite;
+}
+
+@keyframes shake {
+  50% {
+    transform: translateX(0.5%);
+  }
+}
