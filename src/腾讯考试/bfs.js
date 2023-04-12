@@ -1,5 +1,5 @@
 function bfs(root) {
-  if (root === null) return []
+  if (root === null) return [];
   const res = [];
   const queue = [root];
   while (queue.length !== 0) {

@@ -7,7 +7,7 @@ function quickSort(nums) {
         index = index + 1;
       }
     }
-    [nums[left], nums[index - 1]] = [nums[index -1], nums[left]];
+    [nums[left], nums[index - 1]] = [nums[index - 1], nums[left]];
     return index - 1;
   }
 

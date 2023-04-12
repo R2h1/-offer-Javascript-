@@ -1,7 +1,6 @@
 function Action(name) {
   this.name = name;
   this.queue = [() => console.log(`start ${this.name}`)];
-
 }
 
 Action.prototype = {
@@ -14,9 +13,9 @@ Action.prototype = {
     this.queue.push(() => {
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve(() => console.log(`wait ${delay}s`))
+          resolve(() => console.log(`wait ${delay}s`));
         }, delay * 1000);
-      })
+      });
     });
     return this;
   },
@@ -24,9 +23,9 @@ Action.prototype = {
     this.queue.unshift(() => {
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve(() => console.log(`wait ${delay}s`))
+          resolve(() => console.log(`wait ${delay}s`));
         }, delay * 1000);
-      })
+      });
     });
     return this;
   },
@@ -34,10 +33,9 @@ Action.prototype = {
     for (let i = 0; i < this.queue.length; i++) {
       await this.queue[i]();
     }
-  }
-}
+  },
+};
 
 function machine(name) {
   return new Action(name);
 }
-
