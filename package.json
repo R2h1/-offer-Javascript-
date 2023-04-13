@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/R2h1/-offer-Javascript-#readme",
   "dependencies": {
+    "@styils/vue": "^1.1.5",
     "@types/node": "^18.8.2",
     "lottie-web": "^5.9.6",
     "react": "^18.2.0",
