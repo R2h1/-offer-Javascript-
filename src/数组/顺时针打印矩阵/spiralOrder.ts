@@ -66,3 +66,27 @@ function spiralOrder2(matrix: number[][]): number[] {
   }
   return printResult;
 }
+
+let i = 0;
+let j = 0;
+// n = 4, m = 4
+// 00(1)   01(2)   02(3)  03(4)
+// 10(12)  11(13)  12(14) 13(5)
+// 20(11)  21(16)  22(15) 23(6)
+// 30(10)  31(9)   32(8)  33(7)
+
+/**
+ * 总层数
+ */
+const totalLayer = Math.ceil(Math.min(n, m) / 2);
+/**
+ * 由外向内第 k 层的需要加的数量: k = 1, 2, ..., totalLayer;
+ */
+const kthLayer = 2 * (m + n) - 8 * k + 4;
+
+/**
+ * 判断一个第 i 行第 j 列的数在第几层, i = 0, 1,..., n - 1; j = 0, 1,...,m - 1;
+ * 距离上侧是 i, 距离下侧是 (n - 1) - i;
+ * 距离左侧是 j, 距离右侧是 (m - 1) - j;
+ */
+const layerOfIJ = Math.min(i, j, n - 1 - i, m - 1 - j) + 1;
