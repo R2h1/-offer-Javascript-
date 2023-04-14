@@ -12,12 +12,12 @@ function startTTS(msg) {
   window.speechSynthesis.speak(msg);
 }
 
-doms.container.addEventListener('input', function (e) {
+doms.textarea.oninput = (e) => {
   const textarea = e.target;
   textarea.style.height = 'auto';
   textarea.style.height = `${textarea.scrollHeight}px`;
   text = e.target.value;
-});
+};
 
 doms.button.addEventListener('click', function (e) {
   if (text) {

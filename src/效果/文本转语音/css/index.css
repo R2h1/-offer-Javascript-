@@ -4,7 +4,7 @@
 }
 
 .container {
-  width: 300px;
+  width: 400px;
   margin: 60px auto 0;
   display: flex;
   flex-direction: column;
@@ -12,15 +12,30 @@
   color: #ffffff;
 }
 
+.box {
+  width: 400px;
+  padding: 5px 8px;
+  border: 3px solid #333;
+  background-color: #000;
+  color: #ffffff;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
 textarea {
   display: block;
   width: 100%;
-  outline: #333;
-  border: 2px solid #333;
-  padding: 3px;
+  background-color: transparent;
   line-height: 2;
+  border: none;
+  outline: none;
   font-size: 16px;
   resize: none;
+  color: inherit;
+}
+
+textarea::-webkit-scrollbar {
+  width: 0;
 }
 
 button {
