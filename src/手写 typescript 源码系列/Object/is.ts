@@ -10,7 +10,7 @@
 export function is(x: any, y: any) {
   if (x === y) {
     // 1 / -0 = -Infinity; 1 / +0 = Infinity;
-    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+    return x !== 0 || 1 / x === 1 / y;
   } else {
     // NaN 不等于 NaN
     return x !== x && y !== y;
