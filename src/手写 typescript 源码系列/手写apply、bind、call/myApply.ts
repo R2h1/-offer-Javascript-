@@ -2,7 +2,8 @@
  * @param {*} thisArg 指定函数运行时内部的this
  * @param {*} args 函数运行时传入的参数：一个数组或者类数组对象
  */
-Function.prototype.myApply = function (thisArg, args) {
+//@ts-ignore
+Function.prototype.myApply = function (thisArg: any, args?: any) {
   // this 即被调用函数，判断是否时 function
   if (typeof this !== 'function') {
     throw new TypeError('调用 apply 的不是函数');
@@ -23,3 +24,8 @@ Function.prototype.myApply = function (thisArg, args) {
   // 返回被调用函数的调用结果
   return result;
 };
+
+console.log.call.call.call.apply((a) => a, [1, 2]);
+// 相当于 (console.log.call.call.call).apply((a) => a, [1, 2]);
+// 而 console.log.call.call.call 即 call 函数
+// 因此， 即 ((a) => a).call(1, 2), => (2) => 2 输出结果为 2

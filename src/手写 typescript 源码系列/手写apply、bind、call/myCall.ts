@@ -3,7 +3,8 @@
  * @param {*} thisArg 指定函数运行时内部的this
  * @param {...any} args 函数运行时传入的参数列表（直接使用剩余参数收集就好）
  */
-Function.prototype.myCall = function (thisArg, ...args) {
+//@ts-ignore
+Function.prototype.myCall = function (thisArg: any, ...args: any[]) {
   thisArg = thisArg || window;
   // 唯一属性fn,防止覆盖已有属性
   const fn = Symbol('fn');
