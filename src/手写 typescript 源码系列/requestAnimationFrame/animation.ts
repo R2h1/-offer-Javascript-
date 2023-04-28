@@ -4,6 +4,7 @@
  *      draw: 绘制函数，传入动画完成度（0 代表开始，1 代表结束），并绘制
  *      duration: 动画总时间
  *      isInfinite: 是否无限动画
+ *      delay: 动画提前执行，取值负数或0，如果为负数说明动画已经执行了多少
  */
 function animation({
   timing,
@@ -21,8 +22,14 @@ function animation({
   let start = performance.now();
   window.requestAnimationFrame(function animate(time) {
     const advanceTime = delay < 0 ? -delay * duration : 0;
-    // timeFraction 从 0 增加到 1
-    let timeFraction = ((time + advanceTime - start) % duration) / duration;
+    let timeFraction;
+    if (isInfinite) {
+      // timeFraction 从 0 增加到 1
+      timeFraction = ((time + advanceTime - start) % duration) / duration;
+    } else {
+      // timeFraction 从 0 增加到 1，可能大于1
+      timeFraction = (time + advanceTime - start) / duration;
+    }
     // 有限动画且已过去时间超过总时间
     if (!isInfinite && timeFraction > 1) {
       timeFraction = 1;
