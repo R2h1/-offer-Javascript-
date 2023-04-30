@@ -1,0 +1,10 @@
+POST /upload/single HTTP/1.1
+Host: example.com
+Content-Type: multipart/form-data boundary=----------0123456789
+
+----------123456789
+Content-Dispostion: form-data; name='avatar';
+filename="eg.jpg"
+Content-Type: image/jpeg
+< ./eg.jpg
+----------123456789
