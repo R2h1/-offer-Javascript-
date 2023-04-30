@@ -6,5 +6,7 @@ Content-Type: multipart/form-data boundary=----------0123456789
 Content-Dispostion: form-data; name='avatar';
 filename="eg.jpg"
 Content-Type: image/jpeg
+
+// 实际http发送时，下面的是图片二进制数据
 < ./eg.jpg
 ----------123456789
