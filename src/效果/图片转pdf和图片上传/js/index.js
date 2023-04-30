@@ -33,6 +33,22 @@ function validateFile(file) {
 }
 
 function upload(file, onProgress, onFinish) {
+  // const xhr = new XMLHttpRequest();
+  // xhr.onload = function(e) {
+  //   const resp = JSON.parse(xhr.responseText);
+  //   onFinish(resp);
+  // }
+  // xhr.upload.progress = function(e) {
+  //   const percent = Math.floor((e.loaded / e.total) * 100);
+  //   onProgress(percent);
+  // }
+  // xhr.open('POST', 'http://example.com/upload/single')
+  // const form = new FormData();
+  // form.append('avatar', file);
+  // xhr.send(form);
+  // return function() {
+  //   xhr.abort();
+  // }
   let progress = 0;
   let timer = null;
   onProgress(progress);
