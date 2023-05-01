@@ -32,6 +32,26 @@ function validateFile(file) {
   return true;
 }
 
+/**
+ * 读取文件的base64格式数据
+ * @param {*} chunk
+ * @returns
+ */
+function readBase64(file) {
+  return new Promise((resolve, reject) => {
+    try {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64Data = e.target.result.split(',').pop();
+        resolve(base64Data);
+      };
+      reader.readAsDataURL(file);
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
 function upload(file, onProgress, onFinish) {
   // const xhr = new XMLHttpRequest();
   // xhr.onload = function(e) {
@@ -42,9 +62,17 @@ function upload(file, onProgress, onFinish) {
   //   const percent = Math.floor((e.loaded / e.total) * 100);
   //   onProgress(percent);
   // }
-  // xhr.open('POST', 'http://example.com/upload/single')
+  // xhr.open('POST', 'http://example.com/upload/single');
+  // 二进制上传
   // const form = new FormData();
   // form.append('avatar', file);
+  // base64的 json 上传
+  // xhr.setRequestHeader('content-type', 'application/json');
+  // const base64Data =
+  // xhr.send(JSON.stringify({
+  //   ext: `.${file.name.split('.').pop()}`,
+  //   avatar: ${readBase64(file)}
+  // }))
   // xhr.send(form);
   // return function() {
   //   xhr.abort();
