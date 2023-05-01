@@ -63,9 +63,12 @@ function upload(file, onProgress, onFinish) {
   //   onProgress(percent);
   // }
   // xhr.open('POST', 'http://example.com/upload/single');
+
   // 二进制上传
   // const form = new FormData();
   // form.append('avatar', file);
+  // xhr.send(form);
+
   // base64的 json 上传
   // xhr.setRequestHeader('content-type', 'application/json');
   // const base64Data =
@@ -73,7 +76,7 @@ function upload(file, onProgress, onFinish) {
   //   ext: `.${file.name.split('.').pop()}`,
   //   avatar: ${readBase64(file)}
   // }))
-  // xhr.send(form);
+
   // return function() {
   //   xhr.abort();
   // }
