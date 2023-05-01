@@ -276,3 +276,26 @@ function createChunks(file, chunkSize = 1024 * 1024) {
   }
   return res;
 }
+
+/**
+ * 生成一个裁剪的 file 文件
+ * @param {*} imgElement
+ * @param {*} cutInfo
+ * @returns
+ */
+function createCutImage(imgElement, cutInfo) {
+  return new Promise((resolve) => {
+    const { x, y, cutWidth, cutHeight, width, height } = cutInfo;
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(imgElement, x, y, cutWidth, cutHeight, 0, 0, width, height);
+    canvas.toBlob((blob) => {
+      const file = new File([blob], 'avatar.jpg', {
+        type: 'image/jpeg',
+      });
+      resolve(file);
+    }, 'image/jpeg');
+  });
+}
