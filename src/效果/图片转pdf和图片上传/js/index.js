@@ -80,8 +80,42 @@ doms.selectBox.addEventListener('click', function () {
   doms.input.click();
 });
 
-doms.input.addEventListener('change', function (e) {
-  const { files } = e.target;
+/**
+ * 拖拽上传
+ */
+let dragenterElement;
+doms.selectBox.addEventListener('dragenter', function (e) {
+  e.preventDefault();
+  dragenterElement = e.target;
+  doms.selectBox.classList.add('dragging');
+});
+doms.selectBox.addEventListener('dragleave', function (e) {
+  e.preventDefault();
+  if (dragenterElement === e.target) {
+    doms.selectBox.classList.remove('dragging');
+  }
+});
+doms.selectBox.addEventListener('dragover', function (e) {
+  e.preventDefault();
+});
+doms.selectBox.addEventListener('drop', function (e) {
+  e.preventDefault();
+  const { files, types } = e.dataTransfer;
+  if (!types.includes('Files')) {
+    alert('仅支持拖拽文件');
+    return;
+  }
+  if (files.length !== 1) {
+    alert('仅支持上传单个文件');
+    return;
+  }
+  doms.selectBox.classList.remove('dragging');
+  doms.input.files = files;
+  changeHandler();
+});
+
+function changeHandler() {
+  const files = doms.input.files;
   if (!files.length) {
     return;
   }
@@ -110,7 +144,9 @@ doms.input.addEventListener('change', function (e) {
     );
   };
   reader.readAsDataURL(file);
-});
+}
+
+doms.input.addEventListener('change', changeHandler);
 
 doms.savePDFBtn.addEventListener('click', function (e) {
   const source = doms.img.getAttribute('src');
