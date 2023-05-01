@@ -64,7 +64,7 @@ function upload(file, onProgress, onFinish) {
   // }
   // xhr.open('POST', 'http://example.com/upload/single');
 
-  // 二进制上传
+  // 文件上传
   // const form = new FormData();
   // form.append('avatar', file);
   // xhr.send(form);
@@ -76,6 +76,11 @@ function upload(file, onProgress, onFinish) {
   //   ext: `.${file.name.split('.').pop()}`,
   //   avatar: ${readBase64(file)}
   // }))
+
+  // 二进制上传
+  // xhr.setRequestHeader('content-type', 'application/octet-stream');
+  // xhr.setRequestHeader('x-ext', `.${file.name.split('.').pop()}`,);
+  // xhr.send(file);
 
   // return function() {
   //   xhr.abort();
