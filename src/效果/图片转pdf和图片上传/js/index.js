@@ -187,3 +187,56 @@ function thunderDownload() {
     link.href = `thunder://${window.btoa(`AA${link.href}ZZ`)}`;
   }
 }
+
+/**
+ * 读取一个chunk的数据
+ * @param {*} chunk
+ * @returns
+ */
+function readChunk(chunk) {
+  return new Promise((resolve, reject) => {
+    try {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const bytes = e.target.result;
+        resolve(bytes);
+      };
+      reader.readAsArrayBuffer(chunk);
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+/**
+ * 计算文件的MD5
+ */
+function computeMD5(chunks) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const spark = new SparkMD5();
+      for (const chunk of chunks) {
+        const chunkData = await readChunk(chunk);
+        spark.append(chunkData);
+      }
+      resolve(spark.end());
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+/**
+ * 对文件进行切片
+ * @param {File} file
+ * @param {Number} chunkSize
+ * @returns
+ */
+function createChunks(file, chunkSize = 1024 * 1024) {
+  const res = [];
+  const { size } = file;
+  for (let i = 0; i < size; i = i + chunkSize) {
+    res.push(file.slice(i, i + chunkSize));
+  }
+  return res;
+}
