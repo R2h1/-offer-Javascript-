@@ -9,12 +9,12 @@ const rob = new ResizeObserver((entries) => {
 });
 
 export default {
-  mounted(el, binding) {
+  mounted(el: Element, binding: any) {
     // 监听尺寸变化
     rob.observe(el);
     map.set(el, binding);
   },
-  unmounted(el) {
+  unmounted(el: Element) {
     // 取消监听
     rob.unobserve(el);
   },
