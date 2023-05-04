@@ -52,3 +52,19 @@ export function uniquePaths2(m: number, n: number): number {
   }
   return paths[m - 1][n - 1];
 }
+
+// 优化空间复杂度：降维打击
+export function uniquePaths3(m: number, n: number): number {
+  // 动态规划问题， 其状态转移方程为  dp(i, j) = dp(i - 1, j) + dp(i, j - 1);  dp(i, 0) = 1; dp(j, 0) = 1;
+  // dp(i, j)表示到达第i行第j列有多少条路径（i, j 均从0开始）
+  if (m < 1 || n < 1) {
+    throw new TypeError('m, n 必须均不小于1');
+  }
+  const paths: number[] = new Array(n).fill(1); // dp表，滚动数组，初始均为 1
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      paths[j] = paths[j] + paths[j - 1]; // 总是等于当前列上一行（paths[j]） + 当前行上一列（paths[j - 1]）
+    }
+  }
+  return paths[n - 1];
+}
