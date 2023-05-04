@@ -40,7 +40,7 @@ export function uniquePaths2(m: number, n: number): number {
   if (m < 1 || n < 1) {
     throw new TypeError('m, n 必须均不小于1');
   }
-  const paths: number[][] = new Array(m).fill((() => new Array(n))()); // dp表
+  const paths: number[][] = new Array(m).fill(0).map(() => new Array(n)); // dp表
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
       if (i === 0 || j === 0) {
