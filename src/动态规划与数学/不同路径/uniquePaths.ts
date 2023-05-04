@@ -13,7 +13,7 @@
  */
 export function uniquePaths(m: number, n: number): number {
   // 动态规划问题， 其状态转移方程为  dp(i, j) = dp(i - 1, j) + dp(i, j - 1);  dp(i, 0) = 1; dp(j, 0) = 1;
-  // dp(i, j)表示到达第i行第j列有多少条路径
+  // dp(i, j)表示到达第i行第j列有多少条路径（i, j 均从0开始）
   if (m < 1 || n < 1) {
     throw new TypeError('m, n 必须均不小于1');
   }
@@ -36,7 +36,7 @@ export function uniquePaths(m: number, n: number): number {
 
 export function uniquePaths2(m: number, n: number): number {
   // 动态规划问题， 其状态转移方程为  dp(i, j) = dp(i - 1, j) + dp(i, j - 1);  dp(i, 0) = 1; dp(j, 0) = 1;
-  // dp(i, j)表示到达第i行第j列有多少条路径
+  // dp(i, j)表示到达第i行第j列有多少条路径（i, j 均从0开始）
   if (m < 1 || n < 1) {
     throw new TypeError('m, n 必须均不小于1');
   }

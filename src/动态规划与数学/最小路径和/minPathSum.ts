@@ -16,7 +16,7 @@ export function minPathSum(grid: number[][]): number {
   // dp(0, j) = dp(0, j - 1) + grid[0][j];
   // dp(i, 0) = dp(i - 1, 0) + grid[i][0];
   // dp(0, 0) = grid[0][0];
-  // dp(i, j) 表示到达第i行第j列的最小路径和
+  // dp(i, j) 表示到达第i行第j列的最小路径和 （i, j 均从0开始）
   if (!isTwoDimensionalArray(grid)) {
     throw new TypeError('grid 必须是行列均不小于1的二维数组');
   }
@@ -50,7 +50,7 @@ export function minPathSum2(grid: number[][]): number {
   // dp(0, j) = dp(0, j - 1) + grid[0][j];
   // dp(i, 0) = dp(i - 1, 0) + grid[i][0];
   // dp(0, 0) = grid[0][0];
-  // dp(i, j) 表示到达第i行第j列的最小路径和
+  // dp(i, j) 表示到达第i行第j列的最小路径和（i, j 均从0开始）
   if (!isTwoDimensionalArray(grid)) {
     throw new TypeError('grid 必须是行列均不小于1的二维数组');
   }
