@@ -54,8 +54,7 @@ class MyPromise {
 
     // 链式调用，then方法返回新的MyPromise实例
     const promise2 = new MyPromise((resolve, reject) => {
-      // 状态为成功完成才可调用onFulfild,且是异步调用(setTimeout模拟)
-      if (this.state === FULFILLED) {
+      const onResolvedCallback = () => {
         setTimeout(() => {
           try {
             // value作为onFulfilled的参数，返回x若是promise 则运行promise的解决过程
@@ -66,9 +65,8 @@ class MyPromise {
             reject(err);
           }
         });
-      }
-
-      if (this.state === REJECTED) {
+      };
+      const onRejectedCallback = () => {
         setTimeout(() => {
           try {
             // value作为onFulfilled的参数，返回x若是promise 则运行promise的解决过程
@@ -79,33 +77,17 @@ class MyPromise {
             reject(err);
           }
         });
+      };
+      // 状态为成功完成才可调用 onFulfilled ,且是异步调用(setTimeout模拟)
+      if (this.state === FULFILLED) {
+        onResolvedCallback();
+      }
+      if (this.state === REJECTED) {
+        onRejectedCallback();
       }
       if (this.state === PENDING) {
-        this.onResolvedCallbacks.push(() => {
-          setTimeout(() => {
-            try {
-              // value作为onFulfilled的参数，返回x若是promise 则运行promise的解决过程
-              const x = onFulfilled(this.value);
-              resolvePromise(promise2, x, resolve, reject);
-            } catch (err) {
-              // 如果onFulfilled异常，promise2拒绝执行，并返回拒绝原因
-              reject(err);
-            }
-          });
-        });
-
-        this.onRejectedCallbacks.push(() => {
-          setTimeout(() => {
-            try {
-              // value作为onFulfilled的参数，返回x若是promise 则运行promise的解决过程
-              const x = onRejected(this.reason);
-              resolvePromise(promise2, x, resolve, reject);
-            } catch (err) {
-              // 如果onRejected异常，promise2拒绝执行，并返回拒绝原因
-              reject(err);
-            }
-          });
-        });
+        this.onResolvedCallbacks.push(onResolvedCallback);
+        this.onRejectedCallbacks.push(onRejectedCallback);
       }
     });
     return promise2;
@@ -140,14 +122,14 @@ const resolvePromise = (promise2, x, resolve, reject) => {
   if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
     try {
       const then = x.then;
-      //如果 then是函数 x调用它
+      //如果 then 是函数 x 调用它
       if (typeof then === 'function') {
         then.call(
           x,
           (y) => {
             if (isCalled) return;
             isCalled = true;
-            resolutionPromise(promise2, y, resolve, reject);
+            resolvePromise(promise2, y, resolve, reject);
           },
           (err) => {
             if (isCalled) return;
@@ -166,7 +148,7 @@ const resolvePromise = (promise2, x, resolve, reject) => {
       reject(err);
     }
   } else {
-    //若果 x 不是函数 或对象，x作为参数执行resolve
+    //如果 x 不是函数 或对象，x作为参数执行resolve
     resolve(x);
   }
 };
