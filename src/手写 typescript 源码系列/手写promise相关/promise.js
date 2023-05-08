@@ -1,37 +1,64 @@
-import { isIterable } from '../../../utils';
+import { isIterable, isPromise } from '../../../utils';
 const PENDING = 'pending';
 const FULFILLED = 'fulfilled';
 const REJECTED = 'rejected';
 
-// Promise接收一个会立即执行的处理器函数
+/**
+ * 将函数 callback 放入微队列中执行
+ */
+const runMicroTask = (() => {
+  if (process && process.nextTick) {
+    return (callback) => {
+      process.nextTick(callback);
+    };
+  } else if (MutationObserver) {
+    return (callback) => {
+      const mob = new MutationObserver(() => {
+        callback();
+        mob.disconnect();
+      });
+      // 创建一个文本节点
+      const textNode = document.createTextNode('0');
+      // 监听文本节点的 data
+      mob.observe(textNode, {
+        characterData: true,
+      });
+      // 修改文本节点 data 触发回调
+      textNode.data = '1';
+    };
+  } else {
+    return (callback) => {
+      setTimeout(callback);
+    };
+  }
+})();
+
 class MyPromise {
+  /**
+   * 接收一个会立即执行的处理器函数
+   * @param {Function} executor
+   */
   constructor(executor) {
-    // 初始化状态 为pending
     this.state = PENDING;
-    //成功的值
-    this.value = undefined;
-    //失败的原因
-    this.reason = undefined;
-    // 一个MyPromise绑定多个then,可多次调用
+    this.result = undefined;
+    // 一个 MyPromise 可以重复多次调用 then 方法
     this.onResolvedCallbacks = [];
     this.onRejectedCallbacks = [];
 
+    const changeState = (newState, value, callbacks) => {
+      if (this.state !== PENDING) return;
+      this.state = newState;
+      this.result = value;
+      // onFulfilled 或 onRejected 回调按原始放入顺序依次执行
+      callbacks.forEach((callback) => callback());
+    };
+
     const resolve = (value) => {
-      //只有pending可转为其他状态
-      if (this.state === PENDING) {
-        this.state = FULFILLED;
-        this.value = value;
-        // onFulfilled 回调按原始顺序依次执行
-        this.onResolvedCallbacks.forEach((fn) => fn());
-      }
+      changeState(FULFILLED, value, this.onResolvedCallbacks);
     };
 
     const reject = (reason) => {
-      if (this.state === PENDING) {
-        this.state = REJECTED;
-        this.reason = reason;
-        this.onRejectedCallbacks.forEach((fn) => fn());
-      }
+      changeState(REJECTED, reason, this.onRejectedCallbacks);
     };
 
     try {
@@ -41,53 +68,51 @@ class MyPromise {
     }
   }
 
-  // then方法
+  /**
+   * 立即返回一个新的处理中 pending 的Promise，与调用 then 方法的原 Promise 的状态无关，而是取决于 onFulfilled 或 onRejected 处理函数的执行结果
+   * @param {Function} onFulfilled 当原Promise变成已完成状态（fulfilled）执行的函数，唯一参数是已完成的最终结果（the fulfillment value），如果onFulfilled不是函数（包括undefined），则会在内部被替换为 (x) => x（即原样返回原 Promise 已完成的最终结果的函数）
+   * @param {Function} onRejected 当 Promise 变成拒绝状态（rejected）时调用的函数。唯一参数是拒绝的原因（rejection reason）。如果onRejected不是函数（包括undefined），则会在内部被替换为一个 "Thrower" 函数 (err) => { throw err; }。
+   * @returns
+   */
   then(onFulfilled, onRejected) {
-    // onFulfilled, onRejected都是可选参数，且不是函数则必须忽略
     onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : (value) => value;
     onRejected =
       typeof onRejected === 'function'
         ? onRejected
-        : (err) => {
-            throw err;
+        : (reason) => {
+            throw reason;
           };
 
-    // 链式调用，then方法返回新的MyPromise实例
     const promise2 = new MyPromise((resolve, reject) => {
-      const onResolvedCallback = () => {
-        setTimeout(() => {
+      const handler = (onSettled, run, resolve, reject) => {
+        run(() => {
           try {
-            // value作为onFulfilled的参数，返回x若是promise 则运行promise的解决过程
-            const x = onFulfilled(this.value);
+            // 原 Promise 的结果作为 onSettled 的参数，返回 x 若是 Promise 则运行 Promise 的解决过程
+            const x = onSettled(this.result);
             resolvePromise(promise2, x, resolve, reject);
           } catch (err) {
-            // 如果onFulfilled异常，promise2拒绝执行，并返回拒绝原因
+            // 如果 onSettled 异常，则 promise2 拒绝执行，并返回拒绝原因
             reject(err);
           }
         });
       };
-      const onRejectedCallback = () => {
-        setTimeout(() => {
-          try {
-            // value作为onFulfilled的参数，返回x若是promise 则运行promise的解决过程
-            const x = onRejected(this.reason);
-            resolvePromise(promise2, x, resolve, reject);
-          } catch (err) {
-            // 如果onRejected异常，promise2拒绝执行，并返回拒绝原因
-            reject(err);
-          }
-        });
-      };
-      // 状态为成功完成才可调用 onFulfilled ,且是异步调用(setTimeout模拟)
+
+      // 如果原 Promise 已完成，异步执行 onFulfilled
       if (this.state === FULFILLED) {
-        onResolvedCallback();
+        handler(onFulfilled, runMicroTask, resolve, reject);
       }
+      // 如果原 Promise 已拒绝，异步执行 onRejected
       if (this.state === REJECTED) {
-        onRejectedCallback();
+        handler(onRejected, runMicroTask, resolve, reject);
       }
+      // 如果原 Promise 处于 pending 中，将 onSettled 加入对应的回调队列中，等原 Promise 状态改变后，按顺序将对应对应队列中的回调放入微队列中执行
       if (this.state === PENDING) {
-        this.onResolvedCallbacks.push(onResolvedCallback);
-        this.onRejectedCallbacks.push(onRejectedCallback);
+        this.onResolvedCallbacks.push(() => {
+          handler(onFulfilled, runMicroTask, resolve, reject);
+        });
+        this.onRejectedCallbacks.push(() => {
+          handler(onRejected, runMicroTask, resolve, reject);
+        });
       }
     });
     return promise2;
@@ -113,23 +138,23 @@ class MyPromise {
   }
 }
 
+// Promise 的解决过程
 const resolvePromise = (promise2, x, resolve, reject) => {
   if (x === promise2) {
     return reject(new TypeError('chaining cycle detected for promise'));
   }
-
   let isCalled = false;
   if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
     try {
       const then = x.then;
-      //如果 then 是函数 x 调用它
+      // 如果 then 是函数, x 调用它
       if (typeof then === 'function') {
         then.call(
           x,
           (y) => {
             if (isCalled) return;
             isCalled = true;
-            resolvePromise(promise2, y, resolve, reject);
+            resolvePromise(promise2, y, resolve, reject); // 递归调用
           },
           (err) => {
             if (isCalled) return;
@@ -138,17 +163,17 @@ const resolvePromise = (promise2, x, resolve, reject) => {
           }
         );
       } else {
-        // 如果then不是函数，x作为参数执行resolve
+        // 如果 then 不是函数，x 作为参数执行 resolve
         resolve(x);
       }
-    } catch (err) {
+    } catch (error) {
       if (isCalled) return;
       isCalled = true;
-      //如果x.then报错，以err为拒因拒绝promise
-      reject(err);
+      // 如果 x.then 执行报错，以 error 为拒因拒绝 promise
+      reject(error);
     }
   } else {
-    //如果 x 不是函数 或对象，x作为参数执行resolve
+    // 如果 x 不是函数或对象，x 作为参数执行 resolve
     resolve(x);
   }
 };
