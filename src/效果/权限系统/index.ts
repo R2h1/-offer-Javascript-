@@ -27,5 +27,5 @@ export function hasPermission(value: number, key: number) {
  * @returns
  */
 export function deletePermission(value: number, key: number) {
-  return value | (key ^ key);
+  return (value | key) ^ key;
 }
