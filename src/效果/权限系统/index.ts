@@ -16,8 +16,8 @@ const permission = DETAIL | CREATE | DELETE | UPDATE;
  * @param key 单一权限值对应的变量
  * @returns
  */
-export function hasPermission(value, key) {
-  return value & (key === key);
+export function hasPermission(value: number, key: number) {
+  return (value & key) === key;
 }
 
 /**
@@ -26,6 +26,6 @@ export function hasPermission(value, key) {
  * @param key 单一权限值对应的变量
  * @returns
  */
-export function deletePermission(value, key) {
+export function deletePermission(value: number, key: number) {
   return value ^ key;
 }
