@@ -17,7 +17,7 @@ export function minPathSum(grid: number[][]): number {
   // dp(i, 0) = dp(i - 1, 0) + grid[i][0];
   // dp(0, 0) = grid[0][0];
   // dp(i, j) 表示到达第i行第j列的最小路径和 （i, j 均从0开始）
-  if (!isTwoDimensionalArray(grid)) {
+  if (!isMatrix(grid)) {
     throw new TypeError('grid 必须是行列均不小于1的二维数组');
   }
   const rows = grid.length;
@@ -51,7 +51,7 @@ export function minPathSum2(grid: number[][]): number {
   // dp(i, 0) = dp(i - 1, 0) + grid[i][0];
   // dp(0, 0) = grid[0][0];
   // dp(i, j) 表示到达第i行第j列的最小路径和（i, j 均从0开始）
-  if (!isTwoDimensionalArray(grid)) {
+  if (!isMatrix(grid)) {
     throw new TypeError('grid 必须是行列均不小于1的二维数组');
   }
   const rows = grid.length;
@@ -73,7 +73,12 @@ export function minPathSum2(grid: number[][]): number {
   return pathSums[rows - 1][cols - 1];
 }
 
-export function isTwoDimensionalArray(value: unknown) {
+/**
+ * 判断一个是否为 m * n 的矩阵
+ * @param value
+ * @returns
+ */
+export function isMatrix(value: unknown) {
   if (!Array.isArray(value)) {
     return false;
   }

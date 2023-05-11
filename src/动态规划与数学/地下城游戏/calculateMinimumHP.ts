@@ -1,4 +1,4 @@
-import { isTwoDimensionalArray } from '../最小路径和/minPathSum';
+import { isMatrix } from '../最小路径和/minPathSum';
 
 /**
  * 恶魔们抓住了公主并将她关在了地下城 dungeon 的 右下角 。地下城是由 m x n 个房间组成的二维网格。我们英勇的骑士最初被安置在 左上角 的房间里，他必须穿过地下城并通过对抗恶魔来拯救公主。
@@ -27,7 +27,7 @@ function calculateMinimumHP(dungeon: number[][]): number {
   // dp[i][j]表示骑士进入第i行第j列之前保证能完成拯救公主所需的最低健康点数（i, j 均从0开始）
   // 骑士进入第i行第j列后健康点数为dp[i][j] + dungeon[i][j]
 
-  if (!isTwoDimensionalArray(dungeon)) {
+  if (!isMatrix(dungeon)) {
     throw new TypeError('dungeon 必须是行列均不小于1的二维数组');
   }
   const rows = dungeon.length;
