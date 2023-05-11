@@ -86,8 +86,9 @@ export function isMatrix(value: unknown) {
   if (rows === 0) {
     return false;
   }
-  for (let item of value) {
-    if (!Array.isArray(item) || (value[0].length !== 0 && item.length !== value[0].length)) {
+  for (const item of value) {
+    // 每个子元素必须是数组且长度不小于1且长度相等
+    if (!Array.isArray(item) || item.length < 1 || item.length !== value[0].length) {
       return false;
     }
   }
