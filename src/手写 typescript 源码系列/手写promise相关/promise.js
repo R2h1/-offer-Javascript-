@@ -7,7 +7,7 @@ const REJECTED = 'rejected';
  * 将函数 callback 放入微队列中执行
  */
 const runMicroTask = (() => {
-  if (process && process.nextTick) {
+  if (process && typeof process.nextTick === 'function') {
     return (callback) => {
       process.nextTick(callback);
     };
