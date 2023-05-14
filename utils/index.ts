@@ -20,4 +20,4 @@ export const isFunction = (val: unknown): val is Function => typeof val === 'fun
  * @param val 
  * @returns 
  */
-export const isPromise = <T = any>(val: unknown): val is Promise<T> => (isObject(val) || isFunction(val)) && isFunction(val.then);
+export const isPromiseLike = <T = any>(val: unknown): val is Promise<T> => (isObject(val) || isFunction(val)) && isFunction(val.then);

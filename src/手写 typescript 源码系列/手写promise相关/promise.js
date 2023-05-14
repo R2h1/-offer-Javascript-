@@ -1,4 +1,4 @@
-import { isIterable, isPromise } from '../../../utils';
+import { isIterable, isPromiseLike } from '../../../utils';
 const PENDING = 'pending';
 const FULFILLED = 'fulfilled';
 const REJECTED = 'rejected';
@@ -127,10 +127,12 @@ class MyPromise {
   finally(fn) {
     return this.then(
       (value) => {
-        MyPromise.resolve(fn()).then(() => value);
+        const res = fn();
+        return MyPromise.resolve(res).then(() => value);
       },
       (reason) => {
-        MyPromise.resolve(fn()).then(() => {
+        const res = fn();
+        return MyPromise.resolve(res).then(() => {
           throw reason;
         });
       }
@@ -178,26 +180,31 @@ const resolvePromise = (promise2, x, resolve, reject) => {
   }
 };
 
-//接受thenable对象参数
-Promise.resolve = (promises) => {
-  if (promises instanceof Promise) {
-    return promises;
+/**
+ * 1. 如果value是promise，则返回该promise；
+ * 2. 如果value是 thenable 对象（即value有then方法），返回一个新的 Promise对象状态将跟随 value 的状态；
+ * 3. 其他情况返回一个以 value 已完成（fulfilled）新的 Promise 对象。
+ * @param {*} value
+ * @returns
+ */
+MyPromise.resolve = (value) => {
+  if (value instanceof MyPromise) {
+    return value;
   }
-  return new Promise((resolve, reject) => {
-    // 如果具有then方法,异步执行then方法
-    if (promises && promises.then && typeof promises.then === 'function') {
-      setTimeout(() => {
-        promises.then(resolve, reject);
-      });
+  return new MyPromise((resolve, reject) => {
+    if (isPromiseLike(value)) {
+      value.then(resolve, reject);
     } else {
-      // promises作为参数执行resolve
-      resolve(promises);
+      resolve(value);
     }
   });
 };
 
-//无论是否有then方法，都是reason作为参数执行reject，并原封不动向下传
-MyPromise.reject = (reason) => new MyPromise((resolve, reject) => reject(reason));
+// 无论如何，返回以 reason 为拒绝原因的新 Promise 对象
+MyPromise.reject = (reason) =>
+  new MyPromise((resolve, reject) => {
+    reject(reason);
+  });
 
 /**
  * 1. 如果传入的参数是一个空的可迭代对象，则返回一个已完成（already resolved）状态的 Promise。
