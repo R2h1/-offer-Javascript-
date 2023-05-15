@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 /**
  *
- * @param maxFrameCount
+ * @param maxFrameCount 最大渲染帧数
  */
 export function useDefer(maxFrameCount = 1000) {
   // 当前渲染帧
@@ -18,7 +18,7 @@ export function useDefer(maxFrameCount = 1000) {
     });
   };
   refreshFrameCount();
-  // 判断当前渲染至的帧数是否大于阈值 showInFrameCount, 小于则不渲染
+  // 判断当前渲染至的帧数是否大于传入的阈值 showInFrameCount, 小于则不渲染
   return function (showInFrameCount: number) {
     // @ts-ignore
     return frameCount.value >= showInFrameCount;
