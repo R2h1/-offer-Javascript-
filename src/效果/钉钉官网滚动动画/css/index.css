@@ -2,3 +2,82 @@
   margin: 0;
   padding: 0;
 }
+
+.header {
+  height: 1000px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+}
+
+.playground {
+  height: 2500px;
+  background-color: #000;
+}
+
+.animation-container {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 200px;
+  padding-bottom: 200px;
+}
+
+.list {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 40px 50px;
+  width: 1200px;
+  height: 560px;
+  background-color: rgba(23, 26, 29, 0.9);
+  gap: 50px;
+  border-radius: 16px;
+  box-shadow: 0 35px 35px -8px rgba(0, 0, 0, 0.75);
+}
+
+.list-item {
+  width: 120px;
+  height: 120px;
+  border-radius: 16px;
+}
+
+.list-item:nth-child(n + 1) {
+  background-color: crimson;
+}
+
+.list-item:nth-child(2n + 1) {
+  background-color: deeppink;
+}
+
+.list-item:nth-child(3n + 1) {
+  background-color: cornflowerblue;
+}
+
+.list-item:nth-child(4n + 1) {
+  background-color: darkgoldenrod;
+}
+
+.list-item:nth-child(5n + 1) {
+  background-color: darksalmon;
+}
+
+.list-item:nth-child(6n + 1) {
+  background-color: seagreen;
+}
+
+.footer {
+  height: 1000px;
+  background-color: #fff;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
