@@ -3,13 +3,14 @@
   padding: 0;
 }
 
-.header {
+.header,
+.footer {
   height: 1000px;
-  background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 28px;
+  font-size: 100px;
+  background-color: #fff;
 }
 
 .playground {
@@ -71,13 +72,4 @@
 
 .list-item:nth-child(6n + 1) {
   background-color: seagreen;
-}
-
-.footer {
-  height: 1000px;
-  background-color: #fff;
-  font-size: 28px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
