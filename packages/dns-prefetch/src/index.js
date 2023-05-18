@@ -43,7 +43,7 @@ async function main() {
   await insertLinks();
 }
 
-main();
+export default main();
 
 /**
  * 如何使用？
