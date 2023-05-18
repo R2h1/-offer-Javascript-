@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/R2h1/-offer-Javascript-/issues"
   },
-  "homepage": "https://github.com/R2h1/-offer-Javascript-/tree/master/src/packages/npm/dns-prefetch",
+  "homepage": "https://github.com/R2h1/-offer-Javascript-/tree/master/packages/dns-prefetch",
   "author": "R2h1",
   "license": "ISC",
   "scripts": {
