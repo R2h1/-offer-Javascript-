@@ -13,6 +13,7 @@ module.exports = {
   },
   rules: {
     'space-before-function-paren': ['error', 'never'],
+    'comma-dangle': ['error', 'never'],
     semi: ['error', 'always'],
   },
 };
