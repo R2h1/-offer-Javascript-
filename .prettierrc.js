@@ -34,4 +34,6 @@ module.exports = {
     vueIndentScriptAndStyle: false,
     // 换行符使用 lf
     endOfLine: 'lf',
+    // 结尾处不加逗号
+    trailingComma: "none",
 };
