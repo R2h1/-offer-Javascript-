@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { glob } from 'glob';
-const { parse } = require('node-html-parser');
-const urlRegex = require('url-regex');
+import { parse } from 'node-html-parser';
+import urlRegex from 'url-regex';
 
 // 获取跨域链接的正则表达式
 const urlPattern = /(https?:\/\/[^/]*)/i;
