@@ -6,11 +6,13 @@
   "module": "dist/dns-prefetch.esm.js",
   "keywords": [],
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "https://github.com/R2h1/-offer-Javascript-"
   },
   "bugs": {
+    "url": "https://github.com/R2h1/-offer-Javascript-/issues"
   },
-  "homepage": "",
+  "homepage": "https://github.com/R2h1/-offer-Javascript-/tree/master/src/packages/npm/dns-prefetch",
   "author": "R2h1",
   "license": "ISC",
   "scripts": {
