@@ -1,7 +1,7 @@
 {
   "name": "dns-prefetch",
-  "version": "1.0.0",
-  "description": "自动批量 dns-prefetch 优化",
+  "version": "0.1.0",
+  "description": "dns-prefetch",
   "main": "dist/dns-prefetch.umd.js",
   "module": "dist/dns-prefetch.esm.js",
   "keywords": [],
@@ -55,6 +55,11 @@
     "rollup-plugin-serve": "^2.0.2",
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "glob": "^10.2.5",
+    "node-html-parser": "^6.1.5",
+    "url-regex": "^5.0.0"
   },
   "jest": {
     "preset": "rollup-jest"

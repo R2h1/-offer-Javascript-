@@ -3,17 +3,17 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    jest: true,
+    jest: true
   },
   extends: 'standard-with-typescript',
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module',
+    sourceType: 'module'
   },
   rules: {
     'space-before-function-paren': ['error', 'never'],
     'comma-dangle': ['error', 'never'],
-    semi: ['error', 'always'],
-  },
+    semi: ['error', 'always']
+  }
 };
