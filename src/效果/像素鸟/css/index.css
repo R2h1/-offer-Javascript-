@@ -43,9 +43,7 @@
 
 .pipe {
   position: absolute;
-  height: 150px;
   width: 52px;
-  left: 500px;
 }
 
 .pipe.down {

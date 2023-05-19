@@ -105,6 +105,7 @@ const birdLeft = parseFloat(birdStyles.Left);
 const birdTop = parseFloat(birdStyles.top);
 const gameDom = document.querySelector('.game');
 const gameHeight = gameDom.clientHeight;
+const gameWidth = gameDom.clientWidth;
 
 class Bird extends Block {
   constructor() {
@@ -170,13 +171,101 @@ class Bird extends Block {
   }
 }
 
+class Pipe extends Block {
+  constructor(height, yAxis, xSpeed, element) {
+    super({
+      size: {
+        width: 52,
+        height
+      },
+      axis: {
+        left: gameWidth,
+        top: yAxis
+      },
+      speed: {
+        x: xSpeed,
+        y: 0
+      },
+      element
+    });
+    this.render();
+    this.timer = null;
+    this.startMove();
+  }
+
+  startMove() {
+    if (this.timer) {
+      return;
+    }
+    this.timer = setInterval(() => {
+      this.move(20 / 1000);
+    }, 20);
+  }
+
+  stopMove() {
+    clearInterval(this.timer);
+    this.timer = null;
+  }
+
+  onMove() {
+    if (this.xAxis < -this.size.width) {
+      this.stopMove();
+      this.element.remove();
+    }
+  }
+}
+
+/**
+ * 获取 [min, max] 范围内的随机整数
+ * @param {number} min 随机数的最小值
+ * @param {number} max 随机数的最大值
+ * @returns {number} 随机数
+ * @example
+ * getRandom(0, 10);获取[0, 10]之间的随机整数
+ */
+function getRandom(min, max) {
+  return min + Math.floor(Math.random() * (max - min + 1));
+}
+
+class PipePair {
+  constructor(xSpeed) {
+    this.gap = 150; // 空隙高度;
+    this.minHeight = 80;
+    this.maxHeight = gameHeight - this.gap - this.minHeight;
+    const downHeight = getRandom(this.minHeight, this.maxHeight);
+    const upHeight = gameHeight - this.gap - downHeight;
+    const upYAxis = gameHeight - downHeight;
+
+    const downPipeDom = document.createElement('div');
+    downPipeDom.className = 'pipe down';
+    const upPipeDom = document.createElement('div');
+    upPipeDom.className = 'pipe up';
+    gameDom.appendChild(downPipeDom);
+    gameDom.appendChild(upPipeDom);
+
+    // 向上的水管
+    this.upPipe = new Pipe(downHeight, upYAxis, xSpeed, upPipeDom);
+    // 向下的水管
+    this.downPipe = new Pipe(upHeight, 0, xSpeed, downPipeDom);
+  }
+
+  move(duration) {
+    this.upPipe.move(duration);
+    this.downPipe.move(duration);
+  }
+}
+
 const sky = new Sky();
 const bird = new Bird();
 
 setInterval(() => {
-  sky.move(50 / 1000);
-  bird.move(50 / 1000);
-}, 50);
+  sky.move(20 / 1000);
+  bird.move(20 / 1000);
+}, 20);
+
+setInterval(() => {
+  new PipePair(-50);
+}, 4000);
 
 gameDom.addEventListener('click', function () {
   bird.jump();
