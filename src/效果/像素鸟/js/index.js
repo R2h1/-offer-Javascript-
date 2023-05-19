@@ -36,6 +36,9 @@ class Block {
   get ySpeed() {
     return this.speed.y;
   }
+  set ySpeed(val) {
+    this.speed.y = val;
+  }
 
   /**
    * 移动
@@ -73,17 +76,17 @@ class Sky extends Block {
     super({
       size: {
         width: skyWidth,
-        height: skyHeight,
+        height: skyHeight
       },
       axis: {
         left: 0,
-        top: 0,
+        top: 0
       },
       speed: {
         x: -100,
-        y: 0,
+        y: 0
       },
-      element: skyDom,
+      element: skyDom
     });
   }
 
@@ -94,8 +97,87 @@ class Sky extends Block {
   }
 }
 
+const birdDom = document.querySelector('.bird');
+const birdStyles = window.getComputedStyle(birdDom);
+const birdWidth = parseFloat(birdStyles.width);
+const birdHeight = parseFloat(birdStyles.height);
+const birdLeft = parseFloat(birdStyles.Left);
+const birdTop = parseFloat(birdStyles.top);
+const gameDom = document.querySelector('.game');
+const gameHeight = gameDom.clientHeight;
+
+class Bird extends Block {
+  constructor() {
+    super({
+      size: {
+        width: birdWidth,
+        height: birdHeight
+      },
+      axis: {
+        left: birdLeft,
+        top: birdTop
+      },
+      speed: {
+        x: 0,
+        y: 0
+      },
+      element: birdDom
+    });
+    this.g = 1500; // 小鸟向下的加速度，单位：px/s^2;
+    this.maxYAxis = gameHeight - this.size.height;
+    this.swingStatus = 1;
+    this.timer = null;
+    this.startSwing();
+  }
+
+  render() {
+    super.render();
+    this.element.className = `bird swing${this.swingStatus}`;
+  }
+
+  startSwing() {
+    if (this.timer) {
+      return;
+    }
+    this.timer = setInterval(() => {
+      this.swingStatus = this.swingStatus + 1;
+      if (this.swingStatus > 3) {
+        this.swingStatus = 1;
+      }
+      this.render();
+    }, 200);
+  }
+
+  stopSwing() {
+    clearInterval(this.timer);
+    this.timer = null;
+  }
+
+  move(duration) {
+    super.move(duration);
+    this.ySpeed = this.ySpeed + this.g * duration;
+  }
+
+  onMove() {
+    if (this.yAxis < 0) {
+      this.yAxis = 0;
+    } else if (this.yAxis > this.maxYAxis) {
+      this.yAxis = this.maxYAxis;
+    }
+  }
+  jump() {
+    this.ySpeed = -300;
+  }
+}
+
 const sky = new Sky();
+const bird = new Bird();
 
 setInterval(() => {
   sky.move(50 / 1000);
+  bird.move(50 / 1000);
 }, 50);
+
+gameDom.addEventListener('click', function () {
+  bird.jump();
+});
