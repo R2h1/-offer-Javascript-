@@ -1,4 +1,3 @@
-
 interface CurvePoints {
   /* 曲线函数 */
   curveFn: Function;
@@ -11,7 +10,7 @@ interface CurvePoints {
 }
 /**
  * 按给定曲线获取 y 轴偏移量
- * @param param 
+ * @param param
  */
 function getCurvePoints(params: CurvePoints): number[] {
   const { curveFn, xRange, count, width } = params;
@@ -28,17 +27,17 @@ function getCurvePoints(params: CurvePoints): number[] {
   // x 缩放倍数
   const xScale = width / xDiff;
   for (let i = 0; i < count; i++) {
-    result.push(-curveFn(i * interval + xRange[0]) * xScale)
+    result.push(-curveFn(i * interval + xRange[0]) * xScale);
   }
   return result;
 }
 
 /**
  * 只支持子节点是单文本或均为元素节点
- * @param selector 
- * @param curveFn 
- * @param xRange 
- * @returns 
+ * @param selector
+ * @param curveFn
+ * @param xRange
+ * @returns
  */
 function applyCurve(selector: string, curveFn: Function, xRange: [number, number]): void {
   const container = document.querySelector(selector) as HTMLElement;
@@ -51,7 +50,7 @@ function applyCurve(selector: string, curveFn: Function, xRange: [number, number
   if (childNodes.length === 1 && childNodes[0].nodeType === 3) {
     container.innerHTML = (container.textContent as string)
       .split('')
-      .map(char => `<span>${char}</span>`)
+      .map((char) => `<span>${char}</span>`)
       .join('');
   }
   const count = children.length;
@@ -59,7 +58,7 @@ function applyCurve(selector: string, curveFn: Function, xRange: [number, number
     curveFn,
     xRange,
     count: count,
-    width: container.clientWidth,
+    width: container.clientWidth
   });
   for (let i = 0; i < count; i++) {
     (children[i] as HTMLElement).style.transform = `translateY(${yOffsets[i]}px)`;
@@ -68,6 +67,6 @@ function applyCurve(selector: string, curveFn: Function, xRange: [number, number
 
 let offset = 0;
 window.requestAnimationFrame(() => {
-  applyCurve('.curve-animate', x => Math.sin(x), [offset, offset + 2 * Math.PI]);
+  applyCurve('.curve-animate', (x: number) => Math.sin(x), [offset, offset + 2 * Math.PI]);
   offset = offset + 0.1;
-})
+});
