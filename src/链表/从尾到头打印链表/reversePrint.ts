@@ -9,7 +9,7 @@
 import { LinkNode } from '../设计链表/linkList';
 
 // 遍历 + 反转法
-function reversePrint1(head: LinkNode | null): number[] {
+function reversePrint1<T extends number>(head: LinkNode<T> | null): number[] {
   let node = head;
   const res: number[] = [];
   while (node !== null) {
@@ -20,10 +20,10 @@ function reversePrint1(head: LinkNode | null): number[] {
 }
 
 // 栈
-function reversePrint2(head: LinkNode | null): number[] {
+function reversePrint2<T extends number>(head: LinkNode<T> | null): number[] {
   let node = head;
   // 栈
-  const stack: LinkNode[] = [];
+  const stack: LinkNode<T>[] = [];
   const res: number[] = [];
   while (node !== null) {
     stack.push(node);

@@ -60,7 +60,7 @@ function twoSum4(nums: number[], target: number): number[] {
   const len = nums?.length;
   const res: number[] = [];
 
-  function binarySearch(left, right, target) {
+  function binarySearch(left: number, right: number, target: number) {
     while (left <= right) {
       let mid = Math.floor((left + right) / 2);
       if (nums[mid] > target) {

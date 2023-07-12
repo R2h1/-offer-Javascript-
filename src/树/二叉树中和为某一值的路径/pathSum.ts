@@ -13,12 +13,12 @@
 import { TreeNode } from '../二叉树设计实现和遍历/traversal';
 
 // 深度优先搜素(dfs)法
-function pathSum1(root: TreeNode | null, target: number): number[][] {
+function pathSum1(root: TreeNode<number> | null, target: number): number[][] {
   // 当前遍历的路径
   const path: number[] = [];
   // 所有满足条件的路径
   const result: number[][] = [];
-  function dfs(root: TreeNode | null, target: number) {
+  function dfs(root: TreeNode<number> | null, target: number) {
     if (root === null) {
       return;
     }

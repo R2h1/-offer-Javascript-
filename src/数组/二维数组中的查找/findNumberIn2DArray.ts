@@ -48,7 +48,7 @@ function findNumberIn2DArray2(matrix: number[][], target: number): boolean {
     if (element > target) {
       i--;
     } else {
-      // 当前
+      // 当前行不大于目标元素
       j++;
     }
   }

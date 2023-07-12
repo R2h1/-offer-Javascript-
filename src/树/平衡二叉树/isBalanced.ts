@@ -9,7 +9,7 @@ import { maxDepth1 } from '../二叉树的深度/maxDepth';
 import { TreeNode } from '../二叉树设计实现和遍历/traversal';
 
 // 深度计算法
-function isBalanced(root: TreeNode | null): boolean {
+function isBalanced<T>(root: TreeNode<T> | null): boolean {
   if (root === null) return true;
   const leftTree = root.left;
   const rightTree = root.right;

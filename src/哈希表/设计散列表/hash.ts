@@ -25,7 +25,7 @@ export class HashTableSeparateChaining<K, V> {
   }
 
   /**
-   * @description: 哈希函数
+   * @description: 哈希函数（djb2函数（或者loselose函数）
    */
   private hashCodeHelper(key: K): number {
     if (typeof key === 'number') {
@@ -157,7 +157,7 @@ export default class HashTableLinearProbing<K, V> {
     this.table = new Map();
   }
   /**
-   * @description: 哈希函数
+   * @description: 哈希函数（djb2函数（或者loselose函数）
    */
   private hashCodeHelper(key: K): number {
     if (typeof key === 'number') {

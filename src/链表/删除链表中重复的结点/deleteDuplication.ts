@@ -11,7 +11,7 @@
 import { LinkNode } from '../设计链表/linkList';
 
 // 保留重复节点
-function deleteDuplicates1(head: LinkNode | null): LinkNode | null {
+function deleteDuplicates1(head: LinkNode<number> | null): LinkNode<number> | null {
   let node = head;
   while (node !== null) {
     while (node.next !== null && node.val === node.next.val) {
@@ -23,7 +23,7 @@ function deleteDuplicates1(head: LinkNode | null): LinkNode | null {
 }
 
 // 不保留重复节点
-function deleteDuplicates2(head: LinkNode | null): LinkNode | null {
+function deleteDuplicates2(head: LinkNode<number> | null): LinkNode<number> | null {
   // 虚头节点
   const dummy = new LinkNode(-1, head);
   let node = dummy;

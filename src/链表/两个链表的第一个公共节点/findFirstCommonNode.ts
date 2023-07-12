@@ -9,10 +9,10 @@
 import { LinkNode } from '../设计链表/linkList';
 
 // 长短diff遍历法
-function getIntersectionNode(headA: LinkNode | null, headB: LinkNode | null): LinkNode | null {
+function getIntersectionNode(headA: LinkNode<number> | null, headB: LinkNode<number> | null): LinkNode<number> | null {
   // 求链表长度
-  function getSize(head) {
-    let node = head;
+  function getSize<T>(head: LinkNode<T> | null): number {
+    let node: LinkNode<T> | null = head;
     let size = 0;
     while (node !== null) {
       node = node.next;

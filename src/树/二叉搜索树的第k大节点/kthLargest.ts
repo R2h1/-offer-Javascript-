@@ -9,11 +9,11 @@
 import { TreeNode } from '../二叉树设计实现和遍历/traversal';
 
 // 中序倒序遍历 + 提前返回法
-function kthLargest(root: TreeNode | null, k: number): number {
+function kthLargest(root: TreeNode<number> | null, k: number): number {
   // 遍历次数
   let count = 0;
   let result = NaN;
-  function dfs(root: TreeNode | null) {
+  function dfs(root: TreeNode<number> | null) {
     if (root === null) return;
     const { val, left, right } = root;
     if (right) dfs(right); // 先遍历右子树

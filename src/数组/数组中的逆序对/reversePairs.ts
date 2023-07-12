@@ -26,7 +26,7 @@ function reversePairs1(nums: number[]): number {
 function reversePairs2(nums: number[]): number {
   const len = nums?.length;
   const temp = new Array(len);
-  function getCount(left, right) {
+  function getCount(left: number, right: number) {
     if (left >= right) return 0;
     let count = 0;
     const mid = Math.floor((left + right) / 2); // (left + right) >> 1;

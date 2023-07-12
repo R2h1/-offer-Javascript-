@@ -8,13 +8,13 @@
 import { LinkNode } from '../设计链表/linkList';
 
 // 递归
-function mergeTwoLists(l1: LinkNode | null, l2: LinkNode | null): LinkNode | null {
+function mergeTwoLists<T extends number>(l1: LinkNode<T> | null, l2: LinkNode<T> | null): LinkNode<T> | null {
   // 其中一个链表为空，则返回另一个即可
   if (l1 === null || l2 === null) {
     return l1 || l2;
   }
   // 合并后的链表头结点
-  let l: LinkNode | null = null;
+  let l: LinkNode<T> | null = null;
   if (l1.val <= l2.val) {
     l = l1;
     l.next = mergeTwoLists(l1.next, l2);
@@ -26,7 +26,7 @@ function mergeTwoLists(l1: LinkNode | null, l2: LinkNode | null): LinkNode | nul
 }
 
 // 双指针遍历
-function mergeTwoLists1(l1: LinkNode | null, l2: LinkNode | null): LinkNode | null {
+function mergeTwoLists1<T extends number>(l1: LinkNode<T> | null, l2: LinkNode<T> | null): LinkNode<number> | null {
   // 其中一个链表为空，则返回另一个即可
   if (l1 === null || l2 === null) {
     return l1 || l2;

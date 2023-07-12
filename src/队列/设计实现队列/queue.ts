@@ -49,13 +49,13 @@ export class ArrayQueue<T> {
 }
 
 // 链表顺序队列
-export class LinkQueue {
+export class LinkQueue<T> {
   // 队的长度
   size: number;
   // 队尾指针
-  head: LinkNode | null;
+  head: LinkNode<T> | null;
   // 队尾指针
-  tail: LinkNode | null;
+  tail: LinkNode<T> | null;
   constructor() {
     this.size = 0;
     this.head = null;
@@ -65,7 +65,7 @@ export class LinkQueue {
    * 入队
    * @param item
    */
-  enQueue(val) {
+  enQueue(val: T) {
     let node = new LinkNode(val);
     if (this.size === 0) {
       this.head = node;
@@ -123,7 +123,7 @@ export class LinkQueue {
 // 数组循环队列
 export class LoopQueue {
   // 存放元素的数组
-  values: number | undefined[];
+  values: (number | undefined)[];
   // 当前元素个数
   count: number;
   // 队的长度

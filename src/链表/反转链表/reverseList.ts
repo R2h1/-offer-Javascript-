@@ -8,11 +8,11 @@
 import { LinkNode } from '../设计链表/linkList';
 
 // 原地反转
-function reverseList1(head: LinkNode | null): LinkNode | null {
+function reverseList1<T extends number>(head: LinkNode<T> | null): LinkNode<T> | null {
   // 当前节点
   let currentNode = head;
   // 上一节点
-  let prevNode: LinkNode | null = null;
+  let prevNode: LinkNode<T> | null = null;
   while (currentNode !== null) {
     // 首先缓存下一节点
     const nextNode = currentNode.next;
@@ -27,7 +27,7 @@ function reverseList1(head: LinkNode | null): LinkNode | null {
 }
 
 // 递归
-function reverseList2(head: LinkNode | null): LinkNode | null {
+function reverseList2<T extends number>(head: LinkNode<T> | null): LinkNode<T> | null {
   if (head == null || head.next == null) {
     return head;
   }

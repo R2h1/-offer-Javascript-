@@ -15,14 +15,14 @@
 import { TreeNode } from '../二叉树设计实现和遍历/traversal';
 
 // 中序遍历递归法
-function treeToDoublyList1(root: TreeNode | null): TreeNode | null {
+function treeToDoublyList1(root: TreeNode<number> | null): TreeNode<number> | null {
   // 空树 返回 null
   if (root === null) return null;
   // 执行双向链表的头结点
   let head: any = null;
   // 当前遍历节点的前驱节点
   let pre: any = null;
-  function dfs(node: TreeNode | null): void {
+  function dfs(node: TreeNode<number> | null): void {
     if (node === null) return;
     const { left, right } = node;
     // 遍历左子树
@@ -55,15 +55,15 @@ function treeToDoublyList1(root: TreeNode | null): TreeNode | null {
 }
 
 // 中序遍历迭代法
-function treeToDoublyList2(root: TreeNode | null): TreeNode | null {
+function treeToDoublyList2(root: TreeNode<number> | null): TreeNode<number> | null {
   // 空树 返回 null
   if (root === null) return null;
   // 执行双向链表的头结点
   let head: any = null;
   // 当前遍历节点的前驱节点
   let pre: any = null;
-  const stack: (TreeNode | null)[] = [];
-  let curNode: TreeNode | null = root;
+  const stack: (TreeNode<number> | null)[] = [];
+  let curNode: TreeNode<number> | null = root;
   while (stack.length || curNode !== null) {
     while (curNode !== null) {
       // 一直遍历到最左孩子节点

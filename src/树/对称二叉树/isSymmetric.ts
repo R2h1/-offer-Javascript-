@@ -12,9 +12,9 @@
 import { TreeNode } from '../二叉树设计实现和遍历/traversal';
 
 // 递归法
-function isSymmetric(root: TreeNode | null): boolean {
+function isSymmetric(root: TreeNode<number> | null): boolean {
   // 检查两个树是否互为镜像
-  function check(p: TreeNode | null, q: TreeNode | null): boolean {
+  function check(p: TreeNode<number> | null, q: TreeNode<number> | null): boolean {
     // 节点均为null，对称
     if (p === null && q === null) return true;
     // 节点只有其中一个为 null，不对称

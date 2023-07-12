@@ -25,8 +25,8 @@ function exist(board: string[][], word: string): boolean {
   return false;
 }
 
-// 深度优先搜搜
-function dfs(board: string[][], i: number, j: number, word: string, index: number) {
+// 深度优先搜索
+function dfs(board: string[][], i: number, j: number, word: string, index: number): boolean {
   // 超过行、列边界，或 当前遍历的字母不等于 当前单词中的字母
   if (i >= board.length || i < 0 || j >= board[0].length || j < 0 || board[i][j] !== word[index]) return false;
   // board[i][j] === word[index]才会走到这里，

@@ -8,11 +8,11 @@
 import { TreeNode } from '../二叉树设计实现和遍历/traversal';
 
 // 先序遍历法
-function isSubStructure1(A: TreeNode | null, B: TreeNode | null): boolean {
+function isSubStructure1(A: TreeNode<number> | null, B: TreeNode<number> | null): boolean {
   // 任何树不是空树的子结构，空树也不是任何树的子结构
   if (A === null || B === null) return false;
   // 判断当前树是否包含 B
-  function recur(A: TreeNode | null, B: TreeNode | null) {
+  function recur(A: TreeNode<number> | null, B: TreeNode<number> | null): boolean {
     if (B === null) return true;
     if (A === null || A.val !== B.val) return false;
     return recur(A.left, B.left) && recur(A.right, B.right);
@@ -21,6 +21,6 @@ function isSubStructure1(A: TreeNode | null, B: TreeNode | null): boolean {
 }
 
 // 序列化法
-function isSubStructure2(A: TreeNode | null, B: TreeNode | null): boolean {
+function isSubStructure2(A: TreeNode<number> | null, B: TreeNode<number> | null): boolean {
   return JSON.stringify(A).includes(JSON.stringify(B));
 }

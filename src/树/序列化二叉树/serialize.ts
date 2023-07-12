@@ -10,15 +10,15 @@
 import { TreeNode } from '../二叉树设计实现和遍历/traversal';
 
 // JSON法
-function serialize1(root: TreeNode | null) {
+function serialize1(root: TreeNode<number> | null) {
   return JSON.stringify(root);
 }
 function deserialize1(data: string) {
   return JSON.parse(data);
 }
 
-// 递归递归法
-function serialize2(root: TreeNode | null) {
+// 递归遍历法
+function serialize2(root: TreeNode<number> | null): string {
   if (root === null) {
     return 'None,';
   }
@@ -30,7 +30,7 @@ function deserialize2(data: string) {
   function reDeserialize(dataArray: string[]) {
     const item = dataArray.shift();
     if (item === 'None') return null;
-    const root = new TreeNode(Number(item), reDeserialize(dataArray), reDeserialize(dataArray));
+    const root: TreeNode<number> = new TreeNode(Number(item), reDeserialize(dataArray), reDeserialize(dataArray));
     return root;
   }
   const dataArray = data.split(',');

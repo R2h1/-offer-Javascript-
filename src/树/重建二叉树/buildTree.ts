@@ -11,7 +11,7 @@
 import { TreeNode } from '../二叉树设计实现和遍历/traversal';
 
 // 前序 + 中序
-function buildTree1(preorder: number[], inorder: number[]): TreeNode | null {
+function buildTree1(preorder: number[], inorder: number[]): TreeNode<number> | null {
   const size = preorder.length;
   if (size === 0) return null;
   // 前序遍历的首个节点将中序遍历该节点前后划分为左子树和右子树
@@ -28,7 +28,7 @@ function buildTree1(preorder: number[], inorder: number[]): TreeNode | null {
 }
 
 // 后序 + 中序
-function buildTree2(postorder: number[], inorder: number[]): TreeNode | null {
+function buildTree2(postorder: number[], inorder: number[]): TreeNode<number> | null {
   const size = postorder.length;
   if (size === 0) return null;
   // 后序遍历的最后节点将中序遍历该节点前后划分为左子树和右子树

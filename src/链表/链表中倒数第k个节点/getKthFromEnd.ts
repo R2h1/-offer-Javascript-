@@ -9,7 +9,7 @@
 import { LinkNode } from '../设计链表/linkList';
 
 // 两次遍历
-function getKthFromEnd(head: LinkNode | null, k: number): LinkNode | null {
+function getKthFromEnd<T extends number>(head: LinkNode<T> | null, k: number): LinkNode<T> | null {
   let node = head;
   // 计算链表长度
   let size = 0;
@@ -22,13 +22,13 @@ function getKthFromEnd(head: LinkNode | null, k: number): LinkNode | null {
   if (index < 0) return null;
   node = head;
   for (let i = 1; i <= index; i++) {
-    node = node?.next as LinkNode;
+    node = node?.next as LinkNode<T>;
   }
   return node;
 }
 
 // 快慢指针
-function getKthFromEnd2(head: LinkNode | null, k: number): LinkNode | null {
+function getKthFromEnd2<T extends number>(head: LinkNode<T> | null, k: number): LinkNode<T> | null {
   let fast = head;
   let slow = head;
   let i = 0;
@@ -42,7 +42,7 @@ function getKthFromEnd2(head: LinkNode | null, k: number): LinkNode | null {
   }
   while (fast !== null) {
     // 快指针走到 null 的时候，慢指针即为倒数第 k 个 节点
-    slow = slow?.next as LinkNode;
+    slow = slow?.next as LinkNode<T>;
     fast = fast.next;
   }
   return slow;

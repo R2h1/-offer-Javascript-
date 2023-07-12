@@ -49,11 +49,11 @@ export class ArrayStack<T> {
 }
 
 // 链表栈
-export class LinkStack {
+export class LinkStack<T> {
   // 栈的长度
   size: number;
   // 栈顶指针
-  top: LinkNode | null;
+  top: LinkNode<T> | null;
   constructor() {
     this.size = 0;
     this.top = null;
@@ -62,7 +62,7 @@ export class LinkStack {
    * 入栈
    * @param item
    */
-  push(val) {
+  push(val: T) {
     let node = new LinkNode(val);
     if (this.top === null) {
       // 栈空

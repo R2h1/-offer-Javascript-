@@ -153,6 +153,7 @@ function preOrderTraversal(root: BinaryTreeNode | null) {
   }
   return result;
 }
+
 /**
  * 中序遍历 （首先遍历左子树，然后访问根节点，最后遍历右子树）
  */

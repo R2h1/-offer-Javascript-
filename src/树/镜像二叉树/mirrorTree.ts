@@ -8,7 +8,7 @@
 import { TreeNode } from '../二叉树设计实现和遍历/traversal';
 
 // 递归
-function mirrorTree(root: TreeNode | null): TreeNode | null {
+function mirrorTree<T>(root: TreeNode<T> | null): TreeNode<T> | null {
   if (root === null) return null;
   // 先分别递归求得左右子树的镜像
   const left = mirrorTree(root.left);

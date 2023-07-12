@@ -11,8 +11,8 @@
 import { LinkNode } from '../设计链表/linkList';
 
 // 哈希法
-function detectCycle1(head: LinkNode | null): LinkNode | null {
-  const map = new Map<LinkNode, number>();
+function detectCycle1(head: LinkNode<number> | null): LinkNode<number> | null {
+  const map = new Map<LinkNode<number>, number>();
   let node = head;
   while (node !== null) {
     if (map.has(node)) {
@@ -25,7 +25,7 @@ function detectCycle1(head: LinkNode | null): LinkNode | null {
 }
 
 // 快慢指针法
-function detectCycle2(head: LinkNode | null): LinkNode | null {
+function detectCycle2(head: LinkNode<number> | null): LinkNode<number> | null {
   let slow = head;
   let fast = head;
   while (slow !== null && fast !== null && fast.next !== null) {
