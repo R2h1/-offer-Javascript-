@@ -10,10 +10,13 @@ Function.prototype.myApply = function (thisArg: any, args?: any) {
   }
 
   // 如果 thisArg 省略 或 null 或 undefined，默认为全局对象
-  thisArg = thisArg || window;
+  thisArg = thisArg === undefined || thisArg === null ? globalThis : Object(thisArg);
   // 使用 Symbol 创建一个 thisArg 的唯一属性键，存储被调用函数即 this
   const func = Symbol('func');
-  thisArg[func] = this;
+  Object.defineProperty(thisArg, func, {
+    value: this,
+    enumerable: false
+  });
 
   // 作为 thisArg 的属性调用被调用函数，并传递参数（如此被调用函数内部的this 就是 thisArgs 了）
   const result = thisArg[func](...args);

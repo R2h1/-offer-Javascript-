@@ -29,3 +29,17 @@ export function splitNum(num: number, divide = '.') {
   }
   return sign + s + res;
 }
+
+/**
+ * n位分隔数字字符串（比如千分位分隔数字字符串）
+ * @param num 数字字符串
+ * @param every 每几位进行分隔
+ * @param divide 分隔符号
+ * @returns
+ */
+export function splitNumString(numString: string, every = 3, divide = ','): string {
+  // RegExp需要加反斜杠转义反斜杠
+  // (?=\B(\\d{${every}})+$) 前瞻断言在后面是"非单词边界的 every 个数字结尾出现一次或多次"匹配空字符
+  const reg = new RegExp(`(?=\\B(\\d{${every}})+$)`, 'g');
+  return numString.replace(reg, divide);
+}

@@ -30,9 +30,12 @@ button {
   transition: 0.5s;
   /* 空心文字: 
     使用 text-shadow 有两大缺陷：
-     1. 八个方向不能完全模拟扩散的效果，存在不均匀
-     2. 文字color无法透明transparent 
-    可以使用 -webkit-text-stroke 来实现真正的文字描边，缺陷是ie不支持。
+      1. 八个方向不能完全模拟扩散的效果，存在不均匀
+      2. 文字 color 无法透明 transparent 
+    可以使用 -webkit-text-stroke 来实现真正的文字描边，缺陷是ie不支持。-webkit-text-stroke 是居中描边
+    会导致位置变细，如果需要防止变细，则需要绝对定位一个相同的不描边的伪元素，由于是盖上去的，
+    因此无法适用透明文字场景（则只能将文字大小稍加增加）。
+==
   */
   text-shadow: 1px 0 #0ebeff, 1px 1px #0ebeff, 1px -1px #0ebeff, 0 1px #0ebeff, 0 -1px #0ebeff, -1px 0 #0ebeff,
     -1px 1px #0ebeff, -1px -1px #0ebeff;

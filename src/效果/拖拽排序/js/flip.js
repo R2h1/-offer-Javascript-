@@ -28,7 +28,7 @@ class Flip {
       // 计算起始状态与结束状态的变化量
       const offsets = {
         x: prevPosition.left - currentPosition.left,
-        y: prevPosition.top - currentPosition.top,
+        y: prevPosition.top - currentPosition.top
       };
 
       // 起始状态与结束状态无变化（默认是位置上）
@@ -38,14 +38,14 @@ class Flip {
 
       const keyframes = [
         {
-          transform: `translate(${offsets.x}px, ${offsets.y}px)`,
+          transform: `translate(${offsets.x}px, ${offsets.y}px)`
         },
-        { transform: 'translate(0)' },
+        { transform: 'translate(0)' }
       ];
 
       const options = {
         duration: this.duration,
-        easing: 'cubic-bezier(0, 0, 0.32, 1)',
+        easing: 'cubic-bezier(0, 0, 0.32, 1)'
       };
 
       // 4. play 播放动画回到结束状态

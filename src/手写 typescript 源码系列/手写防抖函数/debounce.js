@@ -10,7 +10,8 @@ const debounce = function (fn, wait = 500, leading = false, tailing = true) {
   // 计时器
   let timer = null;
   // 事件触发后实际执行的函数(监听的已经是这个函数了，所以timer是实际执行函数的外层作用域)
-  return (...args) => {
+  // 此处不能使用箭头函数，否则 fn 的 this 和实际执行的函数不同
+  return function (...args) {
     if (!timer && leading) {
       fn.apply(this, args);
     }

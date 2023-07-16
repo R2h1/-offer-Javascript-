@@ -11,7 +11,9 @@ export const cloneDeep = function (target: any, map = new WeakMap<object, any>()
   if (map.get(target)) return target; // 拷贝过 return 避免循环引用
   map.set(target, true);
   // 考虑数组
-  let cloneTarget = Array.isArray(target) ? [] : ({} as AnyObject);
+  const cloneTarget: Record<string, any> = Array.isArray(target) ? [] : {};
+  // 考虑原型一致
+  Object.setPrototypeOf(cloneTarget, Object.getPrototypeOf(target));
   for (let key in target) {
     // 自有属性
     if (target.hasOwnProperty(key)) {
@@ -26,7 +28,8 @@ const isObject = function (value: any) {
   return value !== null && (type === 'object' || type === 'function');
 };
 
-export function newDeepClone(obj: AnyObject) {
+// 标签页通信（异步）
+export function messageDeepClone(obj: AnyObject) {
   const { port1, port2 } = new MessageChannel();
   port1.postMessage(obj);
   return new Promise((resolve, reject) => {
@@ -34,4 +37,9 @@ export function newDeepClone(obj: AnyObject) {
       resolve(msg.data);
     };
   });
+}
+
+// JSON
+export function jsonDeepClone(value: any) {
+  return JSON.parse(JSON.stringify(value));
 }

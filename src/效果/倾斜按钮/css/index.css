@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  position: relative;
+  width: 180px;
+  height: 80px;
+  background-color: #000;
+  border: none;
+  outline: none;
+  display: block;
+  margin: 30px auto 0;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 15px 0;
+  transform: skew(-20deg);
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at 0 0, transparent 0 20px, #000 5px); /* 向右下的径向渐变 */
+  bottom: 0;
+  left: -20px;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at 100% 100%, transparent 0 20px, #000 5px); /* 向右上的径向渐变 */
+  top: 0;
+  right: -20px;
+}
+
+button span {
+  display: inline-block; /* 需要变成块盒才能应用 transform */
+  transform: skew(20deg);
+}
