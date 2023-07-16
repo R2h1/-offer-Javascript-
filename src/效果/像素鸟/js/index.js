@@ -91,7 +91,8 @@ class Sky extends Block {
   }
 
   onMove() {
-    if (this.xAxis <= -skyHeight / 2) {
+    if (this.xAxis <= -skyWidth / 2) {
+      // 天空移动距离大于游戏界面宽度，进行重置
       this.xAxis = 0;
     }
   }
@@ -101,7 +102,7 @@ const birdDom = document.querySelector('.bird');
 const birdStyles = window.getComputedStyle(birdDom);
 const birdWidth = parseFloat(birdStyles.width);
 const birdHeight = parseFloat(birdStyles.height);
-const birdLeft = parseFloat(birdStyles.Left);
+const birdLeft = parseFloat(birdStyles.left);
 const birdTop = parseFloat(birdStyles.top);
 const gameDom = document.querySelector('.game');
 const gameHeight = gameDom.clientHeight;
@@ -128,7 +129,6 @@ class Bird extends Block {
     this.maxYAxis = gameHeight - this.size.height;
     this.swingStatus = 1;
     this.timer = null;
-    this.startSwing();
   }
 
   render() {
@@ -188,28 +188,17 @@ class Pipe extends Block {
       },
       element
     });
-    this.render();
-    this.timer = null;
-    this.startMove();
   }
 
-  startMove() {
-    if (this.timer) {
-      return;
-    }
-    this.timer = setInterval(() => {
-      this.move(20 / 1000);
-    }, 20);
-  }
-
-  stopMove() {
-    clearInterval(this.timer);
-    this.timer = null;
+  /**
+   * 水管是否移出区域
+   */
+  get isMoveOut() {
+    return this.xAxis < -this.size.width;
   }
 
   onMove() {
-    if (this.xAxis < -this.size.width) {
-      this.stopMove();
+    if (this.isMoveOut) {
       this.element.remove();
     }
   }
@@ -255,18 +244,118 @@ class PipePair {
   }
 }
 
-const sky = new Sky();
-const bird = new Bird();
+/**
+ * 生成水管对
+ */
+class PipePairProducer {
+  constructor(speed, tick) {
+    this.pipePairs = [];
+    this.timer = null;
+    this.speed = speed; // 移动速度
+    this.tick = tick; // 产生间隔
+  }
 
-setInterval(() => {
-  sky.move(20 / 1000);
-  bird.move(20 / 1000);
-}, 20);
+  startProduce() {
+    if (this.timer) {
+      return;
+    }
+    this.timer = setInterval(() => {
+      this.pipePairs.push(new PipePair(this.speed));
+      this.pipePairs.splice(
+        0,
+        this.pipePairs.findIndex((pipePair) => !pipePair.upPipe.isMoveOut)
+      );
+    }, this.tick);
+  }
 
-setInterval(() => {
-  new PipePair(-50);
-}, 4000);
+  stopProduce() {
+    clearInterval(this.timer);
+    this.timer = null;
+  }
+}
 
-gameDom.addEventListener('click', function () {
-  bird.jump();
-});
+class Game {
+  constructor() {
+    this.sky = new Sky();
+    this.bird = new Bird();
+    this.pipeProducer = new PipePairProducer(-100, 1500);
+    this.timer = null;
+    this.tick = 20;
+    this.gameOver = false;
+  }
+
+  start() {
+    if (this.timer) {
+      return;
+    }
+    if (this.gameOver) {
+      window.location.reload();
+    }
+    const duration = this.tick / 1000;
+    this.pipeProducer.startProduce();
+    this.bird.startSwing();
+    this.timer = setInterval(() => {
+      this.sky.move(duration);
+      this.bird.move(duration);
+      this.pipeProducer.pipePairs.forEach((pipePair) => {
+        pipePair.move(duration);
+      });
+      if (this.isGameOver()) {
+        this.stop();
+        this.gameOver = true;
+      }
+    }, this.tick);
+  }
+
+  isGameOver() {
+    if (this.bird.yAxis === this.bird.maxYAxis) {
+      return true;
+    }
+
+    for (let i = 0; i < this.pipeProducer.pipePairs.length; i++) {
+      const pipePair = this.pipeProducer.pipePairs[i];
+      if (this.isHit(this.bird, pipePair.upPipe) || this.isHit(this.bird, pipePair.downPipe)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isHit(rect1, rect2) {
+    const centerX1 = rect1.xAxis + rect1.width / 2;
+    const centerY1 = rect1.yAxis + rect1.height / 2;
+    const centerX2 = rect2.xAxis + rect2.width / 2;
+    const centerY2 = rect2.yAxis + rect2.height / 2;
+    const disX = Math.abs(centerX1 - centerX2);
+    const disY = Math.abs(centerY1 - centerY2);
+    console.log(rect1, rect2);
+    if (disX < (rect1.width + rect2.width) / 2 && disY < (rect1.height + rect2.height) / 2) {
+      return true;
+    }
+    return false;
+  }
+
+  stop() {
+    clearInterval(this.timer);
+    this.timer = null;
+    this.pipeProducer.stopProduce();
+    this.bird.stopSwing();
+  }
+
+  registerEvent() {
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        if (this.timer) {
+          this.stop();
+        } else {
+          this.start();
+        }
+      } else if (e.key === ' ') {
+        this.bird.jump();
+      }
+    });
+  }
+}
+
+const game = new Game();
+game.registerEvent();
