@@ -6,7 +6,7 @@ export function myAjax({
   success = (xhr: XMLHttpRequest) => {},
   fail = (xhr: XMLHttpRequest) => {},
   downProgress = (e: ProgressEvent<XMLHttpRequestEventTarget>) => {},
-  upProgress = (e: ProgressEvent<XMLHttpRequestEventTarget>) => {},
+  upProgress = (e: ProgressEvent<XMLHttpRequestEventTarget>) => {}
 } = {}) {
   // 1、创建XMLHttpRequest对象
   const xhr = new XMLHttpRequest();
@@ -42,19 +42,23 @@ export function myAjax({
 /**
  * fetch 不支持上传进度的获取，因为 ReadableStream 只能被一方读取，而请求的body被浏览器读取
  *  可以参考 ServiceWorker 中的 BackgroundFetchManager，但目前仍在试验中(firefox、safari 不支持)，不推荐用于生产环境
- * @param param0
+ * @param {object} param0
+ * @param {string} param0.url 请求url
+ * @param {'GET'|'POST'} param0.method 请求方法
+ * @license MIT
+ * @author rrh <1461694018@qq.com>
  * @returns
  */
 export function myFetch({
   url = '',
   method = 'GET',
   data = null,
-  downProgress = (e: { loaded: number; total: number }) => {},
+  downProgress = (e: { loaded: number; total: number }) => {}
 } = {}) {
   return new Promise(async (resolve, reject) => {
     const resp = await fetch(url, {
       method,
-      body: data,
+      body: data
     });
     const total = Number(resp.headers.get('content-length'));
     if (resp.body) {
@@ -71,7 +75,7 @@ export function myFetch({
         body = body + decoder.decode(value);
         downProgress({
           loaded,
-          total,
+          total
         });
       }
       resolve(body);

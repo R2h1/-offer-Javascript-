@@ -57,5 +57,5 @@ animation({
   },
   delay: -(new Date().getSeconds() / 60),
   duration: 60000,
-  isInfinite: true,
+  isInfinite: true
 });
