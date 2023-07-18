@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  background: url(../assets/avatar.jpg);
+  background-size: cover;
+}
+
+body {
+  background: radial-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%) center top/cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+
+$words: 'This', 'grammar', '&', 'punctuation', 'guide', 'contains', 
+       'clear', 'concise', 'explanations', 'on', 'everything',
+       'from', 'adverbs', 'to', 'word', 'order', 'and', 
+       'from', 'apostrophes', 'to', 'semicolons', 'abandon', 
+       'ability', 'able', 'abortion', 'about', 'above', 'abroad', 'absence', 
+       'absolute', 'absolutely', 'absorb', 'abuse', 'academic', 'accept', 'access', 
+       'accident', 'accompany', 'accomplish', 'according', 'account', 
+       'anymore', 'anyone', 'anything', 'anyway', 'anywhere', 'apart';
+
+$max: 3072px;
+.be::after {
+  content: '';
+  font-size: 10vw;
+  color: #fff;
+  text-shadow: 1px 1px 4px #333;
+  text-transform: uppercase;
+  @each $word in $words {
+    @media screen and (max-width: $max) {
+      content: 'be #{$word}'
+    }
+    $max: $max - 50px;
+  }
+}

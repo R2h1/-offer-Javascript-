@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  gap: 50px;
+}
+
+.btn {
+  display: inline-block;
+  line-height: 1;
+  padding: 18px 30px;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  transition: 0.1s;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+$btnColors: #409eff, #67c23a, #e39827, #f54343, #6c6d71;
+@for $i from 1 through length($btnColors) {
+  .btn.type-#{$i} {
+    $color: nth($btnColors, $i);
+    background-color: $color;
+    color: #fff;
+    &:hover {
+      background-color: lighten($color, 10%);
+    }
+    &:active {
+      background-color: darken($color, 10%);
+    }
+    &:disabled {
+      background-color: lighten($color, 20%);
+    }
+  }
+}

@@ -1,0 +1,12 @@
+/**
+// example
+.item {
+  width: 100px;
+  height: 100px;
+  @include useTheme {
+    background-color: getVar('bgColor');
+    color: getVar('textColor');
+    border-color: getVar('textColor');
+  }
+}
+*/

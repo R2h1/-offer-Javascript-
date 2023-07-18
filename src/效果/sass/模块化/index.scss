@@ -1,0 +1,19 @@
+// 运行时
+// @import url('./common.scss');
+
+// 编译时：因为是直接将模块代码直接复制编译，缺点是容易和运行时语法混淆，而且容易命名污染，而且模块内也不支持私有变量，因此不推荐使用。
+// @import './common.scss';
+
+// 默认文件名即 common 为命名空间, 对于相同文件名可以使用 as 对命名空间进行重命名 @use './common.scss' as common1;
+// 模块内部支持私有变量，使用下划线或破则号作为前缀即可 $_n: 6 或 $-n: 6
+@use './common.scss';
+
+.foo {
+  color: common.$color;
+}
+
+// 编译时报错：Private members can't be accessed from outside their modules. 
+// .bar {
+//   color: common.$_color;
+// }
+

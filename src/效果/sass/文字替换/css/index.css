@@ -1,0 +1,262 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  background: url(../assets/avatar.jpg);
+  background-size: cover;
+}
+
+body {
+  background: radial-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%) center top/cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+
+.be::after {
+  content: '';
+  font-size: 10vw;
+  color: #fff;
+  text-shadow: 1px 1px 4px #333;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 3072px) {
+  .be::after {
+    content: 'be This';
+  }
+}
+@media screen and (max-width: 3022px) {
+  .be::after {
+    content: 'be grammar';
+  }
+}
+@media screen and (max-width: 2972px) {
+  .be::after {
+    content: 'be &';
+  }
+}
+@media screen and (max-width: 2922px) {
+  .be::after {
+    content: 'be punctuation';
+  }
+}
+@media screen and (max-width: 2872px) {
+  .be::after {
+    content: 'be guide';
+  }
+}
+@media screen and (max-width: 2822px) {
+  .be::after {
+    content: 'be contains';
+  }
+}
+@media screen and (max-width: 2772px) {
+  .be::after {
+    content: 'be clear';
+  }
+}
+@media screen and (max-width: 2722px) {
+  .be::after {
+    content: 'be concise';
+  }
+}
+@media screen and (max-width: 2672px) {
+  .be::after {
+    content: 'be explanations';
+  }
+}
+@media screen and (max-width: 2622px) {
+  .be::after {
+    content: 'be on';
+  }
+}
+@media screen and (max-width: 2572px) {
+  .be::after {
+    content: 'be everything';
+  }
+}
+@media screen and (max-width: 2522px) {
+  .be::after {
+    content: 'be from';
+  }
+}
+@media screen and (max-width: 2472px) {
+  .be::after {
+    content: 'be adverbs';
+  }
+}
+@media screen and (max-width: 2422px) {
+  .be::after {
+    content: 'be to';
+  }
+}
+@media screen and (max-width: 2372px) {
+  .be::after {
+    content: 'be word';
+  }
+}
+@media screen and (max-width: 2322px) {
+  .be::after {
+    content: 'be order';
+  }
+}
+@media screen and (max-width: 2272px) {
+  .be::after {
+    content: 'be and';
+  }
+}
+@media screen and (max-width: 2222px) {
+  .be::after {
+    content: 'be from';
+  }
+}
+@media screen and (max-width: 2172px) {
+  .be::after {
+    content: 'be apostrophes';
+  }
+}
+@media screen and (max-width: 2122px) {
+  .be::after {
+    content: 'be to';
+  }
+}
+@media screen and (max-width: 2072px) {
+  .be::after {
+    content: 'be semicolons';
+  }
+}
+@media screen and (max-width: 2022px) {
+  .be::after {
+    content: 'be abandon';
+  }
+}
+@media screen and (max-width: 1972px) {
+  .be::after {
+    content: 'be ability';
+  }
+}
+@media screen and (max-width: 1922px) {
+  .be::after {
+    content: 'be able';
+  }
+}
+@media screen and (max-width: 1872px) {
+  .be::after {
+    content: 'be abortion';
+  }
+}
+@media screen and (max-width: 1822px) {
+  .be::after {
+    content: 'be about';
+  }
+}
+@media screen and (max-width: 1772px) {
+  .be::after {
+    content: 'be above';
+  }
+}
+@media screen and (max-width: 1722px) {
+  .be::after {
+    content: 'be abroad';
+  }
+}
+@media screen and (max-width: 1672px) {
+  .be::after {
+    content: 'be absence';
+  }
+}
+@media screen and (max-width: 1622px) {
+  .be::after {
+    content: 'be absolute';
+  }
+}
+@media screen and (max-width: 1572px) {
+  .be::after {
+    content: 'be absolutely';
+  }
+}
+@media screen and (max-width: 1522px) {
+  .be::after {
+    content: 'be absorb';
+  }
+}
+@media screen and (max-width: 1472px) {
+  .be::after {
+    content: 'be abuse';
+  }
+}
+@media screen and (max-width: 1422px) {
+  .be::after {
+    content: 'be academic';
+  }
+}
+@media screen and (max-width: 1372px) {
+  .be::after {
+    content: 'be accept';
+  }
+}
+@media screen and (max-width: 1322px) {
+  .be::after {
+    content: 'be access';
+  }
+}
+@media screen and (max-width: 1272px) {
+  .be::after {
+    content: 'be accident';
+  }
+}
+@media screen and (max-width: 1222px) {
+  .be::after {
+    content: 'be accompany';
+  }
+}
+@media screen and (max-width: 1172px) {
+  .be::after {
+    content: 'be accomplish';
+  }
+}
+@media screen and (max-width: 1122px) {
+  .be::after {
+    content: 'be according';
+  }
+}
+@media screen and (max-width: 1072px) {
+  .be::after {
+    content: 'be account';
+  }
+}
+@media screen and (max-width: 1022px) {
+  .be::after {
+    content: 'be anymore';
+  }
+}
+@media screen and (max-width: 972px) {
+  .be::after {
+    content: 'be anyone';
+  }
+}
+@media screen and (max-width: 922px) {
+  .be::after {
+    content: 'be anything';
+  }
+}
+@media screen and (max-width: 872px) {
+  .be::after {
+    content: 'be anyway';
+  }
+}
+@media screen and (max-width: 822px) {
+  .be::after {
+    content: 'be anywhere';
+  }
+}
+@media screen and (max-width: 772px) {
+  .be::after {
+    content: 'be apart';
+  }
+}

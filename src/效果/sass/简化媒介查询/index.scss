@@ -1,0 +1,45 @@
+// 断点列表
+$breakPoints: (
+  'phone': (320px, 480px),
+  'pad': (481px, 768px),
+  'notebook': (769px, 1024px),
+  'desktop': (1025px, 1200px),
+  'tv': 1201px,
+);
+
+// 混合
+@mixin respond-to($breakName) {
+  $breakValue: map-get($breakPoints, $breakName);
+  @if type-of($breakValue) == 'list' {
+    $min: nth($breakValue, 1);
+    $max: nth($breakValue, 2);
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  }
+  @else {
+    @media (min-width: $breakValue) {
+      @content;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  @include respond-to('phone') {
+    height: 50px;
+  }
+  @include respond-to('pad') {
+    height: 60px;
+  }
+  @include respond-to('notebook') {
+    height: 80px;
+  }
+  @include respond-to('desktop') {
+    height: 100px;
+  }
+  @include respond-to('tv') {
+    height: 120px;
+  }
+}
