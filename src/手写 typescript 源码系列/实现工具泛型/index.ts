@@ -34,3 +34,10 @@ type Curry = <T extends any[], K>(fn: (...args: T) => K) => Curried<T, K>;
 // 则 infer R 表示待推断的函数 (x: T) => any 参数类型 T 保存为 R
 // 函数参数满足逆变，因此 R 为 子类型，即如果 T 为联合类型，R 则为 交叉类型。
 type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) extends (x: infer R) => any ? R : never;
+
+/**
+ * 深度只读泛型：将类型T所有的属性深度地设置为只读
+ */
+type DeepReadonly<T extends Record<string | symbol, any>> = {
+  readonly [K in keyof T]: DeepReadonly<T[K]>;
+};
