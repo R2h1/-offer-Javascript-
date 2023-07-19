@@ -6,12 +6,17 @@
  *    1. 按钮提交场景：防止多次点击提交按钮，只执行最后提交的一次
  *    2. 服务端验证场景：表单验证需要服务端配合，只执行一段连续的输入事件的最后一次，还有搜索联想词功能类似
  */
-const debounce = function (fn, wait = 500, leading = false, tailing = true) {
+export function debounce<T extends any[], K>(
+  fn: (...args: T) => K,
+  wait = 500,
+  leading = false,
+  tailing = true
+): (...args: T) => void {
   // 计时器
-  let timer = null;
+  let timer: number | NodeJS.Timeout | null = null;
   // 事件触发后实际执行的函数(监听的已经是这个函数了，所以timer是实际执行函数的外层作用域)
   // 此处不能使用箭头函数，否则 fn 的 this 和实际执行的函数不同
-  return function (...args) {
+  return function (this: any, ...args) {
     if (!timer && leading) {
       fn.apply(this, args);
     }
@@ -28,6 +33,5 @@ const debounce = function (fn, wait = 500, leading = false, tailing = true) {
       }
     }, wait);
   };
-};
+}
 // 示例：npm i jsdoc -g; 命令 jsdoc ./ 在当前目录下生成文档页面（out文件夹）
-export default debounce;
