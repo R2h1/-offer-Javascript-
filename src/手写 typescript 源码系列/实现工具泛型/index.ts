@@ -28,3 +28,9 @@ type Curried<T, K> = T extends []
   : never;
 // 柯里化函数类型
 type Curry = <T extends any[], K>(fn: (...args: T) => K) => Curried<T, K>;
+
+// 联合类型转交叉类型
+// T extends any 一定为真, T extends any ? (x: T) => any : never 结果为 (x: T) => any
+// 则 infer R 表示待推断的函数 (x: T) => any 参数类型 T 保存为 R
+// 函数参数满足逆变，因此 R 为 子类型，即如果 T 为联合类型，R 则为 交叉类型。
+type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) extends (x: infer R) => any ? R : never;
