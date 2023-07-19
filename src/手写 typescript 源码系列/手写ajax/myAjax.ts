@@ -40,7 +40,7 @@ export function myAjax({
 }
 
 /**
- * fetch 不支持上传进度的获取，因为 ReadableStream 只能被一方读取，而请求的body被浏览器读取
+ * fetch 不支持上传进度的获取，因为 ReadableStream 只能被一方读取，而请求的 body 已被浏览器读取
  *  可以参考 ServiceWorker 中的 BackgroundFetchManager，但目前仍在试验中(firefox、safari 不支持)，不推荐用于生产环境
  * @param {object} param0
  * @param {string} param0.url 请求url
