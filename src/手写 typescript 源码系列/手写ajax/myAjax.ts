@@ -64,7 +64,7 @@ export function myFetch({
     if (resp.body) {
       let loaded = 0;
       let body = '';
-      const reader = resp.body.getReader();
+      const reader = resp.body.getReader(); // 流式读取
       const decoder = new TextDecoder();
       for (;;) {
         const { value, done } = await reader.read();
