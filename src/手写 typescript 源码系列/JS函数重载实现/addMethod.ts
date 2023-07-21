@@ -21,7 +21,10 @@ export function addMethod(object: AnyObject, name: string, fn: Function) {
   };
 }
 
-/** */
+/**
+ * js 实现函数重载优化版
+ * @returns
+ */
 export function createOverload() {
   const callMap = new Map();
   /** 实际调用的重载函数 */
