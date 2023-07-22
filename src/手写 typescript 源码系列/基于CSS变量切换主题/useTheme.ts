@@ -21,6 +21,7 @@ watchEffect(() => {
     match.addEventListener('change', followOS);
   } else {
     document.documentElement.dataset.theme = theme.value;
+    math.removeEventListener('change', followOS);
   }
 });
 
