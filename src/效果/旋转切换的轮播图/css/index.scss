@@ -1,0 +1,72 @@
+@use 'sass:math';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+}
+
+$size: 200px; // 容器尺寸
+$n: 5; // 图片个数
+$pDeg: 360deg / $n; // 每个扇形的角度
+$r: $size / 2; // 小圆半径
+$R: $r / math.sin($pDeg / 2); // 大圆半径
+$innerSize: $R * 2; // 大圆尺寸
+
+.container {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  outline: 5px solid #fff;
+  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+$dur: 1 / $n * 100%; // 动画每个阶段经历的时间百分比
+$rotateDur: 0.3s; // 每张图片旋转的时间
+$stopDur: 1s; // 每张图片停留的时间
+$duration: ($rotateDur + $stopDur) * $n; // 动画总时间
+$backPercent: $stopDur / ($rotateDur + $stopDur) * $dur; // 动画每个阶段需要停留的时间百分比
+@keyframes rotation {
+  @for $i from 1 through $n {
+    $p: $dur * $i;
+    $deg: $pDeg * $i;
+    #{$p - $backPercent}, #{$p} {
+      transform: rotate(-$deg);
+    }
+  }
+}
+
+.inner {
+  position: relative;
+  width: $innerSize;
+  height: $innerSize;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: $r;
+  animation: rotation $duration ease-in infinite;
+  
+  img {
+    position: absolute;
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    left: 50%;
+    margin-left: -$r;
+    margin-top: -$r;
+    transform-origin: center #{$R + $r};
+    object-fit: cover;
+    @for $i from 1 through $n {
+      &:nth-child(#{$i}) {
+        transform: rotate($pDeg * ($i - 1));
+      }
+    }
+  }
+}
+

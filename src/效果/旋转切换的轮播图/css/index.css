@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+}
+
+.container {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  outline: 5px solid #fff;
+  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+@keyframes rotation {
+  4.6153846154%,
+  20% {
+    transform: rotate(-72deg);
+  }
+  24.6153846154%,
+  40% {
+    transform: rotate(-144deg);
+  }
+  44.6153846154%,
+  60% {
+    transform: rotate(-216deg);
+  }
+  64.6153846154%,
+  80% {
+    transform: rotate(-288deg);
+  }
+  84.6153846154%,
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+.inner {
+  position: relative;
+  width: 340.2603233408px;
+  height: 340.2603233408px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 100px;
+  animation: rotation 6.5s ease-in infinite;
+}
+.inner img {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -100px;
+  margin-top: -100px;
+  transform-origin: center 270.1301616704px;
+  object-fit: cover;
+}
+.inner img:nth-child(1) {
+  transform: rotate(0deg);
+}
+.inner img:nth-child(2) {
+  transform: rotate(72deg);
+}
+.inner img:nth-child(3) {
+  transform: rotate(144deg);
+}
+.inner img:nth-child(4) {
+  transform: rotate(216deg);
+}
+.inner img:nth-child(5) {
+  transform: rotate(288deg);
+}
