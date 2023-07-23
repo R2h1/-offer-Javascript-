@@ -1,3 +1,6 @@
+/**
+ * HTML 对话框元素的 Polyfill: https://github.com/GoogleChrome/dialog-polyfill
+ */
 const openBtn = document.querySelector('.open-btn');
 const closeBtn = document.querySelector('.close-btn');
 const nativeDialog = document.querySelector('.native-dialog');
