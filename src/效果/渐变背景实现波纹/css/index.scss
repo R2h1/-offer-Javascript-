@@ -1,0 +1,33 @@
+@use 'sass:math';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  $r: 50; // 圆的半径
+  $m: 45; // 圆上下错开移动的距离（必须小于等于$r）
+  $x: 2 * math.sqrt($r * $r - $m * $m); // 两个圆的圆心在 x 方向上的距离
+  $y: 10; // 波浪在 y 方向上的向下移动的距离
+  $bg: radial-gradient(
+    #{$r}px at 50% #{$r + $m}px, 
+    #000 100%,
+    transparent 101%
+  ) calc(50% - #{$x}px) #{-$m + $y}px / #{2 * $x}px 100% repeat-x,
+  radial-gradient(
+    #{$r}px at 50% #{-$m}px, 
+    transparent 100%,
+    #000 101%
+  ) 50% #{$r - $m + $y}px / #{2 * $x}px 100% repeat-x;
+  height: 800px;
+  margin: 10px;
+  mask: $bg;
+  -webkit-mask: $bg;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
