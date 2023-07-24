@@ -1,0 +1,78 @@
+/* Houidi Api*/
+@property --x {
+  syntax: '<length>';
+  initial-value: 0px;
+  inherits: false;
+}
+@property --y {
+  syntax: '<length>';
+  initial-value: 0px;
+  inherits: false;
+}
+@property --r {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.container {
+  width: 800px;
+  height: 480px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000;
+}
+
+.ball-1 {
+  width: 64px;
+  height: 64px;
+  background-color: #f40;
+  border-radius: 50%;
+  transform: translate(var(--x), var(--y));
+  animation: x 2s, y 1s;
+  animation-timing-function: cubic-bezier(0.5, -800, 0.5, 800);
+  animation-iteration-count: infinite;
+}
+
+.ball-2 {
+  width: 64px;
+  height: 64px;
+  background-color: #040;
+  border-radius: 50%;
+  transform: rotate(var(--r)) translate(var(--x));
+  animation: x 2s cubic-bezier(0.5, -800, 0.5, 800), r 4s linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes x {
+  to {
+    --x: 1px;
+  }
+}
+
+@keyframes y {
+  to {
+    --y: 0.2px;
+  }
+}
+
+@keyframes r {
+  to {
+    --r: 360deg;
+  }
+}
