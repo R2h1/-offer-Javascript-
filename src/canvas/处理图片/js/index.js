@@ -1,6 +1,6 @@
 const cvs = document.querySelector('.canvas');
 const ctx = cvs.getContext('2d', {
-  willReadFrequently: true,
+  willReadFrequently: true
 });
 
 function loadImage(path) {
@@ -76,7 +76,7 @@ function changeColor(imagPixelData, point, clickPointPixelColor, targetColor, di
 cvs.addEventListener('click', function (e) {
   const point = {
     x: e.offsetX,
-    y: e.offsetY,
+    y: e.offsetY
   };
   const imgData = ctx.getImageData(0, 0, cvs.width, cvs.height);
   const { data: imgPixelData } = imgData;
