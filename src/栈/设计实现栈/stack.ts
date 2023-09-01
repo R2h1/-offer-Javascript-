@@ -21,7 +21,7 @@ export class ArrayStack<T> {
    * @returns
    */
   pop() {
-    if (this.isEmpty()) throw new Error('栈空');
+    if (this.isEmpty) throw new Error('栈空');
     return this.items.pop();
   }
   /**
@@ -29,21 +29,21 @@ export class ArrayStack<T> {
    * @returns
    */
   peek() {
-    if (this.isEmpty()) throw new Error('栈空');
-    return this.items[this.items.length - 1];
+    if (this.isEmpty) throw new Error('栈空');
+    return this.items[this.size - 1];
   }
   /**
    * 判空
    * @returns
    */
-  isEmpty() {
-    return this.items.length === 0;
+  get isEmpty() {
+    return this.size === 0;
   }
   /**
    * 获取栈元素的个数
    * @returns
    */
-  getSize() {
+  get size() {
     return this.items.length;
   }
 }
