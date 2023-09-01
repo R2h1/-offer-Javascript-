@@ -63,8 +63,8 @@ export class LinkStack<T> {
    * @param item
    */
   push(val: T) {
-    let node = new LinkNode(val);
-    if (this.top === null) {
+    const node = new LinkNode(val);
+    if (this.isEmpty) {
       // 栈空
       this.top = node;
     } else {
@@ -79,41 +79,32 @@ export class LinkStack<T> {
    * @returns
    */
   pop() {
-    if (this.top === null) {
+    if (this.isEmpty) {
       // 栈空
       throw new Error('栈空');
-    } else {
-      // 栈非空
-      const data = this.top.val; // 栈顶元素值
-      this.top = this.top.next; // 新栈顶
-      this.size = this.size - 1;
-      return data;
     }
+    // 栈非空
+    const data = this.top!.val; // 栈顶元素值
+    this.top = this.top!.next; // 新栈顶
+    this.size = this.size - 1;
+    return data;
   }
   /**
    * 获取栈顶元素
    * @returns
    */
   peek() {
-    if (this.top === null) {
+    if (this.isEmpty) {
       // 栈空
       throw new Error('栈空');
-    } else {
-      return this.top.val;
     }
+    return this.top!.val;
   }
   /**
    * 判空
    * @returns
    */
-  isEmpty() {
+  get isEmpty() {
     return this.top === null;
-  }
-  /**
-   * 获取栈元素的个数
-   * @returns
-   */
-  getSize() {
-    return this.size;
   }
 }
