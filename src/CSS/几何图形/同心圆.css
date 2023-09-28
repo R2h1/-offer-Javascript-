@@ -1,0 +1,15 @@
+.box-shadow-circle {
+  width: 20px;
+  height: 20px;
+  margin: 16px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px red, 0 0 0 10px blue, 0 0 0 10px green;
+}
+
+.repeat-radial-gradient-circle {
+  width: 20px;
+  height: 20px;
+  margin: 16px;
+  border-radius: 50%;
+  background: repeat-radial-gradient(red, yellow 10%, green 15%);
+}

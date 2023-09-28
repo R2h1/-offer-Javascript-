@@ -1,0 +1,51 @@
+.pseudo-hexagon {
+  position: relative;
+  width: 50px;
+  height: 86.6px;
+  margin: 0 auto;
+  background-color: red;
+}
+.pseudo-hexagon::before,
+.pseudo-hexagon::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-top: 43.3px solid transparent;
+  border-bottom: 43.3px solid transparent;
+}
+.pseudo-hexagon::before {
+  right: 50px;
+  border-right: 43.3px solid transparent;
+}
+.pseudo-hexagon::after {
+  left: 50px;
+  border-left: 43.3px solid transparent;
+}
+
+.transform-hexagon {
+  position: relative;
+  width: 100px;
+  margin: 0 auto;
+}
+.transform-hexagon .rectangle1,
+.transform-hexagon .rectangle2,
+.transform-hexagon .rectangle3 {
+  width: 50px;
+  height: 86.6px;
+  border-top: 1px solid red;
+  border-bottom: 1px solid red;
+}
+.transform-hexagon .rectangle2,
+.transform-hexagon .rectangle3 {
+  position: absolute;
+  top: 0;
+  left: 25px;
+}
+.transform-hexagon .rectangle2 {
+  transform: rotate(60deg);
+}
+.transform-hexagon .rectangle3  {
+  transform: rotate(-60deg);
+}

@@ -1,0 +1,42 @@
+.pseudo-pentagram {
+  width: 0;
+  height: 0;
+  color: red;
+  margin: 50px 0;
+  position: relative;
+  display: block;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 70px solid red;
+  transform: rotate(35deg);
+}
+
+.pseudo-pentagram::before {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 80px solid red;
+  position: absolute;
+  top: -45px;
+  left: -65px;
+  color: white;
+  display: block;
+  content: '';
+  transform: rotate(-35deg);
+}
+
+.pseudo-pentagram::after {
+  width: 0;
+  height: 0;
+  display: block;
+  position: absolute;
+  color: red;
+  top: 3px;
+  left: -105px;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 70px solid red;
+  content: '';
+  transform: rotate(-70deg);
+}

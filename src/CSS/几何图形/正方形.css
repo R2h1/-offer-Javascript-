@@ -1,0 +1,27 @@
+.vw-square {
+  width: 10vw;
+  height: 10vw;
+  background-color: skyblue;
+}
+
+.padding-square {
+  width: 10%;
+  /* 解决内容将元素撑高的问题 */
+  height: 0;
+  padding-bottom: 10%;
+  background-color: skyblue;
+}
+
+.pseudo-square {
+  width: 10%;
+  /* 伪元素使用 margin-top 时，需要触发 BFC, padding 则不需要 */
+  overflow: hidden; /* 最好使用 display: flow-root */
+  background-color: skyblue;
+}
+
+.pseudo-square::before {
+  content: '';
+  display: block;
+  /* margin 百分比相对于包含块宽度计算 */
+  margin-top: 100%;
+}
