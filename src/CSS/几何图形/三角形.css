@@ -1,0 +1,74 @@
+.triangle {
+  width: 0;
+  height: 0;
+  /* border-top: 20px solid green; */
+  border-left: 20px solid transparent;
+  border-bottom: 20px solid red;
+  border-right: 20px solid transparent;
+}
+
+.linear-gradient-triangle {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(45deg, #ff1493, #ff1493 50%, transparent 50%, transparent 100%);
+}
+
+.conic-gradient-triangle {
+  width: 100px;
+  height: 50px;
+  background: conic-gradient(from 90deg at 50% 0, deeppink 0, deeppink 45deg, transparent 45.1deg);
+}
+
+.transform-rotate-triangle {
+  position: relative;
+  width: 100px;
+  height: 50px;
+  overflow: hidden;
+}
+.transform-rotate-triangle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: deeppink;
+  transform-origin: left bottom;
+  transform: rotate(45deg);
+}
+
+.clip-path-triangle {
+  width: 50px;
+  height: 50px;
+  background-color: deeppink;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+/*
+  三角形字符：
+    ◄ : &#9668;
+    ► : &#9658;
+    ▼ : &#9660;
+    ▲ : &#9650;
+    ⊿ : &#8895;
+    △ : &#9651;
+*/
+.unicode-triangle {
+  font-size: 50px;
+  color: deeppink;
+}
+
+.shadow-triangle {
+  display: inline-block;
+  transform: scaleX(2.5);
+  color: #bada55;
+  text-shadow: 0 2px 2px rgba(255, 255, 255, 0.7), 0 10px 4px rgba(0, 0, 0, 0.5);
+  font-size: 32px;
+  cursor: pointer;
+}
+
+.shadow-triangle:hover {
+  transition: all 0.2s ease;
+  transform: scaleX(2.5) translateY(4px);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
