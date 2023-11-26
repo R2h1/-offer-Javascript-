@@ -14,7 +14,7 @@
  * @param preOrderTravel 前序遍历
  * @returns
  */
-function getSumTree(inOrderTravel: number[], preOrderTravel: number[]): any {
+function getSumTree(inOrderTravel: number[], preOrderTravel: number[]): number[] {
   const len = inOrderTravel.length;
   if (len === 1) {
     return [0];
