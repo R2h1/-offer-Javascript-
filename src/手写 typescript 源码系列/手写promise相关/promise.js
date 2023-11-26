@@ -1,4 +1,12 @@
-import { isIterable, isPromiseLike } from '../../../utils';
+const isPromiseLike = (val) => (isObject(val) || isFunction(val)) && isFunction(val.then);
+
+const isIterable = (val) =>
+  typeof Symbol !== 'undefined' &&
+  Symbol &&
+  'iterator' in Symbol &&
+  val != null &&
+  typeof val[Symbol.iterator] === 'function';
+
 const PENDING = 'pending';
 const FULFILLED = 'fulfilled';
 const REJECTED = 'rejected';
@@ -21,7 +29,7 @@ const runMicroTask = (() => {
       const textNode = document.createTextNode('0');
       // 监听文本节点的 data
       mob.observe(textNode, {
-        characterData: true,
+        characterData: true
       });
       // 修改文本节点 data 触发回调
       textNode.data = '1';
@@ -222,7 +230,8 @@ MyPromise.all = (iterable) => {
       }
       iterable = Array.from(iterable);
       // 1. 空的可迭代对象，返回一个同步已完成的 Promise
-      if (iterable.length === 0) {
+      const promiseNum = iterable.length;
+      if (promiseNum === 0) {
         resolve([]);
         return;
       }
@@ -271,6 +280,47 @@ MyPromise.race = function (iterable) {
         } else {
           resolve(value);
         }
+      }
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+MyPromise.allSettled = function (iterable) {
+  return new Promise((resolve, reject) => {
+    try {
+      if (!isIterable(iterable)) {
+        throw new TypeError(`${typeof iterable} is not iterable (cannot read property Symbol(Symbol.iterator))`);
+      }
+      iterable = Array.from(iterable);
+      const promiseNum = iterable.length;
+      if (iterable.length === 0) {
+        resolve([]);
+        return;
+      }
+      const settledValues = [];
+      let settledNums = 0;
+      for (let [index, iter] of iterable.entries()) {
+        MyPromise.resolve(iter)
+          .then((value) => {
+            settledValues[index] = {
+              status: 'fulfilled',
+              value
+            };
+          })
+          .catch((reason) => {
+            settledValues[index] = {
+              status: 'rejected',
+              reason
+            };
+          })
+          .finally(() => {
+            settledNums = settledNums + 1;
+            if (settledNums === promiseNum) {
+              resolve(settledValues);
+            }
+          });
       }
     } catch (err) {
       reject(err);
