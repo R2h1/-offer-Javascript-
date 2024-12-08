@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>可拖拽课程表</title>
+  <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="left" data-drop="move">
+      <div data-effect="copy" draggable="true" class="color1 item">语文</div>
+      <div data-effect="copy" draggable="true" class="color2 item">数学</div>
+      <div data-effect="copy" draggable="true" class="color3 item">英语</div>
+      <div data-effect="copy" draggable="true" class="color4 item">历史</div>
+      <div data-effect="copy" draggable="true" class="color5 item">地理</div>
+      <div data-effect="copy" draggable="true" class="color6 item">政治</div>
+    </div>
+    <div class="right">
+      <table border>
+        <caption>
+          <h1>课程表</h1>
+        </caption>
+        <colgroup>
+          <col />
+          <col />
+          <col />
+          <col />
+          <col />
+          <col />
+          <col />
+          <col />
+        </colgroup>
+        <thead>
+          <tr>
+            <td></td>
+            <th>星期一</th>
+            <th>星期二</th>
+            <th>星期三</th>
+            <th>星期四</th>
+            <th>星期五</th>
+            <th>星期六</th>
+            <th>星期天</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th rowspan="4" class="span">上午</th>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+          </tr>
+          <tr>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+          </tr>
+          <tr>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+          </tr>
+          <tr>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+          </tr>
+
+          <tr>
+            <td colspan="8"></td>
+
+          </tr>
+
+          <tr>
+            <th rowspan="4" class="span">上午</th>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+          </tr>
+          <tr>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+          </tr>
+          <tr>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+            <td data-drop="copy"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script src="./js/index.js"></script>
+</body>
+
+</html>
