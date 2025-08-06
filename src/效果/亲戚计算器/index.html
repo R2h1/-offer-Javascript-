@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全面亲戚称呼计算器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f4e9, #e8e0d0);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: linear-gradient(to bottom, #ffffff, #f9f6ef);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(140, 40, 40, 0.2);
+            overflow: hidden;
+            border: 1px solid #e0d6c0;
+        }
+        
+        header {
+            background: linear-gradient(to right, #a52a2a, #8b0000);
+            color: #fff;
+            padding: 25px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .decoration {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 4rem;
+            opacity: 0.1;
+        }
+        
+        .pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255,255,255,0.1) 0%, transparent 20%);
+        }
+        
+        .content {
+            display: flex;
+            padding: 0;
+        }
+        
+        .left-panel {
+            flex: 1;
+            padding: 30px;
+            background-color: #fefbf5;
+            border-right: 1px solid #eae2d4;
+        }
+        
+        .right-panel {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(to bottom, #fff9ec, #fdf6e7);
+            min-height: 500px;
+        }
+        
+        .panel-title {
+            color: #8b0000;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #d4b98a;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .panel-title i {
+            font-size: 1.4rem;
+        }
+        
+        .config-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+            background: #f9f4e9;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .config-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .config-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #8b4513;
+            font-size: 1.1rem;
+        }
+        
+        select, .relation-option {
+            width: 100%;
+            padding: 14px;
+            background: #fff;
+            border: 2px solid #d4b98a;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+        
+        select:focus, .relation-option:hover {
+            border-color: #a52a2a;
+            box-shadow: 0 0 0 3px rgba(165, 42, 42, 0.2);
+            outline: none;
+        }
+        
+        .relation-chain {
+            background: #fff;
+            border: 2px solid #e0d0b0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            min-height: 100px;
+        }
+        
+        .chain-display {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            min-height: 60px;
+        }
+        
+        .relation-item {
+            background: linear-gradient(to bottom, #f5e8d0, #e8d4b0);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .relation-arrow {
+            color: #a52a2a;
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin: 0 5px;
+        }
+        
+        .relation-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .relation-option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #f9f4e9;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+        
+        .relation-option:hover {
+            background: #f0e6d0;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .relation-option.selected {
+            background: #a52a2a;
+            color: white;
+            border-color: #8b0000;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .control-btn {
+            flex: 1;
+            padding: 16px;
+            background: #b8860b;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .control-btn:hover {
+            background: #a52a2a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(165, 42, 42, 0.3);
+        }
+        
+        .control-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .result-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e8dcc0;
+        }
+        
+        .result-title {
+            font-size: 1.4rem;
+            color: #8b4513;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .result {
+            font-size: 4rem;
+            color: #a52a2a;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: all 0.5s;
+        }
+        
+        .result-hint {
+            color: #8b4513;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 500px;
+            margin-top: 25px;
+            background: #fdf8f0;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #d4b98a;
+        }
+        
+        .relation-table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .relation-table th {
+            background: #8b0000;
+            color: white;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .relation-table td {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            background: #fff;
+        }
+        
+        .relation-table tr:nth-child(even) td {
+            background-color: #fbf7f0;
+        }
+        
+        .relation-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .examples {
+            margin-top: 30px;
+            background: #f9f4e9;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        .examples h3 {
+            color: #8b0000;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .example-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .example-item {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #d4b98a;
+        }
+        
+        .example-relation {
+            font-weight: bold;
+            color: #8b4513;
+        }
+        
+        .example-title {
+            color: #a52a2a;
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 900px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                border-right: none;
+                border-bottom: 1px solid #eae2d4;
+            }
+            
+            .relation-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .example-list {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .result {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .relation-selector {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .result {
+                font-size: 2.5rem;
+                padding: 10px;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="pattern"></div>
+            <div class="decoration">亲</div>
+            <div class="header-content">
+                <h1><i class="fas fa-users"></i> 全面亲戚称呼计算器</h1>
+                <div class="subtitle">智能计算复杂亲戚关系，支持多级关系链、性别区分和特殊情况处理，轻松解决称呼难题</div>
+            </div>
+        </header>
+        
+        <div class="content">
+            <div class="left-panel">
+                <h2 class="panel-title"><i class="fas fa-cog"></i> 关系配置</h2>
+                
+                <div class="config-section">
+                    <div class="config-group">
+                        <label class="config-label"><i class="fas fa-user"></i> 您的性别</label>
+                        <select id="userGender">
+                            <option value="male">男性</option>
+                            <option value="female">女性</option>
+                        </select>
+                    </div>
+                    
+                    <div class="config-group">
+                        <label class="config-label"><i class="fas fa-heart"></i> 婚姻状况</label>
+                        <select id="maritalStatus">
+                            <option value="single">未婚</option>
+                            <option value="married">已婚</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <h2 class="panel-title"><i class="fas fa-project-diagram"></i> 关系链构建</h2>
+                
+                <div class="relation-chain">
+                    <div class="chain-display" id="chainDisplay">
+                        <div class="relation-item"><i class="fas fa-user"></i> 我</div>
+                    </div>
+                </div>
+                
+                <div class="relation-selector" id="relationSelector">
+                    <div class="relation-option" data-relation="father"><i class="fas fa-male"></i> 父亲</div>
+                    <div class="relation-option" data-relation="mother"><i class="fas fa-female"></i> 母亲</div>
+                    <div class="relation-option" data-relation="spouse"><i class="fas fa-ring"></i> 配偶</div>
+                    <div class="relation-option" data-relation="son"><i class="fas fa-baby"></i> 儿子</div>
+                    <div class="relation-option" data-relation="daughter"><i class="fas fa-baby"></i> 女儿</div>
+                    <div class="relation-option" data-relation="brother"><i class="fas fa-male"></i> 兄弟</div>
+                    <div class="relation-option" data-relation="sister"><i class="fas fa-female"></i> 姐妹</div>
+                    <div class="relation-option" data-relation="paternalGrandfather"><i class="fas fa-male"></i> 爷爷</div>
+                    <div class="relation-option" data-relation="paternalGrandmother"><i class="fas fa-female"></i> 奶奶</div>
+                    <div class="relation-option" data-relation="maternalGrandfather"><i class="fas fa-male"></i> 外公</div>
+                    <div class="relation-option" data-relation="maternalGrandmother"><i class="fas fa-female"></i> 外婆</div>
+                    <div class="relation-option" data-relation="uncle"><i class="fas fa-male"></i> 叔叔/舅舅</div>
+                </div>
+                
+                <div class="controls">
+                    <button class="control-btn" id="undoBtn"><i class="fas fa-undo"></i> 上一步</button>
+                    <button class="control-btn" id="resetBtn"><i class="fas fa-redo"></i> 重置</button>
+                    <button class="control-btn" id="calculateBtn"><i class="fas fa-calculator"></i> 计算称呼</button>
+                </div>
+                
+                <div class="examples">
+                    <h3><i class="fas fa-lightbulb"></i> 示例关系</h3>
+                    <div class="example-list">
+                        <div class="example-item">
+                            <div class="example-relation">我的父亲的母亲</div>
+                            <div class="example-title">奶奶</div>
+                        </div>
+                        <div class="example-item">
+                            <div class="example-relation">我的母亲的兄弟</div>
+                            <div class="example-title">舅舅</div>
+                        </div>
+                        <div class="example-item">
+                            <div class="example-relation">我的配偶的父亲</div>
+                            <div class="example-title">岳父/公公</div>
+                        </div>
+                        <div class="example-item">
+                            <div class="example-relation">我的儿子的儿子</div>
+                            <div class="example-title">孙子</div>
+                        </div>
+                        <div class="example-item">
+                            <div class="example-relation">我的父亲的姐妹</div>
+                            <div class="example-title">姑姑</div>
+                        </div>
+                        <div class="example-item">
+                            <div class="example-relation">我的兄弟的儿子</div>
+                            <div class="example-title">侄子</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-panel">
+                <h2 class="panel-title"><i class="fas fa-star"></i> 称呼结果</h2>
+                
+                <div class="result-container">
+                    <div class="result-title"><i class="fas fa-comment-alt"></i> 传统称呼</div>
+                    <div class="result" id="resultDisplay">请构建关系链</div>
+                    <div class="result-hint" id="resultHint">
+                        在左侧选择关系构建关系链，然后点击"计算称呼"按钮。
+                        <br><br>
+                        提示：系统会根据您的性别和婚姻状态智能计算正确的称呼，并处理各种特殊情况。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 元素引用
+            const chainDisplay = document.getElementById('chainDisplay');
+            const relationOptions = document.querySelectorAll('.relation-option');
+            const resetBtn = document.getElementById('resetBtn');
+            const undoBtn = document.getElementById('undoBtn');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const resultDisplay = document.getElementById('resultDisplay');
+            const resultHint = document.getElementById('resultHint');
+            const userGenderSelect = document.getElementById('userGender');
+            const maritalStatusSelect = document.getElementById('maritalStatus');
+            
+            // 关系映射
+            const relations = {
+                'father': '父亲',
+                'mother': '母亲',
+                'spouse': '配偶',
+                'son': '儿子',
+                'daughter': '女儿',
+                'brother': '兄弟',
+                'sister': '姐妹',
+                'paternalGrandfather': '爷爷',
+                'paternalGrandmother': '奶奶',
+                'maternalGrandfather': '外公',
+                'maternalGrandmother': '外婆',
+                'uncle': '叔叔/舅舅'
+            };
+            
+            // 智能称呼映射
+            const titles = {
+                // 基础关系
+                'father': '爸爸',
+                'mother': '妈妈',
+                'spouse': (gender) => gender === 'male' ? '妻子' : '丈夫',
+                'son': '儿子',
+                'daughter': '女儿',
+                'brother': (gender) => gender === 'male' ? '兄弟' : '兄弟',
+                'sister': (gender) => gender === 'female' ? '姐妹' : '姐妹',
+                
+                // 二级关系
+                'father_father': '爷爷',
+                'father_mother': '奶奶',
+                'mother_father': '外公',
+                'mother_mother': '外婆',
+                'spouse_father': (gender) => gender === 'male' ? '岳父' : '公公',
+                'spouse_mother': (gender) => gender === 'male' ? '岳母' : '婆婆',
+                'father_brother': '伯父/叔叔',
+                'father_sister': '姑姑',
+                'mother_brother': '舅舅',
+                'mother_sister': '姨妈',
+                'brother_son': '侄子',
+                'brother_daughter': '侄女',
+                'sister_son': '外甥',
+                'sister_daughter': '外甥女',
+                'son_son': '孙子',
+                'son_daughter': '孙女',
+                'daughter_son': '外孙',
+                'daughter_daughter': '外孙女',
+                
+                // 特殊关系
+                'father_son': (gender) => gender === 'male' ? '自己' : '兄弟',
+                'father_daughter': (gender) => gender === 'female' ? '自己' : '姐妹',
+                'mother_son': (gender) => gender === 'male' ? '自己' : '兄弟',
+                'mother_daughter': (gender) => gender === 'female' ? '自己' : '姐妹',
+                'spouse_son': '继子',
+                'spouse_daughter': '继女',
+                'brother_brother': (gender) => gender === 'male' ? '兄弟' : '小叔子/大伯子',
+                'sister_sister': (gender) => gender === 'female' ? '姐妹' : '小姑子/大姑子',
+                
+                // 三级关系
+                'father_father_father': '曾祖父',
+                'father_father_mother': '曾祖母',
+                'father_brother_son': '堂兄弟',
+                'father_brother_daughter': '堂姐妹',
+                'mother_brother_son': '表兄弟',
+                'mother_brother_daughter': '表姐妹',
+                'son_son_son': '曾孙',
+                'son_son_daughter': '曾孙女',
+                
+                // 配偶关系
+                'spouse_father_father': (gender) => gender === 'male' ? '妻子的爷爷' : '丈夫的爷爷',
+                'spouse_mother_mother': (gender) => gender === 'male' ? '妻子的外婆' : '丈夫的外婆',
+                
+                // 复杂关系
+                'father_sister_daughter': '表姐妹',
+                'mother_sister_son': '表兄弟',
+                'brother_son_son': '侄孙',
+                'sister_daughter_daughter': '外甥孙女'
+            };
+            
+            let relationChain = [];
+            let userGender = 'male';
+            let maritalStatus = 'single';
+            
+            // 初始化
+            function initCalculator() {
+                updateChainDisplay();
+                resultDisplay.textContent = '请构建关系链';
+                resultHint.innerHTML = `在左侧选择关系构建关系链，然后点击"计算称呼"按钮。<br><br>提示：系统会根据您的性别和婚姻状态智能计算正确的称呼，并处理各种特殊情况。`;
+            }
+            
+            // 监听用户配置变化
+            userGenderSelect.addEventListener('change', function() {
+                userGender = this.value;
+                if (relationChain.length > 0) {
+                    calculateTitle();
+                }
+            });
+            
+            maritalStatusSelect.addEventListener('change', function() {
+                maritalStatus = this.value;
+                if (relationChain.length > 0) {
+                    calculateTitle();
+                }
+            });
+            
+            // 关系选择
+            relationOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const relation = this.dataset.relation;
+                    
+                    // 高亮当前选择
+                    relationOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    // 添加到关系链
+                    relationChain.push(relation);
+                    updateChainDisplay();
+                });
+            });
+            
+            // 更新关系链显示
+            function updateChainDisplay() {
+                chainDisplay.innerHTML = '<div class="relation-item"><i class="fas fa-user"></i> 我</div>';
+                
+                relationChain.forEach((relation, index) => {
+                    const arrow = document.createElement('span');
+                    arrow.className = 'relation-arrow';
+                    arrow.innerHTML = '→';
+                    chainDisplay.appendChild(arrow);
+                    
+                    const item = document.createElement('div');
+                    item.className = 'relation-item';
+                    item.innerHTML = `<i class="fas fa-${getRelationIcon(relation)}"></i> ${relations[relation]}`;
+                    chainDisplay.appendChild(item);
+                });
+            }
+            
+            // 获取关系图标
+            function getRelationIcon(relation) {
+                const icons = {
+                    'father': 'male',
+                    'mother': 'female',
+                    'spouse': 'ring',
+                    'son': 'baby',
+                    'daughter': 'baby',
+                    'brother': 'male',
+                    'sister': 'female',
+                    'paternalGrandfather': 'male',
+                    'paternalGrandmother': 'female',
+                    'maternalGrandfather': 'male',
+                    'maternalGrandmother': 'female',
+                    'uncle': 'male'
+                };
+                return icons[relation] || 'user';
+            }
+            
+            // 重置
+            resetBtn.addEventListener('click', function() {
+                relationChain = [];
+                relationOptions.forEach(opt => opt.classList.remove('selected'));
+                initCalculator();
+            });
+            
+            // 撤销上一步
+            undoBtn.addEventListener('click', function() {
+                if (relationChain.length > 0) {
+                    relationChain.pop();
+                    updateChainDisplay();
+                    relationOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    if (relationChain.length === 0) {
+                        initCalculator();
+                    }
+                }
+            });
+            
+            // 计算称呼
+            calculateBtn.addEventListener('click', calculateTitle);
+            
+            function calculateTitle() {
+                if (relationChain.length === 0) {
+                    resultDisplay.textContent = '请选择关系';
+                    resultHint.textContent = '至少选择一个关系';
+                    return;
+                }
+                
+                const chainKey = relationChain.join('_');
+                const chainText = relationChain.map(r => relations[r]).join('的');
+                const chainCount = relationChain.length;
+                
+                // 特殊关系处理
+                let title = '未知称呼';
+                let hint = `关系链: 我的${chainText}`;
+                
+                // 尝试匹配直接关系
+                if (titles[chainKey]) {
+                    title = typeof titles[chainKey] === 'function' ? 
+                            titles[chainKey](userGender) : titles[chainKey];
+                } 
+                // 尝试模式匹配
+                else {
+                    title = findTitleByPattern(chainKey);
+                }
+                
+                // 处理未知关系
+                if (title === '未知称呼') {
+                    // 尝试简化关系链
+                    if (chainCount > 2) {
+                        const simplifiedKey = relationChain.slice(-2).join('_');
+                        if (titles[simplifiedKey]) {
+                            title = typeof titles[simplifiedKey] === 'function' ? 
+                                    titles[simplifiedKey](userGender) : titles[simplifiedKey];
+                            hint = `关系链: 我的${chainText} (基于最近两级关系)`;
+                        }
+                    }
+                    
+                    // 处理自己或配偶的情况
+                    if (chainKey.includes('father_son') || chainKey.includes('father_daughter') ||
+                        chainKey.includes('mother_son') || chainKey.includes('mother_daughter')) {
+                        if ((userGender === 'male' && chainKey.endsWith('son')) || 
+                            (userGender === 'female' && chainKey.endsWith('daughter'))) {
+                            title = '自己';
+                        } else {
+                            title = userGender === 'male' ? '兄弟/姐妹' : '兄弟/姐妹';
+                        }
+                    }
+                    
+                    // 处理配偶关系
+                    if (chainKey.includes('spouse')) {
+                        if (chainKey.endsWith('spouse')) {
+                            title = userGender === 'male' ? '妻子' : '丈夫';
+                        } else if (chainKey.endsWith('father')) {
+                            title = userGender === 'male' ? '岳父' : '公公';
+                        } else if (chainKey.endsWith('mother')) {
+                            title = userGender === 'male' ? '岳母' : '婆婆';
+                        }
+                    }
+                }
+                
+                // 添加关系说明
+                if (title === '自己') {
+                    hint += ` (您${userGender === 'male' ? '是男性' : '是女性'})`;
+                } else if (title.includes('/')) {
+                    hint += ` (根据具体家庭关系选择合适称呼)`;
+                }
+                
+                // 更新显示
+                resultDisplay.textContent = title;
+                resultDisplay.className = 'result fade-in pulse';
+                resultHint.textContent = hint;
+                
+                // 添加动画效果
+                setTimeout(() => {
+                    resultDisplay.classList.remove('fade-in');
+                }, 600);
+            }
+            
+            // 模式匹配函数
+            function findTitleByPattern(chainKey) {
+                const parts = chainKey.split('_');
+                const lastTwo = parts.slice(-2).join('_');
+                
+                // 匹配已知的两级关系
+                if (titles[lastTwo]) {
+                    return typeof titles[lastTwo] === 'function' ? 
+                           titles[lastTwo](userGender) : titles[lastTwo];
+                }
+                
+                // 匹配特定模式
+                if (chainKey.includes('brother_son')) return '侄子';
+                if (chainKey.includes('brother_daughter')) return '侄女';
+                if (chainKey.includes('sister_son')) return '外甥';
+                if (chainKey.includes('sister_daughter')) return '外甥女';
+                if (chainKey.includes('son_son')) return '孙子';
+                if (chainKey.includes('son_daughter')) return '孙女';
+                if (chainKey.includes('daughter_son')) return '外孙';
+                if (chainKey.includes('daughter_daughter')) return '外孙女';
+                if (chainKey.includes('father_brother')) return '伯父/叔叔';
+                if (chainKey.includes('father_sister')) return '姑姑';
+                if (chainKey.includes('mother_brother')) return '舅舅';
+                if (chainKey.includes('mother_sister')) return '姨妈';
+                
+                // 尝试匹配三级关系
+                if (parts.length > 2) {
+                    const lastThree = parts.slice(-3).join('_');
+                    if (titles[lastThree]) {
+                        return typeof titles[lastThree] === 'function' ? 
+                               titles[lastThree](userGender) : titles[lastThree];
+                    }
+                    
+                    // 常见三级关系模式
+                    if (lastThree === 'father_father_father') return '曾祖父';
+                    if (lastThree === 'father_father_mother') return '曾祖母';
+                    if (lastThree === 'mother_mother_father') return '外曾祖父';
+                    if (lastThree === 'mother_mother_mother') return '外曾祖母';
+                    if (lastThree === 'father_brother_son') return '堂兄弟';
+                    if (lastThree === 'father_brother_daughter') return '堂姐妹';
+                    if (lastThree === 'mother_brother_son') return '表兄弟';
+                    if (lastThree === 'mother_brother_daughter') return '表姐妹';
+                }
+                
+                return '未知称呼';
+            }
+            
+            // 初始化计算器
+            initCalculator();
+        });
+    </script>
+</body>
+</html>

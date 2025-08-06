@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>幸运彩票生成器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(10, 15, 35, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        header {
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            padding: 25px 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            padding: 30px;
+        }
+        
+        .control-panel {
+            background: rgba(30, 35, 60, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .lottery-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .lottery-type {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .lottery-type label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #e0e0ff;
+        }
+        
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(20, 25, 50, 0.8);
+            color: white;
+            font-size: 1rem;
+            border: 1px solid #4a4a8a;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        select:focus {
+            border-color: #ff416c;
+            box-shadow: 0 0 0 2px rgba(255, 65, 108, 0.3);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .generate-section {
+            display: flex;
+            gap: 15px;
+            flex: 2;
+        }
+        
+        .count-input {
+            flex: 1;
+        }
+        
+        .count-input input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(20, 25, 50, 0.8);
+            color: white;
+            font-size: 1rem;
+            border: 1px solid #4a4a8a;
+            outline: none;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 10px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-generate {
+            background: linear-gradient(90deg, #00c9ff, #92fe9d);
+            color: #0a0a2e;
+            flex: 1;
+        }
+        
+        .btn-generate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 201, 255, 0.4);
+        }
+        
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e0e0ff;
+            border: 1px solid #4a4a8a;
+            flex: 1;
+        }
+        
+        .btn-reset:hover {
+            background: rgba(255, 65, 108, 0.2);
+            border-color: #ff416c;
+        }
+        
+        .results {
+            background: rgba(30, 35, 60, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .results h2 {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e0e0ff;
+        }
+        
+        .result-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .card {
+            background: rgba(20, 25, 50, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 65, 108, 0.5);
+        }
+        
+        .card-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .card-title h3 {
+            font-size: 1.2rem;
+            color: #92fe9d;
+        }
+        
+        .balls-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .ball {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: scale(0);
+        }
+        
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            80% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .red {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+        }
+        
+        .blue {
+            background: linear-gradient(135deg, #00c9ff, #0077ff);
+            color: white;
+        }
+        
+        .yellow {
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #333;
+        }
+        
+        .green {
+            background: linear-gradient(135deg, #92fe9d, #00c9ff);
+            color: #0a0a2e;
+        }
+        
+        .purple {
+            background: linear-gradient(135deg, #b06ab3, #4568dc);
+            color: white;
+        }
+        
+        .history {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .history-items {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(15, 20, 45, 0.5);
+            border-radius: 10px;
+        }
+        
+        .history-item {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        .history-numbers {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .history-ball {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #a0a0c0;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.3;
+        }
+        
+        .empty-state p {
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #a0a0c0;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .generate-section {
+                flex-direction: column;
+            }
+            
+            .result-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-ticket-alt"></i> 幸运彩票生成器</h1>
+            <p>随机生成各种彩票号码，为您的梦想增添机会</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="control-panel">
+                <div class="lottery-selector">
+                    <div class="lottery-type">
+                        <label for="lottery-type"><i class="fas fa-dice"></i> 彩票类型</label>
+                        <select id="lottery-type">
+                            <option value="ssq">双色球 (6+1)</option>
+                            <option value="dlt">大乐透 (5+2)</option>
+                            <option value="fc3d">福彩3D (3位)</option>
+                            <option value="qlc">七乐彩 (7+1)</option>
+                            <option value="pl3">排列三 (3位)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <div class="generate-section">
+                        <div class="count-input">
+                            <label for="count"><i class="fas fa-list-ol"></i> 生成注数</label>
+                            <input type="number" id="count" min="1" max="10" value="5">
+                        </div>
+                        <button class="btn btn-generate" id="generate-btn">
+                            <i class="fas fa-magic"></i> 生成号码
+                        </button>
+                    </div>
+                    <button class="btn btn-reset" id="reset-btn">
+                        <i class="fas fa-trash-alt"></i> 清除结果
+                    </button>
+                </div>
+            </div>
+            
+            <div class="results">
+                <h2><i class="fas fa-clipboard-list"></i> 生成结果</h2>
+                <div class="result-cards" id="result-cards">
+                    <div class="empty-state" id="empty-state">
+                        <i class="fas fa-cloud"></i>
+                        <p>点击上方按钮生成您的幸运号码</p>
+                    </div>
+                </div>
+                
+                <div class="history">
+                    <h2><i class="fas fa-history"></i> 历史记录</h2>
+                    <div class="history-items" id="history-items">
+                        <div class="empty-state">
+                            <i class="fas fa-clock"></i>
+                            <p>生成的号码将显示在这里</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>本工具仅供娱乐参考，不保证中奖概率。彩票有风险，投注需谨慎</p>
+            <p>© 2023 幸运彩票生成器 | 让梦想更近一步</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const generateBtn = document.getElementById('generate-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const resultCards = document.getElementById('result-cards');
+            const historyItems = document.getElementById('history-items');
+            const lotteryType = document.getElementById('lottery-type');
+            const countInput = document.getElementById('count');
+            const emptyState = document.getElementById('empty-state');
+            
+            let history = [];
+            
+            // 彩票生成函数
+            const lotteryGenerators = {
+                // 双色球：6个红球 (1-33) + 1个蓝球 (1-16)
+                ssq: function() {
+                    const reds = generateUniqueNumbers(6, 1, 33);
+                    const blue = generateUniqueNumbers(1, 1, 16);
+                    return {
+                        type: '双色球',
+                        numbers: [...reds.sort((a, b) => a - b), ...blue],
+                        colors: [...Array(6).fill('red'), 'blue']
+                    };
+                },
+                
+                // 大乐透：5个前区 (1-35) + 2个后区 (1-12)
+                dlt: function() {
+                    const front = generateUniqueNumbers(5, 1, 35);
+                    const back = generateUniqueNumbers(2, 1, 12);
+                    return {
+                        type: '大乐透',
+                        numbers: [...front.sort((a, b) => a - b), ...back.sort((a, b) => a - b)],
+                        colors: [...Array(5).fill('red'), ...Array(2).fill('blue')]
+                    };
+                },
+                
+                // 福彩3D：3个数字 (0-9)
+                fc3d: function() {
+                    const numbers = Array.from({length: 3}, () => Math.floor(Math.random() * 10));
+                    return {
+                        type: '福彩3D',
+                        numbers: numbers,
+                        colors: Array(3).fill('purple')
+                    };
+                },
+                
+                // 七乐彩：7个基本号 (1-30) + 1个特别号 (1-30)
+                qlc: function() {
+                    const base = generateUniqueNumbers(7, 1, 30);
+                    // 确保特别号与基本号不同
+                    let special;
+                    do {
+                        special = generateUniqueNumbers(1, 1, 30);
+                    } while (base.includes(special[0]));
+                    
+                    return {
+                        type: '七乐彩',
+                        numbers: [...base.sort((a, b) => a - b), ...special],
+                        colors: [...Array(7).fill('yellow'), 'green']
+                    };
+                },
+                
+                // 排列三：3个数字 (0-9)
+                pl3: function() {
+                    const numbers = Array.from({length: 3}, () => Math.floor(Math.random() * 10));
+                    return {
+                        type: '排列三',
+                        numbers: numbers,
+                        colors: Array(3).fill('blue')
+                    };
+                }
+            };
+            
+            // 生成不重复的随机数
+            function generateUniqueNumbers(count, min, max) {
+                const numbers = new Set();
+                while (numbers.size < count) {
+                    numbers.add(Math.floor(Math.random() * (max - min + 1)) + min);
+                }
+                return [...numbers];
+            }
+            
+            // 生成彩票号码
+            function generateLotteryNumbers() {
+                const type = lotteryType.value;
+                const count = parseInt(countInput.value) || 1;
+                
+                if (count < 1 || count > 10) {
+                    alert('请输入1-10之间的数字');
+                    return;
+                }
+                
+                // 隐藏空状态
+                if (emptyState) emptyState.style.display = 'none';
+                
+                // 清空结果区域
+                resultCards.innerHTML = '';
+                
+                // 生成号码
+                const results = [];
+                for (let i = 0; i < count; i++) {
+                    const result = lotteryGenerators[type]();
+                    results.push(result);
+                    displayResultCard(result, i + 1);
+                    
+                    // 添加到历史记录
+                    history.unshift({
+                        type: result.type,
+                        numbers: result.numbers,
+                        colors: result.colors,
+                        timestamp: new Date()
+                    });
+                }
+                
+                // 更新历史记录
+                updateHistory();
+            }
+            
+            // 显示结果卡片
+            function displayResultCard(result, index) {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                const title = document.createElement('div');
+                title.className = 'card-title';
+                title.innerHTML = `
+                    <h3>${result.type}</h3>
+                    <span>第${index}注</span>
+                `;
+                
+                const balls = document.createElement('div');
+                balls.className = 'balls-container';
+                
+                result.numbers.forEach((num, i) => {
+                    const ball = document.createElement('div');
+                    ball.className = `ball ${result.colors[i]}`;
+                    ball.textContent = num.toString().padStart(2, '0');
+                    balls.appendChild(ball);
+                });
+                
+                card.appendChild(title);
+                card.appendChild(balls);
+                resultCards.appendChild(card);
+            }
+            
+            // 更新历史记录
+            function updateHistory() {
+                // 只保留最近的10条记录
+                if (history.length > 10) history = history.slice(0, 10);
+                
+                historyItems.innerHTML = '';
+                
+                if (history.length === 0) {
+                    historyItems.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-clock"></i>
+                            <p>生成的号码将显示在这里</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                history.forEach((item, index) => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    
+                    const timeString = item.timestamp.toLocaleTimeString();
+                    
+                    const numbers = document.createElement('div');
+                    numbers.className = 'history-numbers';
+                    
+                    item.numbers.forEach((num, i) => {
+                        const ball = document.createElement('div');
+                        ball.className = `history-ball ${item.colors[i]}`;
+                        ball.textContent = num.toString().padStart(2, '0');
+                        numbers.appendChild(ball);
+                    });
+                    
+                    historyItem.innerHTML = `
+                        <div>
+                            <strong>${item.type}</strong>
+                            <div>${timeString}</div>
+                        </div>
+                    `;
+                    historyItem.appendChild(numbers);
+                    
+                    historyItems.appendChild(historyItem);
+                });
+            }
+            
+            // 重置所有结果
+            function resetResults() {
+                resultCards.innerHTML = `
+                    <div class="empty-state" id="empty-state">
+                        <i class="fas fa-cloud"></i>
+                        <p>点击上方按钮生成您的幸运号码</p>
+                    </div>
+                `;
+                history = [];
+                updateHistory();
+            }
+            
+            // 事件监听
+            generateBtn.addEventListener('click', generateLotteryNumbers);
+            resetBtn.addEventListener('click', resetResults);
+            
+            // 初始化
+            resetResults();
+        });
+    </script>
+</body>
+</html>
